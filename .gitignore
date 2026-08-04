@@ -1,0 +1,29 @@
+# Environment variables - NEVER commit credentials
+.env.local
+.env.*.local
+
+# Node dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Vercel
+.vercel/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.Python

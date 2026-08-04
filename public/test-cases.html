@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+t<meta name="robots" content="noindex, nofollow">
+	<meta name="googlebot" content="noindex, nofollow">
+	<meta name="bingbot" content="noindex, nofollow">
     <title>IWT Test Cases - Module by Module</title>
     <style>
         * {
@@ -633,6 +636,27 @@
     </style>
 </head>
 <body>
+
+	<!-- Logout Bar -->
+	<div style="background: linear-gradient(135deg, #1F4E78 0%, #163a5c 100%); color: white; padding: 15px 20px; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); position: sticky; top: 0; z-index: 10000; position: relative;">
+		<button onclick="logout()" style="position: absolute; right: 20px; background: linear-gradient(135deg, #1F4E78 0%, #163a5c 100%); color: white; border: 1px solid rgba(255, 255, 255, 0.3); padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='linear-gradient(135deg, #163a5c 0%, #0f2639 100%)'  " onmouseout="this.style.background='linear-gradient(135deg, #1F4E78 0%, #163a5c 100%)'">🚪 Logout</button>
+	</div>
+
+			<button onclick="logout()" style="
+				background: rgba(255, 255, 255, 0.2);
+				color: white;
+				border: 1px solid rgba(255, 255, 255, 0.3);
+				padding: 8px 16px;
+				border-radius: 6px;
+				cursor: pointer;
+				font-size: 13px;
+				font-weight: 600;
+				transition: all 0.3s ease;
+			" onmouseover="this.style.background='rgba(255, 255, 255, 0.3)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.2)'">
+				🚪 Logout
+			</button>
+		</div>
+
     <div class="presentation-wrapper">
         <!-- Header -->
         <div class="header" style="position: relative;">
@@ -3917,5 +3941,30 @@
         // Initialize
         showSlide(0);
     </script>
+
+		<!-- Authentication Check -->
+		<script>
+			// Check if user is authenticated
+			window.addEventListener("load", function() {
+				const token = sessionStorage.getItem("auth_token");
+				const username = sessionStorage.getItem("auth_username");
+
+				if (!token || !username) {
+					// Not authenticated, redirect to login
+					window.location.href = "/login.html";
+				}
+			});
+
+			// Add logout functionality
+			function logout() {
+				sessionStorage.removeItem("auth_token");
+				sessionStorage.removeItem("auth_username");
+				localStorage.removeItem("iwt_username");
+				window.location.href = "/login.html";
+			}
+
+			// Make logout available globally
+			window.logout = logout;
+		</script>
 </body>
 </html>

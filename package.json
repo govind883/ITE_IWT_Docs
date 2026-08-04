@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "python3 -m http.server 3000",
+    "dev:auth": "python3 auth-server.py",
     "deploy": "vercel"
   },
   "keywords": [

@@ -4,6 +4,12 @@
 <head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="robots" content="noindex, nofollow">
+		<meta name="googlebot" content="noindex, nofollow">
+		<meta name="bingbot" content="noindex, nofollow">
+		<meta name="robots" content="noindex, nofollow">
+		<meta name="googlebot" content="noindex, nofollow">
+		<meta name="bingbot" content="noindex, nofollow">
 		<title>ITE & IWT Documentation</title>
 		<style>
   :root {
@@ -1899,9 +1905,26 @@
 				</header>
 
 				<!-- MAIN ORGANIZATION SELECTOR -->
-				<div class="org-selector">
-						<button class="org-btn active" onclick="selectOrg('ite')">📋 ITE</button>
-						<button class="org-btn" onclick="selectOrg('iwt')">📋 IWT</button>
+				<div class="org-selector" style="justify-content: center; position: relative;">
+						<div style="display: flex; gap: 10px;">
+							<button class="org-btn active" onclick="selectOrg('ite')">📋 ITE</button>
+							<button class="org-btn" onclick="selectOrg('iwt')">📋 IWT</button>
+						</div>
+						<button onclick="logout()" style="
+							position: absolute;
+							right: 20px;
+							background: linear-gradient(135deg, #1F4E78 0%, #163a5c 100%);
+							color: white;
+							border: 1px solid rgba(255, 255, 255, 0.3);
+							padding: 10px 20px;
+							border-radius: 6px;
+							cursor: pointer;
+							font-size: 14px;
+							font-weight: 600;
+							transition: all 0.3s ease;
+						" onmouseover="this.style.background='linear-gradient(135deg, #163a5c 0%, #0f2639 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #1F4E78 0%, #163a5c 100%)'">
+							🔐 Logout
+						</button>
 				</div>
 
 				<!-- CONTENT CONTAINER (SCROLLABLE) -->
@@ -17663,6 +17686,31 @@ Relationship: Product (1) → Models (Many) → Items (Many)
   }
 })();
 
+		</script>
+
+		<!-- Authentication Check -->
+		<script>
+			// Check if user is authenticated
+			window.addEventListener('load', function() {
+				const token = sessionStorage.getItem('auth_token');
+				const username = sessionStorage.getItem('auth_username');
+
+				if (!token || !username) {
+					// Not authenticated, redirect to login
+					window.location.href = '/login.html';
+				}
+			});
+
+			// Add logout functionality
+			function logout() {
+				sessionStorage.removeItem('auth_token');
+				sessionStorage.removeItem('auth_username');
+				localStorage.removeItem('iwt_username');
+				window.location.href = '/login.html';
+			}
+
+			// Make logout available globally
+			window.logout = logout;
 		</script>
 				</div>
 </body>
