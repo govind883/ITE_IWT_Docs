@@ -17418,18 +17418,32 @@ Relationship: Product (1) → Models (Many) → Items (Many)
 				function selectOrg(orgName) {
 						console.log('selectOrg called with:', orgName);
 
-						// Hide all org content
-						const allContent = document.querySelectorAll('.org-content');
-						console.log('Found org-content elements:', allContent.length);
-						allContent.forEach(el => {
+						// Hide ALL org content and ALL sub-content
+						document.querySelectorAll('.org-content').forEach(el => {
 								el.classList.remove('active');
-								el.style.display = 'none';
-								el.style.visibility = 'hidden';
-								el.style.opacity = '0';
+								el.style.setProperty('display', 'none', 'important');
+								el.style.setProperty('visibility', 'hidden', 'important');
+								el.style.setProperty('opacity', '0', 'important');
+						});
+
+						// Hide ALL sub-content divs
+						document.querySelectorAll('.sub-content').forEach(el => {
+								el.classList.remove('active');
+								el.style.setProperty('display', 'none', 'important');
+								el.style.setProperty('visibility', 'hidden', 'important');
+								el.style.setProperty('opacity', '0', 'important');
+						});
+
+						// Hide all TOC elements
+						document.querySelectorAll('.toc').forEach(el => {
+								el.style.setProperty('display', 'none', 'important');
+								el.style.setProperty('visibility', 'hidden', 'important');
+								el.style.setProperty('opacity', '0', 'important');
 						});
 
 						// Remove active from all buttons
 						document.querySelectorAll('.org-btn').forEach(el => el.classList.remove('active'));
+						document.querySelectorAll('.sub-tab').forEach(el => el.classList.remove('active'));
 
 						// Show selected org
 						const orgDiv = document.getElementById(orgName);
@@ -17437,57 +17451,10 @@ Relationship: Product (1) → Models (Many) → Items (Many)
 
 						if (orgDiv) {
 								orgDiv.classList.add('active');
-								orgDiv.style.display = 'block';
-								orgDiv.style.visibility = 'visible';
-								orgDiv.style.opacity = '1';
+								orgDiv.style.setProperty('display', 'block', 'important');
+								orgDiv.style.setProperty('visibility', 'visible', 'important');
+								orgDiv.style.setProperty('opacity', '1', 'important');
 								console.log('Added active class to', orgName);
-
-								// Hide/Show TOC and All Test Content based on selected org
-								const toc = document.querySelector('.toc');
-								const testContent = document.querySelector('#ite-testing');
-								const contentDiv = document.querySelector('#ite-testing ~ .content, #ite-testing + .content');
-
-								if (orgName === 'ite') {
-										if (toc) {
-												toc.style.display = 'block';
-												toc.style.visibility = 'visible';
-												toc.style.opacity = '1';
-										}
-										if (testContent) {
-												testContent.style.display = 'block';
-												testContent.style.visibility = 'visible';
-												testContent.style.opacity = '1';
-										}
-										// Also show the content div with test cases
-										const allContent = document.querySelectorAll('.content');
-										allContent.forEach(el => {
-												if (el.querySelector('.module-section')) {
-														el.style.display = 'block';
-														el.style.visibility = 'visible';
-														el.style.opacity = '1';
-												}
-										});
-								} else if (orgName === 'iwt') {
-										if (toc) {
-												toc.style.display = 'none';
-												toc.style.visibility = 'hidden';
-												toc.style.opacity = '0';
-										}
-										if (testContent) {
-												testContent.style.display = 'none';
-												testContent.style.visibility = 'hidden';
-												testContent.style.opacity = '0';
-										}
-										// Hide all content divs with test cases
-										const allContent = document.querySelectorAll('.content');
-										allContent.forEach(el => {
-												if (el.querySelector('.module-section')) {
-														el.style.display = 'none';
-														el.style.visibility = 'hidden';
-														el.style.opacity = '0';
-												}
-										});
-								}
 
 								// Show first sub-content and mark first button as active
 								const firstSubTab = orgDiv.querySelector('.sub-tab');
@@ -17504,13 +17471,28 @@ Relationship: Product (1) → Models (Many) → Items (Many)
 								if (firstSubContent) {
 										orgDiv.querySelectorAll('.sub-content').forEach(el => {
 												el.classList.remove('active');
-												el.style.display = 'none';
-												el.style.visibility = 'hidden';
+												el.style.setProperty('display', 'none', 'important');
+												el.style.setProperty('visibility', 'hidden', 'important');
 										});
 										firstSubContent.classList.add('active');
-										firstSubContent.style.display = 'block';
-										firstSubContent.style.visibility = 'visible';
-										firstSubContent.style.opacity = '1';
+										firstSubContent.style.setProperty('display', 'block', 'important');
+										firstSubContent.style.setProperty('visibility', 'visible', 'important');
+										firstSubContent.style.setProperty('opacity', '1', 'important');
+
+										// Also show nested elements
+										const toc = firstSubContent.querySelector('.toc');
+										const content = firstSubContent.querySelector('.content');
+										if (toc) {
+												toc.style.setProperty('display', 'block', 'important');
+												toc.style.setProperty('visibility', 'visible', 'important');
+												toc.style.setProperty('opacity', '1', 'important');
+										}
+										if (content) {
+												content.classList.add('active');
+												content.style.setProperty('display', 'block', 'important');
+												content.style.setProperty('visibility', 'visible', 'important');
+												content.style.setProperty('opacity', '1', 'important');
+										}
 								}
 						} else {
 								console.error('Organization div not found for:', orgName);
@@ -17551,6 +17533,12 @@ Relationship: Product (1) → Models (Many) → Items (Many)
 												el.style.setProperty('display', 'none', 'important');
 												el.style.setProperty('visibility', 'hidden', 'important');
 												el.style.setProperty('opacity', '0', 'important');
+												// Also hide nested elements
+												el.querySelectorAll('.toc, .content').forEach(nested => {
+														nested.style.setProperty('display', 'none', 'important');
+														nested.style.setProperty('visibility', 'hidden', 'important');
+														nested.style.setProperty('opacity', '0', 'important');
+												});
 										}
 								});
 
@@ -17565,6 +17553,21 @@ Relationship: Product (1) → Models (Many) → Items (Many)
 										subDiv.style.setProperty('display', 'block', 'important');
 										subDiv.style.setProperty('visibility', 'visible', 'important');
 										subDiv.style.setProperty('opacity', '1', 'important');
+
+										// Show nested elements
+										const toc = subDiv.querySelector('.toc');
+										const content = subDiv.querySelector('.content');
+										if (toc) {
+												toc.style.setProperty('display', 'block', 'important');
+												toc.style.setProperty('visibility', 'visible', 'important');
+												toc.style.setProperty('opacity', '1', 'important');
+										}
+										if (content) {
+												content.classList.add('active');
+												content.style.setProperty('display', 'block', 'important');
+												content.style.setProperty('visibility', 'visible', 'important');
+												content.style.setProperty('opacity', '1', 'important');
+										}
 								} else {
 										console.error('Sub-tab not found:', tabName);
 								}
@@ -17581,12 +17584,27 @@ Relationship: Product (1) → Models (Many) → Items (Many)
 
 				// Switch tabs within embedded content
 				function switchTab(tabName) {
-						document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+						// Hide all content tabs
+						document.querySelectorAll('.content').forEach(el => {
+								el.classList.remove('active');
+								el.style.setProperty('display', 'none', 'important');
+								el.style.setProperty('visibility', 'hidden', 'important');
+								el.style.setProperty('opacity', '0', 'important');
+						});
+
+						// Remove active from all nav tabs
 						document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+
+						// Show selected tab
 						const tab = document.getElementById(tabName);
 						if (tab) {
 								tab.classList.add('active');
+								tab.style.setProperty('display', 'block', 'important');
+								tab.style.setProperty('visibility', 'visible', 'important');
+								tab.style.setProperty('opacity', '1', 'important');
 						}
+
+						// Mark button as active
 						if (event && event.target) {
 								event.target.classList.add('active');
 						}
