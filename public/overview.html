@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-t<meta name="robots" content="noindex, nofollow">
+    <meta name="robots" content="noindex, nofollow">
 	<meta name="googlebot" content="noindex, nofollow">
 	<meta name="bingbot" content="noindex, nofollow">
     <title>IWT Features Understanding - Presentation</title>
@@ -115,7 +115,7 @@ t<meta name="robots" content="noindex, nofollow">
         .slides-container {
             flex: 1;
             overflow-y: auto;
-            padding: 40px 45px;
+            padding: 0px 45px;
             display: block;
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
         }
@@ -164,9 +164,14 @@ t<meta name="robots" content="noindex, nofollow">
         .slide h2 {
             color: #0f4c75;
             font-size: 1.3em;
-            margin-bottom: 12px;
+            margin: 0 0 0 0;
             font-weight: 800;
             letter-spacing: -0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 101;
+            background: #ebf6fe;
+            padding: 5px 0;
         }
 
         .slide h3 {
@@ -227,10 +232,10 @@ t<meta name="robots" content="noindex, nofollow">
             border-left: 5px solid #0f4c75;
             border-radius: 12px;
             padding: 12px 15px;
-            margin: 15px 0 20px 0;
+            margin: 0 0 20px 0;
             box-shadow: 0 4px 12px rgba(15, 76, 117, 0.1);
             position: sticky;
-            top: 0;
+            top: 50px;
             z-index: 100;
             backdrop-filter: blur(5px);
         }
@@ -547,7 +552,7 @@ t<meta name="robots" content="noindex, nofollow">
 
         .back-button {
             position: absolute;
-            top: 20px;
+            bottom: 15px;
             left: 20px;
             padding: 6px 12px;
             background: #27ae60;
@@ -567,29 +572,11 @@ t<meta name="robots" content="noindex, nofollow">
 </head>
 <body>
 
-	<!-- Logout Bar -->
-	<div style="background: linear-gradient(135deg, #1F4E78 0%, #163a5c 100%); color: white; padding: 15px 20px; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); position: sticky; top: 0; z-index: 10000; position: relative;">
-		<button onclick="logout()" style="position: absolute; right: 20px; background: linear-gradient(135deg, #1F4E78 0%, #163a5c 100%); color: white; border: 1px solid rgba(255, 255, 255, 0.3); padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='linear-gradient(135deg, #163a5c 0%, #0f2639 100%)'  " onmouseout="this.style.background='linear-gradient(135deg, #1F4E78 0%, #163a5c 100%)'">🚪 Logout</button>
-	</div>
-
-			<button onclick="logout()" style="
-				background: rgba(255, 255, 255, 0.2);
-				color: white;
-				border: 1px solid rgba(255, 255, 255, 0.3);
-				padding: 8px 16px;
-				border-radius: 6px;
-				cursor: pointer;
-				font-size: 13px;
-				font-weight: 600;
-				transition: all 0.3s ease;
-			" onmouseover="this.style.background='rgba(255, 255, 255, 0.3)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.2)'">
-				🚪 Logout
-			</button>
-		</div>
 
     <div class="presentation-wrapper">
         <div class="header" style="position: relative;">
-            <a href="javascript:history.back()" class="back-button" style="position: absolute; top: 15px; left: 15px; fixed: none;">← Back</a>
+            <a href="javascript:history.back()" class="back-button">← Back</a>
+            <button onclick="logout()" style="position: absolute; bottom: 15px; right: 95px; background: #e74c3c; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8em; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#c0392b'" onmouseout="this.style.background='#e74c3c'">🚪 Logout</button>
             <h1>📊 IWT System Features</h1>
             <p>Features Understanding & Functionality</p>
             <p class="author-name">Govind Birajdar</p>
@@ -610,7 +597,7 @@ t<meta name="robots" content="noindex, nofollow">
                             <p>📊 Data-Driven Business Intelligence</p>
                         </div>
 
-                        <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8;">
+                        <div style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8;">
                             <h3 style="color: #0f4c75; margin-bottom: 12px; font-size: 0.9em;">⚙️ Technology Stack</h3>
                             <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; text-align: left; font-size: 0.75em;">
                                 <div>
@@ -665,7 +652,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </div>
 
                     <!-- 1. LOGIN PROCESS -->
-                    <h3 id="auth-login" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🔐 A. Login Process</h3>
+                    <h3 id="auth-login" style="margin-bottom: 15px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🔐 A. Login Process</h3>
 
                     <h3>Step-by-Step Login Flow:</h3>
                     <ol>
@@ -719,7 +706,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 2. JWT TOKEN -->
-                    <h3 id="auth-token" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🎟️ B. JWT Token Generation & Management</h3>
+                    <h3 id="auth-token" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🎟️ B. JWT Token Generation & Management</h3>
 
                     <h3>What is JWT Token?</h3>
                     <ul>
@@ -790,7 +777,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 3. SESSION MANAGEMENT -->
-                    <h3 id="auth-session" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📋 C. Session Management</h3>
+                    <h3 id="auth-session" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📋 C. Session Management</h3>
 
                     <h3>What is a User Session?</h3>
                     <ul>
@@ -848,7 +835,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 4. LOGOUT -->
-                    <h3 id="auth-logout" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🚪 D. Logout (End Session)</h3>
+                    <h3 id="auth-logout" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🚪 D. Logout (End Session)</h3>
 
                     <h3>Logout Process:</h3>
                     <ol>
@@ -884,7 +871,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 5. SAML/AZURE LOGIN -->
-                    <h3 id="auth-saml" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🔵 E. SAML/Azure Single Sign-On (SSO)</h3>
+                    <h3 id="auth-saml" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🔵 E. SAML/Azure Single Sign-On (SSO)</h3>
 
                     <h3>What is SAML/Azure Login?</h3>
                     <ul>
@@ -947,7 +934,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 6. TOKEN VALIDATION -->
-                    <h3 id="auth-validation" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">✅ F. Token Validation on Every Request</h3>
+                    <h3 id="auth-validation" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">✅ F. Token Validation on Every Request</h3>
 
                     <h3>How Token Validation Works:</h3>
                     <ol>
@@ -991,7 +978,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 7. AUDIT TRAIL -->
-                    <h3 id="auth-audit" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📊 G. Login Audit Trail & Reports</h3>
+                    <h3 id="auth-audit" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📊 G. Login Audit Trail & Reports</h3>
 
                     <h3>Audit Trail Tracking:</h3>
                     <ul>
@@ -1042,7 +1029,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 8. DATABASE SCHEMAS -->
-                    <h3 id="backend-schema" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ H. Backend Schema (Database Models)</h3>
+                    <h3 id="backend-schema" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ H. Backend Schema (Database Models)</h3>
 
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 0.75em;">
                         <thead>
@@ -1092,7 +1079,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </table>
 
                     <!-- 9. AUTHENTICATION APIS -->
-                    <h3 id="backend-api" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 I. Backend API (Endpoints)</h3>
+                    <h3 id="backend-api" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 I. Backend API (Endpoints)</h3>
 
                     <table style="width: 100%; border-collapse: collapse; font-size: 0.75em;">
                         <thead>
@@ -1250,7 +1237,7 @@ t<meta name="robots" content="noindex, nofollow">
 
 
                     <!-- USER MANAGEMENT BACKEND SCHEMA -->
-                    <h3 id="user-backend-schema" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ 2.9 Backend Schema (Database Models)</h3>
+                    <h3 id="user-backend-schema" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ 2.9 Backend Schema (Database Models)</h3>
 
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 0.75em;">
                         <thead>
@@ -1300,7 +1287,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </table>
 
                     <!-- USER MANAGEMENT BACKEND API -->
-                    <h3 id="user-backend-api" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 2.10 Backend API (Endpoints)</h3>
+                    <h3 id="user-backend-api" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 2.10 Backend API (Endpoints)</h3>
 
                     <table style="width: 100%; border-collapse: collapse; font-size: 0.75em;">
                         <thead>
@@ -1379,7 +1366,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </div>
 
                     <!-- CUSTOMER MANAGEMENT SECTION -->
-                    <h3 id="sales-customer" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">👥 A. Customer Management</h3>
+                    <h3 id="sales-customer" style="margin-bottom: 15px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">👥 A. Customer Management</h3>
 
                     <div class="child-buttons active" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="sales-customer-creation">Create</button>
@@ -1417,7 +1404,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- JOB NUMBER MANAGEMENT SECTION -->
-                    <h3 id="sales-job" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🎯 B. Job Number Management</h3>
+                    <h3 id="sales-job" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🎯 B. Job Number Management</h3>
 
                     <div class="child-buttons active" id="job-children" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="sales-job-creation">Create</button>
@@ -1480,7 +1467,7 @@ t<meta name="robots" content="noindex, nofollow">
 
 
                     <!-- SALES MODULE BACKEND SCHEMA -->
-                    <h3 id="sales-backend-schema" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ D. Backend Schema (Database Models)</h3>
+                    <h3 id="sales-backend-schema" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ D. Backend Schema (Database Models)</h3>
 
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 0.75em;">
                         <thead>
@@ -1525,7 +1512,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </table>
 
                     <!-- SALES MODULE BACKEND API -->
-                    <h3 id="sales-backend-api" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 E. Backend API (Endpoints)</h3>
+                    <h3 id="sales-backend-api" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 E. Backend API (Endpoints)</h3>
 
                     <table style="width: 100%; border-collapse: collapse; font-size: 0.75em;">
                         <thead>
@@ -1596,7 +1583,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </div>
 
                     <!-- 1. MANUFACTURERS SECTION -->
-                    <h3 id="master-manufacturers" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🏭 A. Manufacturers</h3>
+                    <h3 id="master-manufacturers" style="margin-bottom: 15px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🏭 A. Manufacturers</h3>
 
                     <div class="child-buttons active" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="master-man-create">Create</button>
@@ -1691,7 +1678,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 2. SUPPLIERS SECTION -->
-                    <h3 id="master-suppliers" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🤝 B. Suppliers</h3>
+                    <h3 id="master-suppliers" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🤝 B. Suppliers</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="master-sup-create">Create</button>
@@ -1825,7 +1812,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 3. UNITS SECTION -->
-                    <h3 id="master-units" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📏 C. Units of Measurement</h3>
+                    <h3 id="master-units" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📏 C. Units of Measurement</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="master-unit-create">Create</button>
@@ -1894,7 +1881,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 4. ITEM TYPES SECTION -->
-                    <h3 id="master-itemtypes" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📦 D. Item Types</h3>
+                    <h3 id="master-itemtypes" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📦 D. Item Types</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="master-item-create">Create</button>
@@ -1956,7 +1943,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 5. SHIPPING ADDRESS SECTION -->
-                    <h3 id="master-shipping" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🚚 E. Shipping Addresses</h3>
+                    <h3 id="master-shipping" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🚚 E. Shipping Addresses</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="master-ship-create">Create</button>
@@ -2003,7 +1990,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 6. CURRENCY SECTION -->
-                    <h3 id="master-currency" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">💱 F. Currency Management</h3>
+                    <h3 id="master-currency" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">💱 F. Currency Management</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="master-cur-create">Create</button>
@@ -2076,7 +2063,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </table>
 
                     <!-- 7. LOCATION SECTION -->
-                    <h3 id="master-location" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📍 G. Warehouse Locations</h3>
+                    <h3 id="master-location" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📍 G. Warehouse Locations</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="master-loc-create">Create</button>
@@ -2119,7 +2106,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 8. EMAIL TEMPLATE SECTION -->
-                    <h3 id="master-email" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">✉️ H. Email Templates</h3>
+                    <h3 id="master-email" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">✉️ H. Email Templates</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="master-email-create">Create</button>
@@ -2164,7 +2151,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 9. DEPARTMENT SECTION -->
-                    <h3 id="master-department" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🏢 I. Departments</h3>
+                    <h3 id="master-department" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🏢 I. Departments</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="master-dept-create">Create</button>
@@ -2202,7 +2189,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 10. DESIGNATION SECTION -->
-                    <h3 id="master-designation" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">👔 J. Designations (Job Titles)</h3>
+                    <h3 id="master-designation" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">👔 J. Designations (Job Titles)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="master-desig-create">Create</button>
@@ -2237,7 +2224,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 11. JOB BELONGS TO SECTION -->
-                    <h3 id="master-jobbelongsto" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📋 K. Job Belongs To (Categories)</h3>
+                    <h3 id="master-jobbelongsto" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📋 K. Job Belongs To (Categories)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="master-job-create">Create</button>
@@ -2274,7 +2261,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 12. HOLD TYPES SECTION -->
-                    <h3 id="master-holdtypes" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">⏸️ L. Hold Types</h3>
+                    <h3 id="master-holdtypes" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">⏸️ L. Hold Types</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="master-hold-create">Create</button>
@@ -2385,7 +2372,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- MASTERS BACKEND SCHEMA SECTION -->
-                    <h3 id="master-all-schema" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ M. All Master Database Schemas</h3>
+                    <h3 id="master-all-schema" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ M. All Master Database Schemas</h3>
 
                     <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.75em;">
                         <thead>
@@ -2485,7 +2472,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </table>
 
                     <!-- MASTERS BACKEND API SECTION -->
-                    <h3 id="master-all-api" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 N. All Master Backend APIs</h3>
+                    <h3 id="master-all-api" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 N. All Master Backend APIs</h3>
 
                     <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.75em;">
                         <thead>
@@ -2657,7 +2644,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </div>
 
                     <!-- 1. ITEM SECTION -->
-                    <h3 id="config-item" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📦 A. Item Configuration</h3>
+                    <h3 id="config-item" style="margin-bottom: 15px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📦 A. Item Configuration</h3>
 
                     <div class="child-buttons active" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="config-item-create">Create</button>
@@ -2814,7 +2801,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 2. ASSEMBLY SECTION -->
-                    <h3 id="config-assembly" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🔧 B. Assembly Configuration</h3>
+                    <h3 id="config-assembly" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🔧 B. Assembly Configuration</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="config-asm-create">Create</button>
@@ -2883,7 +2870,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 3. PRICING SECTION -->
-                    <h3 id="config-pricing" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">💰 C. Pricing Configuration</h3>
+                    <h3 id="config-pricing" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">💰 C. Pricing Configuration</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="config-price-item">Item Pricing</button>
@@ -2965,7 +2952,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 4. PRODUCT SECTION -->
-                    <h3 id="config-product" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🏷️ D. Product Configuration</h3>
+                    <h3 id="config-product" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🏷️ D. Product Configuration</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="config-prod-create">Create</button>
@@ -3038,7 +3025,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 5. MODEL SECTION -->
-                    <h3 id="config-model" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📐 E. Model Configuration</h3>
+                    <h3 id="config-model" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📐 E. Model Configuration</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="config-model-create">Create</button>
@@ -3121,7 +3108,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- CONFIGURATOR BACKEND SCHEMA SECTION -->
-                    <h3 id="config-backend-schema" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ F. Backend Schema</h3>
+                    <h3 id="config-backend-schema" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ F. Backend Schema</h3>
 
                     <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.75em;">
                         <thead>
@@ -3179,7 +3166,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </table>
 
                     <!-- CONFIGURATOR BACKEND API SECTION -->
-                    <h3 id="config-backend-api" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 G. Backend API</h3>
+                    <h3 id="config-backend-api" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 G. Backend API</h3>
 
                     <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.75em;">
                         <thead>
@@ -3268,7 +3255,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </div>
 
                     <!-- 1. ADD REQUISITION SECTION -->
-                    <h3 id="req-add" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">➕ A. Add Requisition (Create New PR)</h3>
+                    <h3 id="req-add" style="margin-bottom: 15px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">➕ A. Add Requisition (Create New PR)</h3>
 
                     <div class="child-buttons active" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="req-add-create">Create</button>
@@ -3379,7 +3366,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ol>
 
                     <!-- 2. MODIFY/PROCESS SECTION -->
-                    <h3 id="req-modify" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">✏️ B. Modify/Process Requisition (Approval Workflow)</h3>
+                    <h3 id="req-modify" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">✏️ B. Modify/Process Requisition (Approval Workflow)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="req-mod-view">View PR</button>
@@ -3480,7 +3467,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 3. PR BY ITEMS SECTION -->
-                    <h3 id="req-items" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📦 C. PR by Items (Item-Centric View)</h3>
+                    <h3 id="req-items" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📦 C. PR by Items (Item-Centric View)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="req-item-view">View</button>
@@ -3547,7 +3534,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 4. VIEW PR SECTION -->
-                    <h3 id="req-view" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">👁️ D. View PR (Requisition Dashboard)</h3>
+                    <h3 id="req-view" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">👁️ D. View PR (Requisition Dashboard)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="req-view-list">List</button>
@@ -3614,7 +3601,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 5. PO CHECK SECTION -->
-                    <h3 id="req-pocheck" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🔍 E. PO Check (Requisition to PO Tracking)</h3>
+                    <h3 id="req-pocheck" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🔍 E. PO Check (Requisition to PO Tracking)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="req-po-track">Track</button>
@@ -3677,7 +3664,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 6. REQUISITIONS CHECK SECTION -->
-                    <h3 id="req-check" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">✔️ F. Requisitions Check (Validation & Compliance)</h3>
+                    <h3 id="req-check" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">✔️ F. Requisitions Check (Validation & Compliance)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="req-check-validate">Validate</button>
@@ -3765,7 +3752,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- REQUISITIONS BACKEND SCHEMA SECTION -->
-                    <h3 id="req-backend-schema" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ D. Backend Schema</h3>
+                    <h3 id="req-backend-schema" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ D. Backend Schema</h3>
 
                     <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.75em;">
                         <thead>
@@ -3817,7 +3804,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </table>
 
                     <!-- REQUISITIONS BACKEND API SECTION -->
-                    <h3 id="req-backend-api" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 E. Backend API</h3>
+                    <h3 id="req-backend-api" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 E. Backend API</h3>
 
                     <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.75em;">
                         <thead>
@@ -3917,7 +3904,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </div>
 
                     <!-- 1. GENERATE PO SECTION -->
-                    <h3 id="po-generate" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📝 A. Generate Purchase Order</h3>
+                    <h3 id="po-generate" style="margin-bottom: 15px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📝 A. Generate Purchase Order</h3>
 
                     <div class="child-buttons active" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="po-gen-create">Create</button>
@@ -4053,7 +4040,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ol>
 
                     <!-- 2. VIEW PO SECTION -->
-                    <h3 id="po-view" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">👁️ B. View Purchase Order</h3>
+                    <h3 id="po-view" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">👁️ B. View Purchase Order</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="po-view-list">List</button>
@@ -4141,7 +4128,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 3. MODIFY PO SECTION -->
-                    <h3 id="po-modify" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">✏️ C. Modify Purchase Order</h3>
+                    <h3 id="po-modify" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">✏️ C. Modify Purchase Order</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="po-mod-edit">Edit</button>
@@ -4268,7 +4255,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 4. RECEIVE ORDER SECTION -->
-                    <h3 id="po-receive" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📦 D. Receive Order (GRN - Goods Received Note)</h3>
+                    <h3 id="po-receive" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📦 D. Receive Order (GRN - Goods Received Note)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="po-rec-create">Create GRN</button>
@@ -4371,7 +4358,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 5. ITEM PRICE HISTORY SECTION -->
-                    <h3 id="po-price" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">💰 E. Item Price History</h3>
+                    <h3 id="po-price" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">💰 E. Item Price History</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="po-price-view">View</button>
@@ -4482,7 +4469,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- PURCHASING BACKEND SCHEMA SECTION -->
-                    <h3 id="po-backend-schema" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ F. Backend Schema</h3>
+                    <h3 id="po-backend-schema" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ F. Backend Schema</h3>
 
                     <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.75em;">
                         <thead>
@@ -4528,7 +4515,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </table>
 
                     <!-- PURCHASING BACKEND API SECTION -->
-                    <h3 id="po-backend-api" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 G. Backend API</h3>
+                    <h3 id="po-backend-api" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 G. Backend API</h3>
 
                     <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.75em;">
                         <thead>
@@ -4625,7 +4612,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </div>
 
                     <!-- 1. RECEIVED ITEMS SECTION -->
-                    <h3 id="track-received" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📥 A. Received Items (PO Completion Tracking)</h3>
+                    <h3 id="track-received" style="margin-bottom: 15px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📥 A. Received Items (PO Completion Tracking)</h3>
 
                     <div class="child-buttons active" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="track-rec-view">View</button>
@@ -4706,7 +4693,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 2. LATE PARTS SECTION -->
-                    <h3 id="track-late" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">⏰ B. Late Parts (Delayed Deliveries)</h3>
+                    <h3 id="track-late" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">⏰ B. Late Parts (Delayed Deliveries)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="track-late-view">View</button>
@@ -4791,7 +4778,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 3. PO BY SUPPLIERS SECTION -->
-                    <h3 id="track-supplier" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🤝 C. PO by Suppliers (Supplier-Centric View)</h3>
+                    <h3 id="track-supplier" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🤝 C. PO by Suppliers (Supplier-Centric View)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="track-sup-view">View</button>
@@ -4868,7 +4855,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 4. NOT CONFIRMED PO SECTION -->
-                    <h3 id="track-notconf" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">⚠️ D. Not Confirmed PO (Pending Confirmation)</h3>
+                    <h3 id="track-notconf" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">⚠️ D. Not Confirmed PO (Pending Confirmation)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="track-nc-view">View</button>
@@ -4928,7 +4915,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 5. RELEASED PR STATUS SECTION -->
-                    <h3 id="track-relpr" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📋 E. Released PR Status (Requisition to PO Flow)</h3>
+                    <h3 id="track-relpr" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📋 E. Released PR Status (Requisition to PO Flow)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="track-pr-view">View</button>
@@ -5007,7 +4994,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 6. ALTERNATIVE SUPPLIERS SECTION -->
-                    <h3 id="track-alt" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🔄 F. Alternative Suppliers (Backup Options)</h3>
+                    <h3 id="track-alt" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🔄 F. Alternative Suppliers (Backup Options)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="track-alt-view">View</button>
@@ -5078,7 +5065,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 7. PO BY JOB NUMBER SECTION -->
-                    <h3 id="track-job" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">🎯 G. PO by Job Number (Job-Centric Procurement)</h3>
+                    <h3 id="track-job" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">🎯 G. PO by Job Number (Job-Centric Procurement)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="track-job-view">View</button>
@@ -5168,7 +5155,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 8. JOB SUMMARY SECTION -->
-                    <h3 id="track-jobsum" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #3282b8; color: #0f4c75;">📊 H. Job Summary (Complete Job Overview)</h3>
+                    <h3 id="track-jobsum" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #3282b8; color: #0f4c75;">📊 H. Job Summary (Complete Job Overview)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="track-sum-dashboard">Dashboard</button>
@@ -5253,7 +5240,7 @@ t<meta name="robots" content="noindex, nofollow">
                         <li><strong>Generate Report:</strong> Export job summary for management/customer</li>
                     </ul>
 
-                    <h3 id="track-backend-schema" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ D. Backend Schema</h3>
+                    <h3 id="track-backend-schema" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ D. Backend Schema</h3>
                     <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.75em;">
                         <thead><tr style="background-color: #e74c3c; color: white;"><th style="border: 1px solid #ddd; padding: 5px 8px;">Table</th><th style="border: 1px solid #ddd; padding: 5px 8px;">Purpose</th><th style="border: 1px solid #ddd; padding: 5px 8px;">Key Fields</th></tr></thead>
                         <tbody>
@@ -5264,7 +5251,7 @@ t<meta name="robots" content="noindex, nofollow">
                         </tbody>
                     </table>
 
-                    <h3 id="track-backend-api" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 E. Backend API</h3>
+                    <h3 id="track-backend-api" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 E. Backend API</h3>
                     <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.75em;">
                         <thead><tr style="background-color: #e74c3c; color: white;"><th style="border: 1px solid #ddd; padding: 5px 8px;">Endpoint</th><th style="border: 1px solid #ddd; padding: 5px 8px;">Method</th><th style="border: 1px solid #ddd; padding: 5px 8px;">Purpose</th></tr></thead>
                         <tbody>
@@ -5297,7 +5284,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </div>
 
                     <!-- 1. JOB TYPE SECTION -->
-                    <h3 id="jlc-jobtype" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e94b3c; color: #c23030;">📋 A. Job Type (Define Job Categories)</h3>
+                    <h3 id="jlc-jobtype" style="margin-bottom: 15px; padding-bottom: 15px; border-top: 2px solid #e94b3c; color: #c23030;">📋 A. Job Type (Define Job Categories)</h3>
 
                     <div class="child-buttons active" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="jlc-jt-create">Create</button>
@@ -5392,7 +5379,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 2. JOB STATUS CONFIG SECTION -->
-                    <h3 id="jlc-status" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e94b3c; color: #c23030;">⚙️ B. Job Status Configuration (Define Job States)</h3>
+                    <h3 id="jlc-status" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e94b3c; color: #c23030;">⚙️ B. Job Status Configuration (Define Job States)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="jlc-status-define">Define</button>
@@ -5486,7 +5473,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 3. WORKFLOW BUILDER SECTION -->
-                    <h3 id="jlc-workflow" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e94b3c; color: #c23030;">🎨 C. Workflow Builder (Visual Workflow Design)</h3>
+                    <h3 id="jlc-workflow" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e94b3c; color: #c23030;">🎨 C. Workflow Builder (Visual Workflow Design)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="jlc-wb-canvas">Canvas</button>
@@ -5566,7 +5553,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 4. PENDING APPROVALS SECTION -->
-                    <h3 id="jlc-approval" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e94b3c; color: #c23030;">✅ D. Pending Approvals (Approval Workflow Management)</h3>
+                    <h3 id="jlc-approval" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e94b3c; color: #c23030;">✅ D. Pending Approvals (Approval Workflow Management)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="jlc-app-view">View</button>
@@ -5668,7 +5655,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 5. NOTIFICATION GROUPS SECTION -->
-                    <h3 id="jlc-notif" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e94b3c; color: #c23030;">🔔 E. Notification Groups (Alert Recipients)</h3>
+                    <h3 id="jlc-notif" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e94b3c; color: #c23030;">🔔 E. Notification Groups (Alert Recipients)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="jlc-notif-define">Define</button>
@@ -5754,7 +5741,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 6. AUTOMATION RULES SECTION -->
-                    <h3 id="jlc-automation" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e94b3c; color: #c23030;">🤖 F. Automation Rules (Automatic Job Actions)</h3>
+                    <h3 id="jlc-automation" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e94b3c; color: #c23030;">🤖 F. Automation Rules (Automatic Job Actions)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="jlc-auto-define">Define</button>
@@ -5867,7 +5854,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 7. JOB NUMBER FORMAT SECTION -->
-                    <h3 id="jlc-jobnumfmt" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e94b3c; color: #c23030;">🔢 G. Job Number Format (Auto-Generate Job Numbers)</h3>
+                    <h3 id="jlc-jobnumfmt" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e94b3c; color: #c23030;">🔢 G. Job Number Format (Auto-Generate Job Numbers)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="jlc-jnf-define">Define</button>
@@ -5951,7 +5938,7 @@ t<meta name="robots" content="noindex, nofollow">
                     </ul>
 
                     <!-- 8. JOB TYPE SETUP SECTION -->
-                    <h3 id="jlc-setup" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e94b3c; color: #c23030;">⚡ H. Job Type Setup (Comprehensive Configuration Hub)</h3>
+                    <h3 id="jlc-setup" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e94b3c; color: #c23030;">⚡ H. Job Type Setup (Comprehensive Configuration Hub)</h3>
 
                     <div class="child-buttons" style="margin-bottom: 15px;">
                         <button class="section-toc-btn" data-section="jlc-setup-fields">Fields</button>
@@ -6072,7 +6059,7 @@ t<meta name="robots" content="noindex, nofollow">
                         </li>
                     </ul>
 
-                    <h3 id="jlc-backend-schema" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ H. Backend Schema</h3>
+                    <h3 id="jlc-backend-schema" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🗄️ H. Backend Schema</h3>
                     <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.75em;">
                         <thead><tr style="background-color: #e74c3c; color: white;"><th style="border: 1px solid #ddd; padding: 5px 8px;">Table</th><th style="border: 1px solid #ddd; padding: 5px 8px;">Purpose</th><th style="border: 1px solid #ddd; padding: 5px 8px;">Key Fields</th></tr></thead>
                         <tbody>
@@ -6084,7 +6071,7 @@ t<meta name="robots" content="noindex, nofollow">
                         </tbody>
                     </table>
 
-                    <h3 id="jlc-backend-api" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 I. Backend API</h3>
+                    <h3 id="jlc-backend-api" style="margin-top: 30px; padding-bottom: 15px; border-top: 2px solid #e74c3c; color: #c0392b;">🔌 I. Backend API</h3>
                     <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.75em;">
                         <thead><tr style="background-color: #e74c3c; color: white;"><th style="border: 1px solid #ddd; padding: 5px 8px;">Endpoint</th><th style="border: 1px solid #ddd; padding: 5px 8px;">Method</th><th style="border: 1px solid #ddd; padding: 5px 8px;">Purpose</th></tr></thead>
                         <tbody>
