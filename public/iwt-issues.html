@@ -262,7 +262,7 @@
         td:nth-child(8) { min-width: 110px; width: 110px; }
         td:nth-child(9) { min-width: 120px; width: 120px; }
         td:nth-child(10) { min-width: 130px; width: 130px; }
-        td:nth-child(11) { min-width: 100px; width: 100px; }
+        td:nth-child(11) { min-width: 70px; width: 70px; white-space: normal; word-break: break-all; }
         td:nth-child(12) { min-width: 110px; width: 110px; }
 
         .bug-id-cell {
@@ -908,7 +908,7 @@
                         <th>Valid/Invalid</th>
                         <th>Dev Status</th>
                         <th>Assigned</th>
-                        <th>Files</th>
+                        <th>Files / Link</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -960,7 +960,7 @@
 
                 <div class="form-group">
                     <label>Files / Links</label>
-                    <input type="text" id="edit-files" placeholder="e.g., file.html, screenshot.png">
+                    <input type="text" id="edit-files" placeholder="e.g., https://drive.google.com/... or https://imgur.com/...">
                 </div>
 
                 <div class="form-row">
@@ -1056,7 +1056,7 @@
 
                 <div class="form-group">
                     <label>Files / Links</label>
-                    <input type="text" id="bug-files" placeholder="e.g., file.html, screenshot.png">
+                    <input type="text" id="bug-files" placeholder="e.g., https://drive.google.com/... or https://imgur.com/...">
                 </div>
 
                 <div class="form-row">
@@ -1524,7 +1524,7 @@
                     </select>
                 </td>
                 <td>${bug.assigned}</td>
-                <td><a href="#" style="color: #667eea; text-decoration: none; font-weight: 600;">${bug.files || '-'}</a></td>
+                <td>${bug.files && bug.files !== '-' ? `<a href="${bug.files.startsWith('http') ? bug.files : '#'}" target="_blank" onclick="${!bug.files.startsWith('http') ? 'return false;' : ''}" style="color: #667eea; text-decoration: none; font-weight: 600; cursor: pointer;">${bug.files}</a>` : '-'}</td>
                 <td>
                     <div class="bug-card-actions">
                         <button class="btn-small btn-view" onclick="viewBug(this)">👁️</button>
