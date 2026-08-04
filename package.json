@@ -1,0 +1,18 @@
+{
+  "name": "iwt-ite-documentation",
+  "version": "1.0.0",
+  "description": "IWT & ITE System Documentation - Complete Reference",
+  "main": "public/index.html",
+  "author": "Govind Birajdar",
+  "license": "MIT",
+  "scripts": {
+    "dev": "python3 -m http.server 3000",
+    "deploy": "vercel"
+  },
+  "keywords": [
+    "IWT",
+    "ITE",
+    "documentation",
+    "ERP"
+  ]
+}
