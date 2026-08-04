@@ -9296,7 +9296,7 @@
 		</div>
 
 		<!-- CONTENT -->
-		<div class="content" style="display: block !important;">
+		<div class="content" style="display: block;">
 
 				<!-- ============== USER MODULE ============== -->
 				<div class="module-section" id="user-module">
@@ -17544,11 +17544,17 @@ Relationship: Product (1) → Models (Many) → Items (Many)
 						// Hide all sub-tabs for this org
 						const orgDiv = document.getElementById(orgName);
 						if (orgDiv) {
-								orgDiv.querySelectorAll('.sub-content').forEach(el => {
-										el.classList.remove('active');
-										el.style.display = 'none';
-										el.style.visibility = 'hidden';
+								// Hide ALL sub-content divs
+								document.querySelectorAll('.sub-content').forEach(el => {
+										if (el.id !== tabName) {
+												el.classList.remove('active');
+												el.style.setProperty('display', 'none', 'important');
+												el.style.setProperty('visibility', 'hidden', 'important');
+												el.style.setProperty('opacity', '0', 'important');
+										}
 								});
+
+								// Remove active from all sub-tabs
 								orgDiv.querySelectorAll('.sub-tab').forEach(el => el.classList.remove('active'));
 
 								// Show selected sub-tab
@@ -17556,9 +17562,9 @@ Relationship: Product (1) → Models (Many) → Items (Many)
 								if (subDiv) {
 										console.log('Found sub-tab:', tabName);
 										subDiv.classList.add('active');
-										subDiv.style.display = 'block';
-										subDiv.style.visibility = 'visible';
-										subDiv.style.opacity = '1';
+										subDiv.style.setProperty('display', 'block', 'important');
+										subDiv.style.setProperty('visibility', 'visible', 'important');
+										subDiv.style.setProperty('opacity', '1', 'important');
 								} else {
 										console.error('Sub-tab not found:', tabName);
 								}
