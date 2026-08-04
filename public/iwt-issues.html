@@ -224,6 +224,8 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             border-bottom: 2px solid #667eea;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
             white-space: nowrap;
             min-width: 100px;
         }
@@ -247,12 +249,13 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            border: 1px solid #ddd;
         }
 
         td:nth-child(1) { min-width: 60px; width: 60px; }
-        td:nth-child(2) { min-width: 180px; width: 180px; white-space: normal; }
-        td:nth-child(3) { min-width: 140px; width: 140px; white-space: normal; }
-        td:nth-child(4) { min-width: 140px; width: 140px; white-space: normal; }
+        td:nth-child(2) { min-width: 300px; width: 300px; white-space: normal; }
+        td:nth-child(3) { min-width: 280px; width: 280px; white-space: normal; }
+        td:nth-child(4) { min-width: 280px; width: 280px; white-space: normal; }
         td:nth-child(5) { min-width: 140px; width: 140px; }
         td:nth-child(6) { min-width: 100px; width: 100px; }
         td:nth-child(7) { min-width: 120px; width: 120px; }
@@ -778,6 +781,21 @@
         }
 
     </style>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBs0DGX4VF1fXCO9LXRZ3fpX3zd4AzLry4",
+            authDomain: "ite-iwt.firebaseapp.com",
+            databaseURL: "https://ite-iwt-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "ite-iwt",
+            storageBucket: "ite-iwt.firebasestorage.app",
+            messagingSenderId: "90244218074",
+            appId: "1:90244218074:web:d88040002bd1e34c3db9e3"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
 </head>
 <body>
 
@@ -853,6 +871,7 @@
                         <option>📍 Tracking</option>
                         <option>🔄 Job Life Cycle</option>
                         <option>🔌 API</option>
+                        <option>📌 Others</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -958,6 +977,7 @@
                             <option>📍 Tracking</option>
                             <option>🔄 Job Life Cycle</option>
                             <option>🔌 API</option>
+                            <option>📌 Others</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -1053,6 +1073,7 @@
                             <option>📍 Tracking</option>
                             <option>🔄 Job Life Cycle</option>
                             <option>🔌 API</option>
+                            <option>📌 Others</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -1418,11 +1439,12 @@
         }
 
         function saveBugsToStorage() {
-            const bugs = [];
+            const bugs = {};
             const cards = document.querySelectorAll('.bug-card');
             cards.forEach(card => {
-                bugs.push({
-                    id: card.dataset.id,
+                const bugId = card.dataset.id;
+                bugs[bugId] = {
+                    id: bugId,
                     desc: card.dataset.desc,
                     module: card.dataset.module,
                     actual: card.dataset.actual,
@@ -1433,29 +1455,25 @@
                     dev: card.dataset.dev,
                     files: card.dataset.files,
                     assigned: card.dataset.assigned
-                });
+                };
             });
-            localStorage.setItem('iwt_bugs', JSON.stringify(bugs));
+            firebase.database().ref('bugs').set(bugs).catch(err => console.error('Firebase save error:', err));
         }
 
         function loadBugsFromStorage() {
-            const savedBugs = localStorage.getItem('iwt_bugs');
-            if (savedBugs) {
-                try {
-                    const bugs = JSON.parse(savedBugs);
-                    bugs.forEach(bug => {
+            firebase.database().ref('bugs').once('value', (snapshot) => {
+                const bugsData = snapshot.val();
+                if (bugsData) {
+                    Object.values(bugsData).forEach(bug => {
                         addBugToTable(bug);
-                        // Update bugCount to track the highest ID
                         const bugId = parseInt(bug.id);
                         if (bugId > bugCount) {
                             bugCount = bugId;
                         }
                     });
-                    updateStats();
-                } catch (e) {
-                    console.error('Error loading bugs:', e);
                 }
-            }
+                updateStats();
+            }).catch(err => console.error('Firebase load error:', err));
         }
 
         function addBugToTable(bug) {
