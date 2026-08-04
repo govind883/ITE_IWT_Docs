@@ -1289,6 +1289,7 @@
             row.cells[10].innerHTML = `<a href="#" style="color: #667eea; text-decoration: none; font-weight: 600;">${files || '-'}</a>`;
 
             saveBugsToStorage();
+            updateStats();
             closeEditModal();
         }
 
@@ -1361,7 +1362,33 @@
         function resetFilters() { showAll(); }
 
         function updateStats() {
-            document.getElementById('total-bugs').textContent = document.querySelectorAll('.bug-card').length;
+            const bugs = document.querySelectorAll('.bug-card');
+            const totalBugs = bugs.length;
+
+            let highPriority = 0;
+            let inProgress = 0;
+            let resolved = 0;
+
+            bugs.forEach(bug => {
+                const priority = bug.dataset.priority;
+                const status = bug.dataset.status;
+
+                if (priority === 'High') {
+                    highPriority++;
+                }
+                if (status === 'In Progress') {
+                    inProgress++;
+                }
+                if (status === 'Closed') {
+                    resolved++;
+                }
+            });
+
+            document.getElementById('total-bugs').textContent = totalBugs;
+            document.getElementById('high-priority').textContent = highPriority;
+            document.getElementById('in-progress').textContent = inProgress;
+            document.getElementById('resolved').textContent = resolved;
+            document.getElementById('total-count').textContent = totalBugs;
         }
 
         window.onclick = (e) => {
