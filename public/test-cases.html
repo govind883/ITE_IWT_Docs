@@ -633,6 +633,25 @@
             background: #229954;
             transform: translateY(-2px);
         }
+
+        /* Mobile Logout Button Fix */
+        @media (max-width: 768px) {
+            button[onclick="logout()"] {
+                right: 20px !important;
+                bottom: 12px !important;
+                padding: 6px 10px !important;
+                font-size: 0.75em !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            button[onclick="logout()"] {
+                right: 10px !important;
+                bottom: 10px !important;
+                padding: 5px 8px !important;
+                font-size: 0.65em !important;
+            }
+        }
     </style>
 </head>
 <body>

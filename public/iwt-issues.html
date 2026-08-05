@@ -46,6 +46,38 @@
             opacity: 0.9;
         }
 
+        /* Responsive Header */
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px 15px !important;
+                position: relative !important;
+            }
+
+            .header h1 {
+                font-size: 1.5em !important;
+            }
+
+            .header p {
+                font-size: 0.85em !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 15px 10px !important;
+                position: relative !important;
+            }
+
+            .header h1 {
+                font-size: 1.3em !important;
+                margin-bottom: 8px !important;
+            }
+
+            .header p {
+                font-size: 0.75em !important;
+            }
+        }
+
         .back-button {
             position: absolute;
             bottom: 15px;
@@ -73,6 +105,74 @@
 
         .back-button:active {
             transform: translateY(0) !important;
+        }
+
+        /* Responsive Back Button */
+        @media (max-width: 768px) {
+            .back-button {
+                padding: 6px 10px !important;
+                font-size: 0.75em !important;
+                bottom: 12px !important;
+                left: 12px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .back-button {
+                padding: 5px 8px !important;
+                font-size: 0.7em !important;
+                bottom: 10px !important;
+                left: 10px !important;
+            }
+        }
+
+        .logout-button {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            padding: 6px 12px !important;
+            background: #e74c3c !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 5px !important;
+            cursor: pointer !important;
+            font-size: 0.8em !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            display: inline-block !important;
+            z-index: 1000 !important;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            pointer-events: auto !important;
+        }
+
+        .logout-button:hover {
+            background: #c0392b !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3) !important;
+        }
+
+        .logout-button:active {
+            transform: translateY(0) !important;
+        }
+
+        /* Responsive Logout Button */
+        @media (max-width: 768px) {
+            .logout-button {
+                padding: 6px 10px !important;
+                font-size: 0.75em !important;
+                bottom: 12px !important;
+                right: 12px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logout-button {
+                padding: 5px 8px !important;
+                font-size: 0.7em !important;
+                bottom: 10px !important;
+                right: 10px !important;
+            }
         }
 
         .stats-grid {
@@ -205,6 +305,7 @@
             flex-wrap: wrap;
             margin-bottom: 15px;
             justify-content: flex-end;
+            padding-right: 20px;
         }
 
         .bugs-container {
@@ -856,9 +957,10 @@
     <div class="container">
         <div class="header" style="position: relative; text-align: center;">
             <a href="javascript:history.back()" class="back-button">← Back</a>
-            <button onclick="logout()" style="position: absolute; bottom: 15px; right: 20px; background: #e74c3c; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8em; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#c0392b'" onmouseout="this.style.background='#e74c3c'">🚪 Logout</button>
+            <button onclick="logout()" class="logout-button">🚪 Logout</button>
             <h1>🐛 IWT Bug Management Dashboard</h1>
             <p>Track, manage, and resolve bugs across all IWT modules</p>
+            <p style="font-size: 0.85em; color: #e0e0e0; font-style: italic; margin-top: 8px; opacity: 0.95;">Created by: Govind Birajdar</p>
         </div>
 
         <!-- STATISTICS -->
@@ -942,8 +1044,6 @@
         <!-- ACTION BUTTONS -->
         <div class="action-buttons">
             <button class="btn btn-success" onclick="openCreateModal()">➕ Add New Bug</button>
-            <button class="btn btn-primary" onclick="exportReport()">📥 Export</button>
-            <button class="btn btn-primary" onclick="showAnalytics()">📊 Analytics</button>
         </div>
 
         <!-- BUG TABLE -->
@@ -1407,8 +1507,6 @@
             }
         }
 
-        function exportReport() { alert('Export bug report'); }
-        function showAnalytics() { alert('Show analytics'); }
 
         function applyFilters() {
             const status = document.getElementById('status-filter').value;
