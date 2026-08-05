@@ -408,12 +408,41 @@
 
         .bug-card.invalid-issue {
             background-color: #ff6b6b !important;
+            position: relative !important;
+            overflow: visible !important;
         }
 
         .bug-card.invalid-issue td {
             background-color: #b70909 !important;
             color: white !important;
             border-color: #ee5a52 !important;
+            position: relative !important;
+        }
+
+        .bug-card.invalid-issue td::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.1) 49%, rgba(255,255,255,0.1) 51%, transparent 52%);
+            pointer-events: none;
+        }
+
+        .invalid-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-size: 2.5em;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 10;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .bug-card-header {
@@ -1606,8 +1635,26 @@
                 // Add red highlight for Invalid issues
                 if (newValue === 'Invalid') {
                     card.classList.add('invalid-issue');
+                    card.style.position = 'relative';
+
+                    // Remove existing watermark if any
+                    const existingWatermark = card.querySelector('.invalid-watermark');
+                    if (existingWatermark) {
+                        existingWatermark.remove();
+                    }
+
+                    // Add watermark
+                    const watermark = document.createElement('div');
+                    watermark.className = 'invalid-watermark';
+                    watermark.textContent = 'ISSUE INVALID';
+                    card.appendChild(watermark);
                 } else {
                     card.classList.remove('invalid-issue');
+                    // Remove watermark if status changed from Invalid
+                    const watermark = card.querySelector('.invalid-watermark');
+                    if (watermark) {
+                        watermark.remove();
+                    }
                 }
             } else if (type === 'dev') {
                 card.dataset.dev = newValue;
@@ -1676,11 +1723,6 @@
             row.dataset.files = bug.files;
             row.dataset.assigned = bug.assigned;
 
-            // Add red highlight for Invalid issues
-            if (bug.issues === 'Invalid') {
-                row.classList.add('invalid-issue');
-            }
-
             row.innerHTML = `
                 <td class="bug-id-cell">#${bug.id}</td>
                 <td class="bug-desc-cell" title="${bug.desc}">${bug.desc}</td>
@@ -1720,6 +1762,17 @@
             `;
 
             document.getElementById('bug-cards-container').appendChild(row);
+
+            // Add watermark for Invalid issues
+            if (bug.issues === 'Invalid') {
+                row.classList.add('invalid-issue');
+                row.style.position = 'relative';
+
+                const watermark = document.createElement('div');
+                watermark.className = 'invalid-watermark';
+                watermark.textContent = 'ISSUE INVALID';
+                row.appendChild(watermark);
+            }
         }
 
         // Load bugs from storage when page loads
