@@ -50,18 +50,29 @@
             position: absolute;
             bottom: 15px;
             left: 20px;
-            padding: 6px 12px;
-            background: #27ae60;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.8em;
+            padding: 6px 12px !important;
+            background: #27ae60 !important;
+            color: white !important;
+            text-decoration: none !important;
+            border-radius: 5px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            font-size: 0.8em !important;
+            border: none !important;
+            cursor: pointer !important;
+            display: inline-block !important;
+            z-index: 1000 !important;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            pointer-events: auto !important;
         }
 
         .back-button:hover {
-            background: #229954;
+            background: #229954 !important;
+        }
+
+        .back-button:active {
+            transform: translateY(0) !important;
         }
 
         .stats-grid {
@@ -291,6 +302,17 @@
 
         .bug-card {
             display: table-row;
+            transition: background-color 0.3s ease;
+        }
+
+        .bug-card.invalid-issue {
+            background-color: #ff6b6b !important;
+        }
+
+        .bug-card.invalid-issue td {
+            background-color: #b70909 !important;
+            color: white !important;
+            border-color: #ee5a52 !important;
         }
 
         .bug-card-header {
@@ -315,9 +337,9 @@
 
         .badge {
             display: inline-block;
-            padding: 4px 8px;
+            padding: 6px 12px;
             border-radius: 4px;
-            font-size: 0.7em;
+            font-size: 0.85em;
             font-weight: 600;
         }
 
@@ -333,9 +355,9 @@
 
         .valid {
             display: inline-block;
-            padding: 4px 8px;
+            padding: 6px 12px;
             border-radius: 4px;
-            font-size: 0.7em;
+            font-size: 0.85em;
             font-weight: 600;
             background: #d4edda;
             color: #155724;
@@ -343,9 +365,9 @@
 
         .invalid {
             display: inline-block;
-            padding: 4px 8px;
+            padding: 6px 12px;
             border-radius: 4px;
-            font-size: 0.7em;
+            font-size: 0.85em;
             font-weight: 600;
             background: #f8d7da;
             color: #721c24;
@@ -434,13 +456,14 @@
         .view-label {
             font-weight: 600;
             color: #667eea;
-            font-size: 0.85em;
-            margin-bottom: 4px;
+            font-size: 0.95em;
+            margin-bottom: 6px;
         }
 
         .view-value {
             color: #333;
-            font-size: 0.9em;
+            font-size: 1em;
+            font-weight: 600;
         }
 
         .form-group {
@@ -799,6 +822,36 @@
 </head>
 <body>
 
+    <!-- NOTIFICATION -->
+    <div id="notification" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #27ae60, #229954); color: white; padding: 8px 15px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); font-weight: 600; font-size: 0.8em; z-index: 9999; display: none; animation: slideDown 0.3s ease; white-space: nowrap; text-align: center;">
+        <span id="notification-text">Status changed</span>
+    </div>
+
+    <style>
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+        #notification.hide {
+            animation: slideUp 0.3s ease forwards;
+        }
+    </style>
 
     <div class="container">
         <div class="header" style="position: relative; text-align: center;">
@@ -1424,18 +1477,47 @@
             if (e.target === document.getElementById('viewModal')) closeViewModal();
             if (e.target === document.getElementById('editModal')) closeEditModal();
         }
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+
+            notificationText.textContent = message;
+            notification.classList.remove('hide');
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.classList.add('hide');
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 300);
+            }, 2500);
+        }
+
         function updateStatus(select, type) {
             const card = select.closest('.bug-card');
             const newValue = select.value;
+            let message = '';
 
             if (type === 'status') {
                 card.dataset.status = newValue;
+                message = `✅ Status changed to: ${newValue}`;
             } else if (type === 'issues') {
                 card.dataset.issues = newValue;
+                message = `✅ QA Status updated to: ${newValue}`;
+
+                // Add red highlight for Invalid issues
+                if (newValue === 'Invalid') {
+                    card.classList.add('invalid-issue');
+                } else {
+                    card.classList.remove('invalid-issue');
+                }
             } else if (type === 'dev') {
                 card.dataset.dev = newValue;
+                message = `✅ Dev Status updated to: ${newValue}`;
             }
+
             saveBugsToStorage();
+            showNotification(message);
         }
 
         function saveBugsToStorage() {
@@ -1495,6 +1577,11 @@
             row.dataset.dev = bug.dev;
             row.dataset.files = bug.files;
             row.dataset.assigned = bug.assigned;
+
+            // Add red highlight for Invalid issues
+            if (bug.issues === 'Invalid') {
+                row.classList.add('invalid-issue');
+            }
 
             row.innerHTML = `
                 <td class="bug-id-cell">#${bug.id}</td>

@@ -568,6 +568,215 @@
             background: #229954;
             transform: translateY(-2px);
         }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .presentation-wrapper {
+                max-width: 95%;
+                height: 90vh;
+                border-radius: 15px;
+            }
+
+            .header {
+                padding: 18px 20px;
+            }
+
+            .header h1 {
+                font-size: 0.9em;
+            }
+
+            .header p {
+                font-size: 0.65em;
+            }
+
+            .slide-counter {
+                font-size: 0.7em;
+                padding: 6px 12px;
+            }
+
+            .content {
+                padding: 30px 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 8px;
+                min-height: auto;
+            }
+
+            .presentation-wrapper {
+                max-width: 100%;
+                height: auto;
+                min-height: 100vh;
+                border-radius: 12px;
+            }
+
+            .header {
+                padding: 15px 15px;
+            }
+
+            .header h1 {
+                font-size: 0.85em;
+            }
+
+            .header p {
+                font-size: 0.6em;
+            }
+
+            .slide-counter {
+                font-size: 0.65em;
+                padding: 5px 10px;
+                top: 12px;
+                right: 15px;
+            }
+
+            .content {
+                padding: 25px 20px;
+                font-size: 0.95em;
+                flex: 1;
+                overflow-y: auto;
+            }
+
+            .slide-navigation {
+                padding: 12px 15px;
+            }
+
+            .nav-button {
+                padding: 8px 12px;
+                font-size: 0.75em;
+            }
+
+            .back-button {
+                padding: 6px 10px;
+                font-size: 0.7em;
+                bottom: 12px;
+                left: 15px;
+            }
+
+            table {
+                font-size: 0.85em;
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                padding: 8px 6px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .feature-card {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.2em;
+                margin-bottom: 15px;
+            }
+
+            h3 {
+                font-size: 1em;
+                margin-bottom: 10px;
+            }
+
+            ul, ol {
+                margin-left: 18px;
+            }
+
+            li {
+                margin-bottom: 6px;
+                font-size: 0.95em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .presentation-wrapper {
+                border-radius: 8px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            }
+
+            .header {
+                padding: 12px 12px;
+            }
+
+            .header h1 {
+                font-size: 0.75em;
+            }
+
+            .header p {
+                font-size: 0.55em;
+            }
+
+            .slide-counter {
+                font-size: 0.6em;
+                padding: 4px 8px;
+                top: 10px;
+                right: 12px;
+            }
+
+            .content {
+                padding: 20px 15px;
+                font-size: 0.9em;
+            }
+
+            .slide-navigation {
+                padding: 10px 12px;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .nav-button {
+                padding: 6px 10px;
+                font-size: 0.7em;
+                flex: 1;
+            }
+
+            .back-button {
+                padding: 5px 8px;
+                font-size: 0.65em;
+                bottom: 10px;
+                left: 12px;
+            }
+
+            table {
+                font-size: 0.75em;
+            }
+
+            th, td {
+                padding: 6px 4px;
+            }
+
+            h2 {
+                font-size: 1em;
+                margin-bottom: 12px;
+            }
+
+            h3 {
+                font-size: 0.9em;
+                margin-bottom: 8px;
+            }
+
+            ul, ol {
+                margin-left: 16px;
+            }
+
+            li {
+                margin-bottom: 4px;
+                font-size: 0.9em;
+            }
+
+            .feature-card {
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 <body>
