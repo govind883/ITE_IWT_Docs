@@ -1,0 +1,3457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QA Test Case Report</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; margin:0; padding:32px 40px 80px; background:#f4f5f7; color:#1a1a1a; }
+  h1 { margin:0 0 4px; font-size:26px; }
+  .meta { color:#666; font-size:13px; margin-bottom:24px; }
+  .summary { display:flex; gap:14px; margin:20px 0 28px; flex-wrap:wrap; }
+  .card { background:#fff; border-radius:10px; padding:16px 22px; box-shadow:0 1px 3px rgba(0,0,0,.08); min-width:110px; }
+  .card .num { font-size:26px; font-weight:700; }
+  .card.pass .num { color:#0a7d2b; }
+  .card.fail .num { color:#c62828; }
+  .card.blocked .num { color:#e07b00; }
+  .card .label { font-size:12px; color:#666; margin-top:2px; }
+  .highlight { background:#fff8e6; border:1px solid #f0d98a; border-radius:8px; padding:12px 18px; margin-bottom:28px; font-size:14px; }
+  .nav { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; position:sticky; top:0; background:#f4f5f7; padding:10px 0; z-index:5; }
+  .nav-pill { background:#fff; border:1px solid #e2e2e2; border-radius:20px; padding:6px 14px; font-size:13px; text-decoration:none; color:#333; }
+  .nav-count { color:#999; font-size:11px; }
+  code { background:#f0f0f0; padding:2px 6px; border-radius:4px; font-size:12px; }
+  .badge { color:#fff; padding:3px 12px; border-radius:12px; font-size:11px; font-weight:700; letter-spacing:.03em; }
+
+  .quick-table-wrap { background:#fff; border-radius:10px; box-shadow:0 1px 3px rgba(0,0,0,.06); margin-bottom:44px; overflow:hidden; }
+  .quick-table-wrap h3 { padding:16px 18px 0; margin:0; font-size:15px; }
+  table { width:100%; border-collapse:collapse; }
+  th, td { padding:8px 14px; border-bottom:1px solid #eee; text-align:left; vertical-align:top; font-size:13px; }
+  th { background:#fafafa; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:#666; }
+  .module-row td { background:#f0f3f7; font-weight:600; font-size:12px; color:#444; }
+  td a { color:#1a5fb4; text-decoration:none; }
+
+  h2 { margin-top:8px; border-bottom:2px solid #e8e8e8; padding-bottom:8px; font-size:19px; }
+  .module-summary { font-size:13px; font-weight:400; color:#666; }
+  .tc-card { background:#fff; border-radius:10px; box-shadow:0 1px 3px rgba(0,0,0,.07); margin:16px 0; padding:18px 20px; border-left:5px solid #ccc; scroll-margin-top:60px; }
+  .tc-card.pass { border-left-color:#0a7d2b; }
+  .tc-card.fail { border-left-color:#c62828; }
+  .tc-card.blocked { border-left-color:#e07b00; }
+  .tc-head { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
+  .tc-id { font-weight:700; color:#555; font-size:13px; }
+  .tc-title { font-weight:600; font-size:15px; flex:1; }
+  .tc-meta { display:flex; gap:20px; flex-wrap:wrap; font-size:12px; color:#555; margin-bottom:14px; padding-bottom:10px; border-bottom:1px dashed #eee; }
+  .tc-body { display:grid; grid-template-columns:1.3fr 1.3fr 0.9fr; gap:20px; }
+  .tc-col h4 { margin:0 0 6px; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:#888; }
+  .tc-col p { margin:0 0 10px; font-size:13px; line-height:1.55; }
+  .steps { margin:0; padding-left:18px; font-size:13px; line-height:1.7; }
+  .actual.ok { color:#0a7d2b; }
+  .actual.bad { color:#c62828; }
+  .tc-evidence .thumb { width:100%; max-width:180px; border:1px solid #ddd; border-radius:4px; display:block; }
+  .video-link { color:#1a5fb4; text-decoration:none; font-weight:600; font-size:12px; }
+  .muted { color:#999; font-size:12px; }
+  .tc-col-1{color: red;}
+   .tc-col-12{color: maroon;}
+  section { scroll-margin-top:60px; }
+  @media (max-width: 900px) { .tc-body { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+  <h1>QA Test Case Report</h1>
+  <div class="meta">Generated: 8/14/2026, 11:47:15 PM &nbsp;|&nbsp; Frontend: http://localhost:5173 &nbsp;|&nbsp; Backend: http://localhost:8082</div>
+
+  <div class="summary">
+    <div class="card"><div class="num">69</div><div class="label">Total Test Cases</div></div>
+    <div class="card pass"><div class="num">64</div><div class="label">Pass</div></div>
+    <div class="card fail"><div class="num">4</div><div class="label">Fail</div></div>
+    <div class="card blocked"><div class="num">1</div><div class="label">Blocked</div></div>
+    <div class="card"><div class="num">92.8%</div><div class="label">Pass Rate</div></div>
+  </div>
+
+  <div class="highlight">Most issues found in: <strong>Source</strong> (4 test cases not passing)</div>
+
+  <div class="highlight">🎥 <a href="../videos/full-run.webm" target="_blank"><strong>Watch the full test-run video recording</strong></a> (covers every screen in one continuous session)</div>
+
+  <div class="nav"><a href="#promise" class="nav-pill">Promise <span class="nav-count">3</span></a><a href="#engineer" class="nav-pill">Engineer <span class="nav-count">6</span></a><a href="#source" class="nav-pill">Source <span class="nav-count">20</span></a><a href="#build" class="nav-pill">Build <span class="nav-count">13</span></a><a href="#admin-center" class="nav-pill">Admin Center <span class="nav-count">22</span></a><a href="#assembly-lab" class="nav-pill">Assembly Lab <span class="nav-count">5</span></a></div>
+
+  <div class="quick-table-wrap">
+    <h3>Quick Summary — All Test Cases</h3>
+    <table>
+      <thead><tr><th>TC ID</th><th>Screen</th><th>URL</th><th>Priority</th><th>Status</th></tr></thead>
+      <tbody><tr class="module-row"><td colspan="5">Promise — 3 pass / 0 fail / 0 blocked (3 total)</td></tr><tr>
+      <td><a href="#TC-001">TC-001</a></td>
+      <td>Job Workspace</td>
+      <td><code>/job</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-002">TC-002</a></td>
+      <td>Customers</td>
+      <td><code>/add-customer</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-003">TC-003</a></td>
+      <td>Job Numbers</td>
+      <td><code>/sales-order</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr class="module-row"><td colspan="5">Engineer — 6 pass / 0 fail / 0 blocked (6 total)</td></tr><tr>
+      <td><a href="#TC-004">TC-004</a></td>
+      <td>Products</td>
+      <td><code>/add-product</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-005">TC-005</a></td>
+      <td>Models</td>
+      <td><code>/add-modules</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-006">TC-006</a></td>
+      <td>Items</td>
+      <td><code>/add-item</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-007">TC-007</a></td>
+      <td>Pricing</td>
+      <td><code>/pricing</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-008">TC-008</a></td>
+      <td>Assembly</td>
+      <td><code>/add-sub-assembly</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-009">TC-009</a></td>
+      <td>Item Price History</td>
+      <td><code>/item-price-history</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr class="module-row"><td colspan="5">Source — 16 pass / 4 fail / 0 blocked (20 total)</td></tr><tr>
+      <td><a href="#TC-010">TC-010</a></td>
+      <td>Requisition Workspace</td>
+      <td><code>/requisition</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-011">TC-011</a></td>
+      <td>PO Workspace</td>
+      <td><code>/po</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-012">TC-012</a></td>
+      <td>Suppliers</td>
+      <td><code>/add-supplier</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-013">TC-013</a></td>
+      <td>Add Requisitions</td>
+      <td><code>/add-requisitions</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-014">TC-014</a></td>
+      <td>Modify/Process PR</td>
+      <td><code>/update-requisitions</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#c62828;">FAIL</span></td>
+    </tr><tr>
+      <td><a href="#TC-015">TC-015</a></td>
+      <td>View PR</td>
+      <td><code>/existing-release-requisitions</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-016">TC-016</a></td>
+      <td>PO Check</td>
+      <td><code>/bom-po-check</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-017">TC-017</a></td>
+      <td>PR By Items</td>
+      <td><code>/pr-by-items</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-018">TC-018</a></td>
+      <td>Generate PO</td>
+      <td><code>/generate-po</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-019">TC-019</a></td>
+      <td>Process/Modify PO</td>
+      <td><code>/modify-po</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-020">TC-020</a></td>
+      <td>View PO</td>
+      <td><code>/viewPo</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-021">TC-021</a></td>
+      <td>PO Report</td>
+      <td><code>/po-item</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-022">TC-022</a></td>
+      <td>Received Items PO</td>
+      <td><code>/received-items-po</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#c62828;">FAIL</span></td>
+    </tr><tr>
+      <td><a href="#TC-023">TC-023</a></td>
+      <td>Late Parts</td>
+      <td><code>/late-parts</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-024">TC-024</a></td>
+      <td>PO By Supplier</td>
+      <td><code>/po-by-Supplier-tracking</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-025">TC-025</a></td>
+      <td>Not Confirmed PO</td>
+      <td><code>/not-confirmed-po</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#c62828;">FAIL</span></td>
+    </tr><tr>
+      <td><a href="#TC-026">TC-026</a></td>
+      <td>Release PR Status</td>
+      <td><code>/release-pr-status</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#c62828;">FAIL</span></td>
+    </tr><tr>
+      <td><a href="#TC-027">TC-027</a></td>
+      <td>Alternative Supplier</td>
+      <td><code>/alternative-supplier-needed</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-028">TC-028</a></td>
+      <td>PO by JobNumber</td>
+      <td><code>/po-by-jobnumber</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-029">TC-029</a></td>
+      <td>Receive Order</td>
+      <td><code>/receive-order</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr class="module-row"><td colspan="5">Build — 12 pass / 0 fail / 1 blocked (13 total)</td></tr><tr>
+      <td><a href="#TC-030">TC-030</a></td>
+      <td>Receiving Queue</td>
+      <td><code>/receiving</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-031">TC-031</a></td>
+      <td>Stock View</td>
+      <td><code>/stock</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-032">TC-032</a></td>
+      <td>Assembly Release</td>
+      <td><code>/assembly-release</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-033">TC-033</a></td>
+      <td>GRN Report</td>
+      <td><code>/grn</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-034">TC-034</a></td>
+      <td>Modify Grn</td>
+      <td><code>/modify-grn</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-035">TC-035</a></td>
+      <td>Assembly</td>
+      <td><code>/store-assembly</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-036">TC-036</a></td>
+      <td>Material Issue</td>
+      <td><code>/material-issue</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-037">TC-037</a></td>
+      <td>Material Return</td>
+      <td><code>/material-return</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-038">TC-038</a></td>
+      <td>General Stock</td>
+      <td><code>/general-stock</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-039">TC-039</a></td>
+      <td>Unused Stock</td>
+      <td><code>/unused-material-issue</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#e07b00;">BLOCKED</span></td>
+    </tr><tr>
+      <td><a href="#TC-040">TC-040</a></td>
+      <td>Stock Report</td>
+      <td><code>/stock-report</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-041">TC-041</a></td>
+      <td>Material Issue Report</td>
+      <td><code>/material-issue-list</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-042">TC-042</a></td>
+      <td>Unused Issue Report</td>
+      <td><code>/unused-material-issue-list</code></td>
+      <td>High</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr class="module-row"><td colspan="5">Admin Center — 22 pass / 0 fail / 0 blocked (22 total)</td></tr><tr>
+      <td><a href="#TC-043">TC-043</a></td>
+      <td>Organization-Profile</td>
+      <td><code>/add-organization</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-044">TC-044</a></td>
+      <td>Roles</td>
+      <td><code>/role-managment</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-045">TC-045</a></td>
+      <td>Users</td>
+      <td><code>/users</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-046">TC-046</a></td>
+      <td>Manufacturers</td>
+      <td><code>/add-manufacturer</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-047">TC-047</a></td>
+      <td>Units</td>
+      <td><code>/add-unit</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-048">TC-048</a></td>
+      <td>Item Types</td>
+      <td><code>/add-item-type</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-049">TC-049</a></td>
+      <td>Shipping Address</td>
+      <td><code>/shipping-address</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-050">TC-050</a></td>
+      <td>Currency</td>
+      <td><code>/currency</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-051">TC-051</a></td>
+      <td>Location</td>
+      <td><code>/addLocation</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-052">TC-052</a></td>
+      <td>Email Template</td>
+      <td><code>/email-template</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-053">TC-053</a></td>
+      <td>Department</td>
+      <td><code>/department</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-054">TC-054</a></td>
+      <td>Designation</td>
+      <td><code>/designation</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-055">TC-055</a></td>
+      <td>Job Belongs To</td>
+      <td><code>/add-jobBelongsTo</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-056">TC-056</a></td>
+      <td>Hold Type</td>
+      <td><code>/hold-type</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-057">TC-057</a></td>
+      <td>Job Types</td>
+      <td><code>/job-type-master</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-058">TC-058</a></td>
+      <td>Job Status Config</td>
+      <td><code>/job-status-config</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-059">TC-059</a></td>
+      <td>Workflow Builder</td>
+      <td><code>/workflow-builder</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-060">TC-060</a></td>
+      <td>Pending Approvals</td>
+      <td><code>/pending-approvals</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-061">TC-061</a></td>
+      <td>Notification Groups</td>
+      <td><code>/notification-groups</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-062">TC-062</a></td>
+      <td>Automation Rules</td>
+      <td><code>/automation-rules</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-063">TC-063</a></td>
+      <td>Job Number Format</td>
+      <td><code>/job-number-format</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-064">TC-064</a></td>
+      <td>Job Type Setup</td>
+      <td><code>/job-type-setup-config</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr class="module-row"><td colspan="5">Assembly Lab — 5 pass / 0 fail / 0 blocked (5 total)</td></tr><tr>
+      <td><a href="#TC-065">TC-065</a></td>
+      <td>Option 1 - Focus Flow</td>
+      <td><code>/assembly-flow</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-066">TC-066</a></td>
+      <td>Option 2 - Single Sheet</td>
+      <td><code>/assembly-sheet</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-067">TC-067</a></td>
+      <td>Option 3 - Studio</td>
+      <td><code>/assembly-studio</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-068">TC-068</a></td>
+      <td>Option 4 - Command</td>
+      <td><code>/assembly-command</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr><tr>
+      <td><a href="#TC-069">TC-069</a></td>
+      <td>Current screen (parity)</td>
+      <td><code>/add-sub-assembly</code></td>
+      <td>Medium</td>
+      <td><span class="badge" style="background:#0a7d2b;">PASS</span></td>
+    </tr></tbody>
+    </table>
+  </div>
+
+  
+  <section id="promise">
+    <h2>Promise <span class="module-summary">(3 pass / 0 fail / 0 blocked — 3 total)</span></h2>
+    
+    <div class="tc-card pass" id="TC-001">
+      <div class="tc-head">
+        <div class="tc-id">TC-001</div>
+        <div class="tc-title">Verify "Job Workspace" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Promise</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/job</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/job</code> (Job Workspace)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Job Workspace"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Job Workspace" screen (<code>/job</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.4s. Page title: "Infosys 3.0". Heading detected: "Jobs". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Promise/Job_Workspace.png" target="_blank"><img src="../screenshots/Promise/Job_Workspace.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-002">
+      <div class="tc-head">
+        <div class="tc-id">TC-002</div>
+        <div class="tc-title">Verify "Customers" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Promise</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/add-customer</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/add-customer</code> (Customers)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Customers"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Customers" screen (<code>/add-customer</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.4s. Page title: "add-customer". Heading detected: "Customers". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Promise/Customers.png" target="_blank"><img src="../screenshots/Promise/Customers.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-003">
+      <div class="tc-head">
+        <div class="tc-id">TC-003</div>
+        <div class="tc-title">Verify "Job Numbers" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Promise</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/sales-order</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/sales-order</code> (Job Numbers)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Job Numbers"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Job Numbers" screen (<code>/sales-order</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 9.0s. Page title: "Job-Number". Heading detected: "Job Numbers". 47 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Promise/Job_Numbers.png" target="_blank"><img src="../screenshots/Promise/Job_Numbers.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="engineer">
+    <h2>Engineer <span class="module-summary">(6 pass / 0 fail / 0 blocked — 6 total)</span></h2>
+    
+    <div class="tc-card pass" id="TC-004">
+      <div class="tc-head">
+        <div class="tc-id">TC-004</div>
+        <div class="tc-title">Verify "Products" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Engineer</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/add-product</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/add-product</code> (Products)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Products"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Products" screen (<code>/add-product</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.2s. Page title: "add-product". Heading detected: "Products". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Engineer/Products.png" target="_blank"><img src="../screenshots/Engineer/Products.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-005">
+      <div class="tc-head">
+        <div class="tc-id">TC-005</div>
+        <div class="tc-title">Verify "Models" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Engineer</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/add-modules</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/add-modules</code> (Models)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Models"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Models" screen (<code>/add-modules</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 7.8s. Page title: "add-modules". Heading detected: "Models". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Engineer/Models.png" target="_blank"><img src="../screenshots/Engineer/Models.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-006">
+      <div class="tc-head">
+        <div class="tc-id">TC-006</div>
+        <div class="tc-title">Verify "Items" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Engineer</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/add-item</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/add-item</code> (Items)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Items"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Items" screen (<code>/add-item</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.5s. Page title: "add-item". Heading detected: "Item". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Engineer/Items.png" target="_blank"><img src="../screenshots/Engineer/Items.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-007">
+      <div class="tc-head">
+        <div class="tc-id">TC-007</div>
+        <div class="tc-title">Verify "Pricing" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Engineer</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/pricing</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/pricing</code> (Pricing)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Pricing"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Pricing" screen (<code>/pricing</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 15.1s. Page title: "pricing". Heading detected: "Pricing". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Engineer/Pricing.png" target="_blank"><img src="../screenshots/Engineer/Pricing.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-008">
+      <div class="tc-head">
+        <div class="tc-id">TC-008</div>
+        <div class="tc-title">Verify "Assembly" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Engineer</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/add-sub-assembly</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/add-sub-assembly</code> (Assembly)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Assembly"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Assembly" screen (<code>/add-sub-assembly</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.4s. Page title: "add-sub-assembly". Heading detected: "Assembly". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Engineer/Assembly.png" target="_blank"><img src="../screenshots/Engineer/Assembly.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-009">
+      <div class="tc-head">
+        <div class="tc-id">TC-009</div>
+        <div class="tc-title">Verify "Item Price History" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Engineer</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/item-price-history</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/item-price-history</code> (Item Price History)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Item Price History"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Item Price History" screen (<code>/item-price-history</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.5s. Page title: "receive-order". Heading detected: "Item Price History". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Engineer/Item_Price_History.png" target="_blank"><img src="../screenshots/Engineer/Item_Price_History.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="source">
+    <h2>Source <span class="module-summary">(16 pass / 4 fail / 0 blocked — 20 total)</span></h2>
+    
+    <div class="tc-card pass" id="TC-010">
+      <div class="tc-head">
+        <div class="tc-id">TC-010</div>
+        <div class="tc-title">Verify "Requisition Workspace" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/requisition</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/requisition</code> (Requisition Workspace)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Requisition Workspace"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Requisition Workspace" screen (<code>/requisition</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.4s. Page title: "Infosys 3.0". Heading detected: "Requisitions". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/Requisition_Workspace.png" target="_blank"><img src="../screenshots/Source/Requisition_Workspace.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-011">
+      <div class="tc-head">
+        <div class="tc-id">TC-011</div>
+        <div class="tc-title">Verify "PO Workspace" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/po</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/po</code> (PO Workspace)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "PO Workspace"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "PO Workspace" screen (<code>/po</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.6s. Page title: "Infosys 3.0". Heading detected: "Purchase Orders". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/PO_Workspace.png" target="_blank"><img src="../screenshots/Source/PO_Workspace.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-012">
+      <div class="tc-head">
+        <div class="tc-id">TC-012</div>
+        <div class="tc-title">Verify "Suppliers" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/add-supplier</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/add-supplier</code> (Suppliers)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Suppliers"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Suppliers" screen (<code>/add-supplier</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.0s. Page title: "add-supplier". Heading detected: "Suppliers". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/Suppliers.png" target="_blank"><img src="../screenshots/Source/Suppliers.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-013">
+      <div class="tc-head">
+        <div class="tc-id">TC-013</div>
+        <div class="tc-title">Verify "Add Requisitions" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/add-requisitions</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/add-requisitions</code> (Add Requisitions)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Add Requisitions"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Add Requisitions" screen (<code>/add-requisitions</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.7s. Page title: "add-requisition". Heading detected: "Generate/Add Purchase Release". 45 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/Add_Requisitions.png" target="_blank"><img src="../screenshots/Source/Add_Requisitions.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+        <div class="tc-col-1">
+          <h4>Error section</h4>
+          <ol class="steps">
+            <li>here is the missing the dropwond filter as department </li>
+          </ol>
+        </div>
+        <div class="tc-col-12">
+          <h4>Expected Result</h4>
+          <p>need to added the new screen In the ITEwhich is department</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence with Correction</h4>
+          <a href="../screenshots/Source/1.png" target="_blank"><img src="../screenshots/Source/1.png" class="thumb"/></a>
+          <a href="../screenshots/Source/1-.png" target="_blank"><img src="../screenshots/Source/1-.png" class="thumb"/></a>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card fail" id="TC-014">
+      <div class="tc-head">
+        <div class="tc-id">TC-014</div>
+        <div class="tc-title">Verify "Modify/Process PR" screen loads without errors</div>
+        <span class="badge" style="background:#c62828;">FAIL</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/update-requisitions</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/update-requisitions</code> (Modify/Process PR)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Modify/Process PR"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Modify/Process PR" screen (<code>/update-requisitions</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual bad">Screen loaded but the following issue(s) were detected:<br>&bull; Failed to load resource: the server responded with a status of 500 ()<br>&bull; Failed to load resource: the server responded with a status of 500 ()<br>&bull; 500 GET http://localhost:8082/api/requisition/v1.0/get?status=Y<br>&bull; 500 GET http://localhost:8082/api/requisition/v1.0/get?status=Y</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/Modify_Process_PR.png" target="_blank"><img src="../screenshots/Source/Modify_Process_PR.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-015">
+      <div class="tc-head">
+        <div class="tc-id">TC-015</div>
+        <div class="tc-title">Verify "View PR" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/existing-release-requisitions</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/existing-release-requisitions</code> (View PR)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "View PR"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "View PR" screen (<code>/existing-release-requisitions</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 10.6s. Page title: "existing-release-requisitions". Heading detected: "View Purchase Release". 46 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/View_PR.png" target="_blank"><img src="../screenshots/Source/View_PR.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-016">
+      <div class="tc-head">
+        <div class="tc-id">TC-016</div>
+        <div class="tc-title">Verify "PO Check" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/bom-po-check</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/bom-po-check</code> (PO Check)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "PO Check"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "PO Check" screen (<code>/bom-po-check</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.8s. Page title: "BOM-PO-Check". Heading detected: "BOM PO Check Tool". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/PO_Check.png" target="_blank"><img src="../screenshots/Source/PO_Check.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li>here not comming the Requisition Number </li>
+          <li>here not comming the Po Number </li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>here need to come the filter</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Source/BOM-PO-Check.png" target="_blank"><img src="../screenshots/Source/BOM-PO-Check.png" class="thumb"/></a>
+      </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-017">
+      <div class="tc-head">
+        <div class="tc-id">TC-017</div>
+        <div class="tc-title">Verify "PR By Items" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/pr-by-items</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/pr-by-items</code> (PR By Items)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "PR By Items"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "PR By Items" screen (<code>/pr-by-items</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.3s. Page title: "pr-by-items". Heading detected: "PR By Items". 42 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/PR_By_Items.png" target="_blank"><img src="../screenshots/Source/PR_By_Items.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-018">
+      <div class="tc-head">
+        <div class="tc-id">TC-018</div>
+        <div class="tc-title">Verify "Generate PO" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/generate-po</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/generate-po</code> (Generate PO)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Generate PO"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Generate PO" screen (<code>/generate-po</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 11.1s. Page title: "generate-po". Heading detected: "Generate PO". 49 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/Generate_PO.png" target="_blank"><img src="../screenshots/Source/Generate_PO.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+      <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li>when click the Requisition Number that time render the pr for view  there is listed data come but some data not present   </li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when render that time come to all data with po numebr and all </p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Source/2.png" target="_blank"><img src="../screenshots/Source/2-.png" class="thumb"/></a>
+        <a href="../screenshots/Source/2-1.png" target="_blank"><img src="../screenshots/Source/2-1.png" class="thumb"/></a>
+      </div>
+
+
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-019">
+      <div class="tc-head">
+        <div class="tc-id">TC-019</div>
+        <div class="tc-title">Verify "Process/Modify PO" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/modify-po</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/modify-po</code> (Process/Modify PO)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Process/Modify PO"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Process/Modify PO" screen (<code>/modify-po</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 9.0s. Page title: "modifyPo". Heading detected: "Modify Purchase Order". 46 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/Process_Modify_PO.png" target="_blank"><img src="../screenshots/Source/Process_Modify_PO.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+            <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li> here when click  the po number not open the modify po  page  </li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when click the po number that time popup the modify po page  and landing the all details </p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Source/3.png" target="_blank"><img src="../screenshots/Source/3.png" class="thumb"/></a>
+        <a href="../screenshots/Source/3-1.png" target="_blank"><img src="../screenshots/Source/3-1.png" class="thumb"/></a>
+      </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-020">
+      <div class="tc-head">
+        <div class="tc-id">TC-020</div>
+        <div class="tc-title">Verify "View PO" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/viewPo</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/viewPo</code> (View PO)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "View PO"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "View PO" screen (<code>/viewPo</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.3s. Page title: "view-po". Heading detected: "View PO". 46 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/View_PO.png" target="_blank"><img src="../screenshots/Source/View_PO.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+               <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li> view po not display and po number not redirect </li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>po number will be redirect and view section must be show </p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Source/view-po.png" target="_blank"><img src="../screenshots/Source/view-po.png" class="thumb"/></a>
+      </div>
+
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-021">
+      <div class="tc-head">
+        <div class="tc-id">TC-021</div>
+        <div class="tc-title">Verify "PO Report" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/po-item</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/po-item</code> (PO Report)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "PO Report"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "PO Report" screen (<code>/po-item</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 12.2s. Page title: "po-report". Heading detected: "Po Detail Report". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/PO_Report.png" target="_blank"><img src="../screenshots/Source/PO_Report.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card fail" id="TC-022">
+      <div class="tc-head">
+        <div class="tc-id">TC-022</div>
+        <div class="tc-title">Verify "Received Items PO" screen loads without errors</div>
+        <span class="badge" style="background:#c62828;">FAIL</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/received-items-po</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/received-items-po</code> (Received Items PO)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Received Items PO"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Received Items PO" screen (<code>/received-items-po</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual bad">Screen loaded but the following issue(s) were detected:<br>&bull; Failed to load resource: the server responded with a status of 500 ()<br>&bull; 500 GET http://localhost:8082/api/purchaseorder/v1.0/get/receiveditems?status=<br>&bull; FAILED GET http://localhost:8082/api/purchaseorder/v1.0/get/receiveditems?status= (net::ERR_ABORTED)</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/Received_Items_PO.png" target="_blank"><img src="../screenshots/Source/Received_Items_PO.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-023">
+      <div class="tc-head">
+        <div class="tc-id">TC-023</div>
+        <div class="tc-title">Verify "Late Parts" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/late-parts</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/late-parts</code> (Late Parts)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Late Parts"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Late Parts" screen (<code>/late-parts</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.3s. Page title: "late-parts". Heading detected: "Late Parts". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/Late_Parts.png" target="_blank"><img src="../screenshots/Source/Late_Parts.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-024">
+      <div class="tc-head">
+        <div class="tc-id">TC-024</div>
+        <div class="tc-title">Verify "PO By Supplier" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/po-by-Supplier-tracking</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/po-by-Supplier-tracking</code> (PO By Supplier)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "PO By Supplier"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "PO By Supplier" screen (<code>/po-by-Supplier-tracking</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.5s. Page title: "po-by-supplier-tracking". Heading detected: "PO By Supplier". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/PO_By_Supplier.png" target="_blank"><img src="../screenshots/Source/PO_By_Supplier.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+                  <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li> not page landing when suppelier base searching </li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p> come to supplier base  listing need to come .</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Source/po-by-supplier-tracking.png" target="_blank"><img src="../screenshots/Source/po-by-supplier-tracking.png" class="thumb"/></a>
+      </div>
+      </div>
+    </div>
+    <div class="tc-card fail" id="TC-025">
+      <div class="tc-head">
+        <div class="tc-id">TC-025</div>
+        <div class="tc-title">Verify "Not Confirmed PO" screen loads without errors</div>
+        <span class="badge" style="background:#c62828;">FAIL</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/not-confirmed-po</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/not-confirmed-po</code> (Not Confirmed PO)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Not Confirmed PO"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Not Confirmed PO" screen (<code>/not-confirmed-po</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual bad">Screen loaded but the following issue(s) were detected:<br>&bull; Failed to load resource: the server responded with a status of 500 ()<br>&bull; 500 GET http://localhost:8082/api/purchaseorder/v1.0/get/notconfirmed/po?supplierName=<br>&bull; FAILED GET http://localhost:8082/api/purchaseorder/v1.0/get/notconfirmed/po?supplierName= (net::ERR_ABORTED)</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/Not_Confirmed_PO.png" target="_blank"><img src="../screenshots/Source/Not_Confirmed_PO.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card fail" id="TC-026">
+      <div class="tc-head">
+        <div class="tc-id">TC-026</div>
+        <div class="tc-title">Verify "Release PR Status" screen loads without errors</div>
+        <span class="badge" style="background:#c62828;">FAIL</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/release-pr-status</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/release-pr-status</code> (Release PR Status)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Release PR Status"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Release PR Status" screen (<code>/release-pr-status</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual bad">Screen loaded but the following issue(s) were detected:<br>&bull; Failed to load resource: the server responded with a status of 500 ()<br>&bull; 500 GET http://localhost:8082/api/purchaseorder/v1.0/get/released/pr/status?jobNumber=&amp;requisitionNumber=&amp;releaseTypeName=<br>&bull; FAILED GET http://localhost:8082/api/purchaseorder/v1.0/get/released/pr/status?jobNumber=&amp;requisitionNumber=&amp;releaseTypeName= (net::ERR_ABORTED)</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/Release_PR_Status.png" target="_blank"><img src="../screenshots/Source/Release_PR_Status.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-027">
+      <div class="tc-head">
+        <div class="tc-id">TC-027</div>
+        <div class="tc-title">Verify "Alternative Supplier" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/alternative-supplier-needed</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/alternative-supplier-needed</code> (Alternative Supplier)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Alternative Supplier"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Alternative Supplier" screen (<code>/alternative-supplier-needed</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.2s. Page title: "alternative-supplier-needed". Heading detected: "View PO". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/Alternative_Supplier.png" target="_blank"><img src="../screenshots/Source/Alternative_Supplier.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+          <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li> when click the po number that time not landingthe page po view section  </li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when click the po number that time need to come the landing page view po .</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Source/4.png" target="_blank"><img src="../screenshots/Source/4.png" class="thumb"/></a>
+        <a href="../screenshots/Source/4-1.png" target="_blank"><img src="../screenshots/Source/4-1.png" class="thumb"/></a>
+      </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-028">
+      <div class="tc-head">
+        <div class="tc-id">TC-028</div>
+        <div class="tc-title">Verify "PO by JobNumber" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/po-by-jobnumber</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/po-by-jobnumber</code> (PO by JobNumber)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "PO by JobNumber"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "PO by JobNumber" screen (<code>/po-by-jobnumber</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 9.0s. Page title: "po-by-jobnumber". Heading detected: "PO By JobNumber". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/PO_by_JobNumber.png" target="_blank"><img src="../screenshots/Source/PO_by_JobNumber.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+        <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li> when search any thing by using the job number that time not comming the data </li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when enter any po job number that time need to come the data ..</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Source/PO_by_JobNumber.png" target="_blank"><img src="../screenshots/Source/PO_by_JobNumber.png" class="thumb"/></a>
+        
+      </div>
+
+
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-029">
+      <div class="tc-head">
+        <div class="tc-id">TC-029</div>
+        <div class="tc-title">Verify "Receive Order" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Source</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/receive-order</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/receive-order</code> (Receive Order)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Receive Order"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Receive Order" screen (<code>/receive-order</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.5s. Page title: "receive-order". Heading detected: "Receive Order". 47 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Source/Receive_Order.png" target="_blank"><img src="../screenshots/Source/Receive_Order.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+            <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li> when click the po number that time not render the po view section</li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when click the po numebr that time come to the po details .</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Source/receive-order.png" target="_blank"><img src="../screenshots/Source/receive-order.png" class="thumb"/></a>
+        
+      </div>
+      </div>
+    </div>
+  </section>
+  <section id="build">
+    <h2>Build <span class="module-summary">(12 pass / 0 fail / 1 blocked — 13 total)</span></h2>
+    
+    <div class="tc-card pass" id="TC-030">
+      <div class="tc-head">
+        <div class="tc-id">TC-030</div>
+        <div class="tc-title">Verify "Receiving Queue" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Build</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/receiving</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/receiving</code> (Receiving Queue)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Receiving Queue"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Receiving Queue" screen (<code>/receiving</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.7s. Page title: "Infosys 3.0". Heading detected: "Receiving". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Build/Receiving_Queue.png" target="_blank"><img src="../screenshots/Build/Receiving_Queue.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-031">
+      <div class="tc-head">
+        <div class="tc-id">TC-031</div>
+        <div class="tc-title">Verify "Stock View" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Build</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/stock</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/stock</code> (Stock View)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Stock View"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Stock View" screen (<code>/stock</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 9.1s. Page title: "Infosys 3.0". Heading detected: "Stock". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Build/Stock_View.png" target="_blank"><img src="../screenshots/Build/Stock_View.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+           <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li>stock not comming its getting</li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when click the stock section that time need to come the stocks.</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Build/stock.png" target="_blank"><img src="../screenshots/Build/stock.png" class="thumb"/></a>
+        
+      </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-032">
+      <div class="tc-head">
+        <div class="tc-id">TC-032</div>
+        <div class="tc-title">Verify "Assembly Release" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Build</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/assembly-release</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/assembly-release</code> (Assembly Release)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Assembly Release"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Assembly Release" screen (<code>/assembly-release</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 11.9s. Page title: "BOM-Release". Heading detected: "Assembly Release". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Build/Assembly_Release.png" target="_blank"><img src="../screenshots/Build/Assembly_Release.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+           <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li>when click that time need to come the data</li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>as of now not comming the any assembly data</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Build/5.png" target="_blank"><img src="../screenshots/Build/5.png" class="thumb"/></a>
+        
+      </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-033">
+      <div class="tc-head">
+        <div class="tc-id">TC-033</div>
+        <div class="tc-title">Verify "GRN Report" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Build</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/grn</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/grn</code> (GRN Report)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "GRN Report"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "GRN Report" screen (<code>/grn</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 12.0s. Page title: "grn-report". Heading detected: "GRN Detail Report". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Build/GRN_Report.png" target="_blank"><img src="../screenshots/Build/GRN_Report.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+        <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li>grn data not commings.</li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when set the job number that time come to the grn numbers as of now not comming </p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Build/grn-report.png" target="_blank"><img src="../screenshots/Build/5.png" class="thumb"/></a>
+        
+      </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-034">
+      <div class="tc-head">
+        <div class="tc-id">TC-034</div>
+        <div class="tc-title">Verify "Modify Grn" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Build</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/modify-grn</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/modify-grn</code> (Modify Grn)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Modify Grn"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Modify Grn" screen (<code>/modify-grn</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 13.0s. Page title: "modify-grn". Heading detected: "Modify GRN Details". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Build/Modify_Grn.png" target="_blank"><img src="../screenshots/Build/Modify_Grn.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+        <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li>when click the grn report that time not comming the data .</li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when click the grn report that time need to come the datas .</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Build/modify-grn.png" target="_blank"><img src="../screenshots/Build/modify-grn.png" class="thumb"/></a>
+        
+      </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-035">
+      <div class="tc-head">
+        <div class="tc-id">TC-035</div>
+        <div class="tc-title">Verify "Assembly" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Build</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/store-assembly</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/store-assembly</code> (Assembly)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Assembly"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Assembly" screen (<code>/store-assembly</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 11.8s. Page title: "store-assembly". Heading detected: "Assembly". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Build/Assembly.png" target="_blank"><img src="../screenshots/Build/Assembly.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+             <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li>when click the assembly tab that time not come the data</li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when click the assembly  that time need to come the datas and show the all data .</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Build/store-assembly.png" target="_blank"><img src="../screenshots/Build/store-assembly.png" class="thumb"/></a>
+        
+      </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-036">
+      <div class="tc-head">
+        <div class="tc-id">TC-036</div>
+        <div class="tc-title">Verify "Material Issue" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Build</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/material-issue</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/material-issue</code> (Material Issue)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Material Issue"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Material Issue" screen (<code>/material-issue</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 12.3s. Page title: "material-issue". Heading detected: "Material Issue". 45 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Build/Material_Issue.png" target="_blank"><img src="../screenshots/Build/Material_Issue.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+            <div class="tc-col-1">
+        <h4>Error section</h4>
+        <ol class="steps">
+          <li>when click the matrial issues section that time getting error</li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when click the material secton that time need to come the datas and show the all data .</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Build/material-issue.png" target="_blank"><img src="../screenshots/Build/material-issue.png" class="thumb"/></a>
+        
+      </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-037">
+      <div class="tc-head">
+        <div class="tc-id">TC-037</div>
+        <div class="tc-title">Verify "Material Return" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Build</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/material-return</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/material-return</code> (Material Return)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Material Return"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Material Return" screen (<code>/material-return</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 12.0s. Page title: "material-return". Heading detected: "Material Return". 45 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Build/Material_Return.png" target="_blank"><img src="../screenshots/Build/Material_Return.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+        <div class="tc-col-1">
+          <h4>Error section</h4>
+        <ol class="steps">
+          <li>when click the matrial return section that time getting error</li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when click the material return secton that time need to come the datas and show the all data .</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Build/material-return.png" target="_blank"><img src="../screenshots/Build/material-return.png" class="thumb"/></a>
+        
+      </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-038">
+      <div class="tc-head">
+        <div class="tc-id">TC-038</div>
+        <div class="tc-title">Verify "General Stock" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Build</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/general-stock</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/general-stock</code> (General Stock)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "General Stock"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "General Stock" screen (<code>/general-stock</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 12.0s. Page title: "general-stock". Heading detected: "General Item Stock / Consumable / Hardware / Tooling". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Build/General_Stock.png" target="_blank"><img src="../screenshots/Build/General_Stock.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+         <div class="tc-col-1">
+          <h4>Error section</h4>
+        <ol class="steps">
+          <li>when click the General Item Stock section that time getting error</li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when click the General Item Stock secton that time need to come the datas and show the all data .</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Build/general-stock.png" target="_blank"><img src="../screenshots/Build/general-stock.png" class="thumb"/></a>
+        
+      </div>
+      </div>
+    </div>
+    <div class="tc-card blocked" id="TC-039">
+      <div class="tc-head">
+        <div class="tc-id">TC-039</div>
+        <div class="tc-title">Verify "Unused Stock" screen is reachable and loads</div>
+        <span class="badge" style="background:#e07b00;">BLOCKED</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Build</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/unused-material-issue</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/unused-material-issue</code> (Unused Stock)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Unused Stock"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Unused Stock" screen (<code>/unused-material-issue</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual bad">Screen could NOT be verified. Failed to load resource: the server responded with a status of 500 () Failed to load resource: the server responded with a status of 500 () 500 POST   http://localhost:8082/api/reports/po/items Navigation/timeout error: page.goto: Timeout 15000ms exceeded.
+          Call log:
+          [2m  - navigating to "http://localhost:5173/unused-material-issue", waiting until "networkidle"[22m
+          </p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <span class="muted">No screenshot captured</span>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+         <div class="tc-col-1">
+          <h4>Error section</h4>
+        <ol class="steps">
+          <li>when click the Unused Stocksection that time getting error</li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when click the Unused Stock secton that time need to come the datas and show the all data .</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Build/Screenshot From 2026-08-17 17-35-31.png" target="_blank"><img src="../screenshots/Build/Screenshot From 2026-08-17 17-35-31.png" class="thumb"/></a>
+        
+      </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-040">
+      <div class="tc-head">
+        <div class="tc-id">TC-040</div>
+        <div class="tc-title">Verify "Stock Report" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Build</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/stock-report</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/stock-report</code> (Stock Report)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Stock Report"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Stock Report" screen (<code>/stock-report</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 11.8s. Page title: "stock-report". Heading detected: "Stock Report". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Build/Stock_Report.png" target="_blank"><img src="../screenshots/Build/Stock_Report.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+        <div class="tc-col-1">
+          <h4>Error section</h4>
+        <ol class="steps">
+          <li>when click the Stock Report section that time getting error</li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when click the Stock Report secton that time need to come the datas and show the all data .</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Build/Screenshot From 2026-08-17 17-34-26.png" target="_blank"><img src="../screenshots/Build/Screenshot From 2026-08-17 17-34-26.png" class="thumb"/></a>
+        
+      </div>
+
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-041">
+      <div class="tc-head">
+        <div class="tc-id">TC-041</div>
+        <div class="tc-title">Verify "Material Issue Report" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Build</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/material-issue-list</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/material-issue-list</code> (Material Issue Report)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Material Issue Report"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Material Issue Report" screen (<code>/material-issue-list</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 11.8s. Page title: "material-issue-report". Heading detected: "Material Issue Report". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Build/Material_Issue_Report.png" target="_blank"><img src="../screenshots/Build/Material_Issue_Report.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+         <div class="tc-col-1">
+          <h4>Error section</h4>
+        <ol class="steps">
+          <li>when click the Material Issue Report section that time getting error</li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when click the Material Issue Report secton that time need to come the datas and show the all data .</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Build/material-issue-report.png" target="_blank"><img src="../screenshots/Build/material-issue-report.png" class="thumb"/></a>
+        
+      </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-042">
+      <div class="tc-head">
+        <div class="tc-id">TC-042</div>
+        <div class="tc-title">Verify "Unused Issue Report" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Build</span>
+        <span><strong>Priority:</strong> High</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/unused-material-issue-list</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/unused-material-issue-list</code> (Unused Issue Report)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Unused Issue Report"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Unused Issue Report" screen (<code>/unused-material-issue-list</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 11.7s. Page title: "unused-material-issue-report". Heading detected: "Unused Material Issue Report". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Build/Unused_Issue_Report.png" target="_blank"><img src="../screenshots/Build/Unused_Issue_Report.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+
+        <div class="tc-col-1">
+          <h4>Error section</h4>
+        <ol class="steps">
+          <li>when click the unused-material-issue Stocksection that time getting error</li>
+        </ol>
+      </div>
+      <div class="tc-col-12">
+        <h4>Expected Result</h4>
+        <p>when click the unused-material-issue Stock secton that time need to come the datas and show the all data .</p>
+      </div>
+      <div class="tc-col tc-evidence">
+        <h4>Evidence with Correction</h4>
+        <a href="../screenshots/Build/unused-material-issue-report.png" target="_blank"><img src="../screenshots/Build/unused-material-issue-report.png" class="thumb"/></a>
+        
+      </div>
+
+      </div>
+    </div>
+  </section>
+  <section id="admin-center">
+    <h2>Admin Center <span class="module-summary">(22 pass / 0 fail / 0 blocked — 22 total)</span></h2>
+    
+    <div class="tc-card pass" id="TC-043">
+      <div class="tc-head">
+        <div class="tc-id">TC-043</div>
+        <div class="tc-title">Verify "Organization-Profile" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/add-organization</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/add-organization</code> (Organization-Profile)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Organization-Profile"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Organization-Profile" screen (<code>/add-organization</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 7.9s. Page title: "Organization". Heading detected: "Organization Profile". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Organization_Profile.png" target="_blank"><img src="../screenshots/Admin_Center/Organization_Profile.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-044">
+      <div class="tc-head">
+        <div class="tc-id">TC-044</div>
+        <div class="tc-title">Verify "Roles" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/role-managment</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/role-managment</code> (Roles)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Roles"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Roles" screen (<code>/role-managment</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.5s. Page title: "Roles". Heading detected: "Roles". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Roles.png" target="_blank"><img src="../screenshots/Admin_Center/Roles.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-045">
+      <div class="tc-head">
+        <div class="tc-id">TC-045</div>
+        <div class="tc-title">Verify "Users" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/users</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/users</code> (Users)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Users"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Users" screen (<code>/users</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.8s. Page title: "Users". Heading detected: "User List". 47 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Users.png" target="_blank"><img src="../screenshots/Admin_Center/Users.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-046">
+      <div class="tc-head">
+        <div class="tc-id">TC-046</div>
+        <div class="tc-title">Verify "Manufacturers" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/add-manufacturer</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/add-manufacturer</code> (Manufacturers)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Manufacturers"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Manufacturers" screen (<code>/add-manufacturer</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.8s. Page title: "add-manufacturer". Heading detected: "Manufacturers". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Manufacturers.png" target="_blank"><img src="../screenshots/Admin_Center/Manufacturers.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-047">
+      <div class="tc-head">
+        <div class="tc-id">TC-047</div>
+        <div class="tc-title">Verify "Units" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/add-unit</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/add-unit</code> (Units)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Units"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Units" screen (<code>/add-unit</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 9.2s. Page title: "add-unit". Heading detected: "Units". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Units.png" target="_blank"><img src="../screenshots/Admin_Center/Units.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-048">
+      <div class="tc-head">
+        <div class="tc-id">TC-048</div>
+        <div class="tc-title">Verify "Item Types" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/add-item-type</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/add-item-type</code> (Item Types)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Item Types"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Item Types" screen (<code>/add-item-type</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.5s. Page title: "add-item-type". Heading detected: "Item Types". 45 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Item_Types.png" target="_blank"><img src="../screenshots/Admin_Center/Item_Types.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-049">
+      <div class="tc-head">
+        <div class="tc-id">TC-049</div>
+        <div class="tc-title">Verify "Shipping Address" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/shipping-address</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/shipping-address</code> (Shipping Address)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Shipping Address"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Shipping Address" screen (<code>/shipping-address</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 9.1s. Page title: "add-shipping-address". Heading detected: "Shipping Address". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Shipping_Address.png" target="_blank"><img src="../screenshots/Admin_Center/Shipping_Address.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-050">
+      <div class="tc-head">
+        <div class="tc-id">TC-050</div>
+        <div class="tc-title">Verify "Currency" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/currency</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/currency</code> (Currency)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Currency"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Currency" screen (<code>/currency</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.6s. Page title: "currency". Heading detected: "Currency". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Currency.png" target="_blank"><img src="../screenshots/Admin_Center/Currency.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-051">
+      <div class="tc-head">
+        <div class="tc-id">TC-051</div>
+        <div class="tc-title">Verify "Location" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/addLocation</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/addLocation</code> (Location)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Location"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Location" screen (<code>/addLocation</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.3s. Page title: "add-manufacturer". Heading detected: "Location". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Location.png" target="_blank"><img src="../screenshots/Admin_Center/Location.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-052">
+      <div class="tc-head">
+        <div class="tc-id">TC-052</div>
+        <div class="tc-title">Verify "Email Template" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/email-template</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/email-template</code> (Email Template)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Email Template"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Email Template" screen (<code>/email-template</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.9s. Page title: "add-email". Heading detected: "Email Template". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Email_Template.png" target="_blank"><img src="../screenshots/Admin_Center/Email_Template.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-053">
+      <div class="tc-head">
+        <div class="tc-id">TC-053</div>
+        <div class="tc-title">Verify "Department" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/department</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/department</code> (Department)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Department"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Department" screen (<code>/department</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.0s. Page title: "add-department". Heading detected: "Departments". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Department.png" target="_blank"><img src="../screenshots/Admin_Center/Department.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-054">
+      <div class="tc-head">
+        <div class="tc-id">TC-054</div>
+        <div class="tc-title">Verify "Designation" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/designation</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/designation</code> (Designation)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Designation"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Designation" screen (<code>/designation</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.3s. Page title: "add-designation". Heading detected: "Designation". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Designation.png" target="_blank"><img src="../screenshots/Admin_Center/Designation.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-055">
+      <div class="tc-head">
+        <div class="tc-id">TC-055</div>
+        <div class="tc-title">Verify "Job Belongs To" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/add-jobBelongsTo</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/add-jobBelongsTo</code> (Job Belongs To)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Job Belongs To"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Job Belongs To" screen (<code>/add-jobBelongsTo</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.5s. Page title: "add-unit". Heading detected: "Job Belongs To". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Job_Belongs_To.png" target="_blank"><img src="../screenshots/Admin_Center/Job_Belongs_To.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-056">
+      <div class="tc-head">
+        <div class="tc-id">TC-056</div>
+        <div class="tc-title">Verify "Hold Type" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/hold-type</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/hold-type</code> (Hold Type)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Hold Type"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Hold Type" screen (<code>/hold-type</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.0s. Page title: "Infosys 3.0". Heading detected: "Hold Type Builder". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Hold_Type.png" target="_blank"><img src="../screenshots/Admin_Center/Hold_Type.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-057">
+      <div class="tc-head">
+        <div class="tc-id">TC-057</div>
+        <div class="tc-title">Verify "Job Types" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/job-type-master</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/job-type-master</code> (Job Types)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Job Types"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Job Types" screen (<code>/job-type-master</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.7s. Page title: "Job-Type-Master". Heading detected: "Job Type Master". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Job_Types.png" target="_blank"><img src="../screenshots/Admin_Center/Job_Types.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-058">
+      <div class="tc-head">
+        <div class="tc-id">TC-058</div>
+        <div class="tc-title">Verify "Job Status Config" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/job-status-config</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/job-status-config</code> (Job Status Config)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Job Status Config"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Job Status Config" screen (<code>/job-status-config</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.2s. Page title: "Job-Status-Configuration". Heading detected: "Job Status Configuration &amp; State Machine". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Job_Status_Config.png" target="_blank"><img src="../screenshots/Admin_Center/Job_Status_Config.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-059">
+      <div class="tc-head">
+        <div class="tc-id">TC-059</div>
+        <div class="tc-title">Verify "Workflow Builder" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/workflow-builder</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/workflow-builder</code> (Workflow Builder)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Workflow Builder"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Workflow Builder" screen (<code>/workflow-builder</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.1s. Page title: "Workflow-Builder". Heading detected: "Visual Workflow Builder". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Workflow_Builder.png" target="_blank"><img src="../screenshots/Admin_Center/Workflow_Builder.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-060">
+      <div class="tc-head">
+        <div class="tc-id">TC-060</div>
+        <div class="tc-title">Verify "Pending Approvals" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/pending-approvals</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/pending-approvals</code> (Pending Approvals)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Pending Approvals"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Pending Approvals" screen (<code>/pending-approvals</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.1s. Page title: "Pending-Approvals". Heading detected: "Pending Approvals". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Pending_Approvals.png" target="_blank"><img src="../screenshots/Admin_Center/Pending_Approvals.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-061">
+      <div class="tc-head">
+        <div class="tc-id">TC-061</div>
+        <div class="tc-title">Verify "Notification Groups" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/notification-groups</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/notification-groups</code> (Notification Groups)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Notification Groups"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Notification Groups" screen (<code>/notification-groups</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.5s. Page title: "Notification-Groups". Heading detected: "Notification Groups". 44 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Notification_Groups.png" target="_blank"><img src="../screenshots/Admin_Center/Notification_Groups.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-062">
+      <div class="tc-head">
+        <div class="tc-id">TC-062</div>
+        <div class="tc-title">Verify "Automation Rules" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/automation-rules</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/automation-rules</code> (Automation Rules)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Automation Rules"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Automation Rules" screen (<code>/automation-rules</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.2s. Page title: "Automation-Rules". Heading detected: "Automations". 45 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Automation_Rules.png" target="_blank"><img src="../screenshots/Admin_Center/Automation_Rules.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-063">
+      <div class="tc-head">
+        <div class="tc-id">TC-063</div>
+        <div class="tc-title">Verify "Job Number Format" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/job-number-format</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/job-number-format</code> (Job Number Format)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Job Number Format"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Job Number Format" screen (<code>/job-number-format</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.5s. Page title: "Job-Number-Format". Heading detected: "Job Number Format Builder". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Job_Number_Format.png" target="_blank"><img src="../screenshots/Admin_Center/Job_Number_Format.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-064">
+      <div class="tc-head">
+        <div class="tc-id">TC-064</div>
+        <div class="tc-title">Verify "Job Type Setup" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Admin Center</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/job-type-setup-config</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/job-type-setup-config</code> (Job Type Setup)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Job Type Setup"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Job Type Setup" screen (<code>/job-type-setup-config</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.3s. Page title: "Job-Type-Setup". Heading detected: "Job Type Setup Configuration". 46 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Admin_Center/Job_Type_Setup.png" target="_blank"><img src="../screenshots/Admin_Center/Job_Type_Setup.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="assembly-lab">
+    <h2>Assembly Lab <span class="module-summary">(5 pass / 0 fail / 0 blocked — 5 total)</span></h2>
+    
+    <div class="tc-card pass" id="TC-065">
+      <div class="tc-head">
+        <div class="tc-id">TC-065</div>
+        <div class="tc-title">Verify "Option 1 - Focus Flow" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Assembly Lab</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/assembly-flow</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/assembly-flow</code> (Option 1 - Focus Flow)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Option 1 - Focus Flow"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Option 1 - Focus Flow" screen (<code>/assembly-flow</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.8s. Page title: "Infosys 3.0". Heading detected: "Assemblies". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Assembly_Lab/Option_1_Focus_Flow.png" target="_blank"><img src="../screenshots/Assembly_Lab/Option_1_Focus_Flow.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-066">
+      <div class="tc-head">
+        <div class="tc-id">TC-066</div>
+        <div class="tc-title">Verify "Option 2 - Single Sheet" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Assembly Lab</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/assembly-sheet</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/assembly-sheet</code> (Option 2 - Single Sheet)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Option 2 - Single Sheet"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Option 2 - Single Sheet" screen (<code>/assembly-sheet</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 11.1s. Page title: "Infosys 3.0". Heading detected: "Assemblies". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Assembly_Lab/Option_2_Single_Sheet.png" target="_blank"><img src="../screenshots/Assembly_Lab/Option_2_Single_Sheet.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-067">
+      <div class="tc-head">
+        <div class="tc-id">TC-067</div>
+        <div class="tc-title">Verify "Option 3 - Studio" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Assembly Lab</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/assembly-studio</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/assembly-studio</code> (Option 3 - Studio)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Option 3 - Studio"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Option 3 - Studio" screen (<code>/assembly-studio</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 8.9s. Page title: "Infosys 3.0". Heading detected: "Assemblies". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Assembly_Lab/Option_3_Studio.png" target="_blank"><img src="../screenshots/Assembly_Lab/Option_3_Studio.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-068">
+      <div class="tc-head">
+        <div class="tc-id">TC-068</div>
+        <div class="tc-title">Verify "Option 4 - Command" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Assembly Lab</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/assembly-command</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/assembly-command</code> (Option 4 - Command)</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Option 4 - Command"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Option 4 - Command" screen (<code>/assembly-command</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 9.9s. Page title: "Infosys 3.0". Heading detected: "Assemblies". 45 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Assembly_Lab/Option_4_Command.png" target="_blank"><img src="../screenshots/Assembly_Lab/Option_4_Command.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-card pass" id="TC-069">
+      <div class="tc-head">
+        <div class="tc-id">TC-069</div>
+        <div class="tc-title">Verify "Current screen (parity)" screen loads correctly and functions without errors</div>
+        <span class="badge" style="background:#0a7d2b;">PASS</span>
+      </div>
+      <div class="tc-meta">
+        <span><strong>Module:</strong> Assembly Lab</span>
+        <span><strong>Priority:</strong> Medium</span>
+        <span><strong>Precondition:</strong> User is logged in</span>
+        <span><strong>Test Data / URL:</strong> <code>/add-sub-assembly</code></span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-col">
+          <h4>Test Steps</h4>
+          <ol class="steps">
+            <li>Log in to the application</li>
+            <li>Navigate to <code>/add-sub-assembly</code> (Current screen (parity))</li>
+            <li>Verify the page loads fully without crashing or showing a blank screen</li>
+            <li>Verify the page heading/content matches "Current screen (parity)"</li>
+            <li>Verify no JavaScript console errors are thrown</li>
+            <li>Verify all backend API calls return a success status (no 4xx/5xx errors)</li>
+          </ol>
+        </div>
+        <div class="tc-col">
+          <h4>Expected Result</h4>
+          <p>The "Current screen (parity)" screen (<code>/add-sub-assembly</code>) loads fully, displays its content/heading correctly, and makes no failing API calls or JavaScript errors.</p>
+          <h4>Actual Result</h4>
+          <p class="actual ok">Screen loaded successfully in 10.9s. Page title: "add-sub-assembly". Heading detected: "Assembly". 43 backend API call(s) made, all returned successfully. No console errors.</p>
+        </div>
+        <div class="tc-col tc-evidence">
+          <h4>Evidence</h4>
+          <a href="../screenshots/Assembly_Lab/Current_screen_parity.png" target="_blank"><img src="../screenshots/Assembly_Lab/Current_screen_parity.png" class="thumb"/></a>
+          <div style="margin-top:8px;"><span class="muted">No video captured</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+    <section id="functional-tests">
+      <h2>Functional "Create" Tests <span class="module-summary">(0 pass / 1 fail / 13 blocked — 14 total)</span></h2>
+      <p class="muted">These tests auto-filled and submitted "Add/Create" forms with generated test data, then attempted to clean up (delete) only the records they created themselves.</p>
+
+        <div class="tc-card fail" id="FC-001">
+          <div class="tc-head">
+            <div class="tc-id">FC-001</div>
+            <div class="tc-title">Functional: Create record via "Organization-Profile" (Admin Center)</div>
+            <span class="badge" style="background:#c62828;">FAIL</span>
+          </div>
+          <div class="tc-meta">
+            <span><strong>URL:</strong> <code>/add-organization</code></span>
+            <span><strong>Fields auto-filled:</strong> 11</span>
+            <span><strong>Record found in list after create:</strong> No</span>
+          </div>
+          <div class="tc-body">
+            <div class="tc-col" style="grid-column: span 2;">
+              <h4>Steps performed</h4>
+              <ol class="steps">
+                <li>Log in, navigate to the form</li>
+                <li>Auto-detect and fill all visible fields with generated test data</li>
+                <li>Click Save/Submit/Add/Create</li>
+                <li>Check for a success/error message</li>
+                <li>Check whether the new record appears in a list on the page (View check)</li>
+                <li>If found, delete only that test record (cleanup) - never touches pre-existing data</li>
+              </ol>
+              <h4>Result / Notes</h4>
+              <p class="actual bad">Auto-filled 11 field(s) out of 11 detected.<br>Message after submit: "Unexpected server error. Please retry or contact support."<br>Could not find the newly created record on this page after submit - it may be on a separate list screen, or the create may not have worked.</p>
+            </div>
+            <div class="tc-col tc-evidence">
+              <h4>Evidence (before → filled → after submit → after cleanup)</h4>
+              <a href="../screenshots/_functional/Admin_Center__Organization_Profile__before.png" target="_blank"><img src="../screenshots/_functional/Admin_Center__Organization_Profile__before.png" class="thumb" style="margin-right:6px;" title="Before"/></a><a href="../screenshots/_functional/Admin_Center__Organization_Profile__filled.png" target="_blank"><img src="../screenshots/_functional/Admin_Center__Organization_Profile__filled.png" class="thumb" style="margin-right:6px;" title="Filled"/></a><a href="../screenshots/_functional/Admin_Center__Organization_Profile__after-submit.png" target="_blank"><img src="../screenshots/_functional/Admin_Center__Organization_Profile__after-submit.png" class="thumb" style="margin-right:6px;" title="After Submit"/></a><a href="../screenshots/_functional/Admin_Center__Organization_Profile__after-cleanup.png" target="_blank"><img src="../screenshots/_functional/Admin_Center__Organization_Profile__after-cleanup.png" class="thumb" style="margin-right:6px;" title="After Cleanup"/></a>
+            </div>
+          </div>
+        </div>
+
+   
+    </section>
+</body>
+</html>

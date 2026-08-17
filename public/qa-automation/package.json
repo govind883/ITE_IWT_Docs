@@ -1,0 +1,16 @@
+{
+  "name": "qa-automation",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "smoke": "playwright test --project=chromium",
+    "functional": "playwright test --project=functional",
+    "debug": "playwright test --project=debug",
+    "report": "node generate-report.js",
+    "all": "playwright test --project=chromium; node generate-report.js",
+    "full": "playwright test --project=chromium; playwright test --project=functional; node generate-report.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.47.0"
+  }
+}

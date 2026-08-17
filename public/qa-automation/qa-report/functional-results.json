@@ -1,0 +1,227 @@
+[
+  {
+    "module": "Promise",
+    "screen": "Customers",
+    "url": "/add-customer",
+    "status": "blocked",
+    "notes": [
+      "Auto-filled 0 field(s) out of 0 detected.",
+      "No fillable fields found - this screen may use a non-standard form structure (custom components), or has no form."
+    ],
+    "filledCount": 0,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Promise__Customers__before.png",
+    "afterFillShot": "screenshots/_functional/Promise__Customers__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Promise__Customers__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Promise__Customers__after-cleanup.png"
+  },
+  {
+    "module": "Engineer",
+    "screen": "Products",
+    "url": "/add-product",
+    "status": "blocked",
+    "notes": [
+      "Auto-filled 0 field(s) out of 0 detected.",
+      "No fillable fields found - this screen may use a non-standard form structure (custom components), or has no form."
+    ],
+    "filledCount": 0,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Engineer__Products__before.png",
+    "afterFillShot": "screenshots/_functional/Engineer__Products__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Engineer__Products__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Engineer__Products__after-cleanup.png"
+  },
+  {
+    "module": "Engineer",
+    "screen": "Models",
+    "url": "/add-modules",
+    "status": "blocked",
+    "notes": [
+      "Auto-filled 0 field(s) out of 0 detected.",
+      "No fillable fields found - this screen may use a non-standard form structure (custom components), or has no form."
+    ],
+    "filledCount": 0,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Engineer__Models__before.png",
+    "afterFillShot": "screenshots/_functional/Engineer__Models__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Engineer__Models__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Engineer__Models__after-cleanup.png"
+  },
+  {
+    "module": "Engineer",
+    "screen": "Items",
+    "url": "/add-item",
+    "status": "blocked",
+    "notes": [
+      "Auto-filled 0 field(s) out of 0 detected.",
+      "No fillable fields found - this screen may use a non-standard form structure (custom components), or has no form."
+    ],
+    "filledCount": 0,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Engineer__Items__before.png",
+    "afterFillShot": "screenshots/_functional/Engineer__Items__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Engineer__Items__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Engineer__Items__after-cleanup.png"
+  },
+  {
+    "module": "Engineer",
+    "screen": "Assembly",
+    "url": "/add-sub-assembly",
+    "status": "blocked",
+    "notes": [
+      "Auto-filled 0 field(s) out of 0 detected.",
+      "No fillable fields found - this screen may use a non-standard form structure (custom components), or has no form."
+    ],
+    "filledCount": 0,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Engineer__Assembly__before.png",
+    "afterFillShot": "screenshots/_functional/Engineer__Assembly__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Engineer__Assembly__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Engineer__Assembly__after-cleanup.png"
+  },
+  {
+    "module": "Source",
+    "screen": "Suppliers",
+    "url": "/add-supplier",
+    "status": "blocked",
+    "notes": [
+      "Auto-filled 0 field(s) out of 0 detected.",
+      "No fillable fields found - this screen may use a non-standard form structure (custom components), or has no form."
+    ],
+    "filledCount": 0,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Source__Suppliers__before.png",
+    "afterFillShot": "screenshots/_functional/Source__Suppliers__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Source__Suppliers__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Source__Suppliers__after-cleanup.png"
+  },
+  {
+    "module": "Source",
+    "screen": "Add Requisitions",
+    "url": "/add-requisitions",
+    "status": "blocked",
+    "notes": [
+      "Auto-filled 0 field(s) out of 0 detected.",
+      "No fillable fields found - this screen may use a non-standard form structure (custom components), or has no form."
+    ],
+    "filledCount": 0,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Source__Add_Requisitions__before.png",
+    "afterFillShot": "screenshots/_functional/Source__Add_Requisitions__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Source__Add_Requisitions__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Source__Add_Requisitions__after-cleanup.png"
+  },
+  {
+    "module": "Admin Center",
+    "screen": "Organization-Profile",
+    "url": "/add-organization",
+    "status": "fail",
+    "notes": [
+      "Auto-filled 11 field(s) out of 11 detected.",
+      "Message after submit: \"Unexpected server error. Please retry or contact support.\"",
+      "Could not find the newly created record on this page after submit - it may be on a separate list screen, or the create may not have worked."
+    ],
+    "filledCount": 11,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Admin_Center__Organization_Profile__before.png",
+    "afterFillShot": "screenshots/_functional/Admin_Center__Organization_Profile__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Admin_Center__Organization_Profile__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Admin_Center__Organization_Profile__after-cleanup.png"
+  },
+  {
+    "module": "Admin Center",
+    "screen": "Manufacturers",
+    "url": "/add-manufacturer",
+    "status": "blocked",
+    "notes": [
+      "Auto-filled 0 field(s) out of 0 detected.",
+      "No fillable fields found - this screen may use a non-standard form structure (custom components), or has no form."
+    ],
+    "filledCount": 0,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Admin_Center__Manufacturers__before.png",
+    "afterFillShot": "screenshots/_functional/Admin_Center__Manufacturers__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Admin_Center__Manufacturers__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Admin_Center__Manufacturers__after-cleanup.png"
+  },
+  {
+    "module": "Admin Center",
+    "screen": "Units",
+    "url": "/add-unit",
+    "status": "blocked",
+    "notes": [
+      "Auto-filled 0 field(s) out of 0 detected.",
+      "No fillable fields found - this screen may use a non-standard form structure (custom components), or has no form."
+    ],
+    "filledCount": 0,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Admin_Center__Units__before.png",
+    "afterFillShot": "screenshots/_functional/Admin_Center__Units__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Admin_Center__Units__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Admin_Center__Units__after-cleanup.png"
+  },
+  {
+    "module": "Admin Center",
+    "screen": "Item Types",
+    "url": "/add-item-type",
+    "status": "blocked",
+    "notes": [
+      "Auto-filled 0 field(s) out of 0 detected.",
+      "No fillable fields found - this screen may use a non-standard form structure (custom components), or has no form."
+    ],
+    "filledCount": 0,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Admin_Center__Item_Types__before.png",
+    "afterFillShot": "screenshots/_functional/Admin_Center__Item_Types__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Admin_Center__Item_Types__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Admin_Center__Item_Types__after-cleanup.png"
+  },
+  {
+    "module": "Admin Center",
+    "screen": "Location",
+    "url": "/addLocation",
+    "status": "blocked",
+    "notes": [
+      "Auto-filled 0 field(s) out of 0 detected.",
+      "No fillable fields found - this screen may use a non-standard form structure (custom components), or has no form."
+    ],
+    "filledCount": 0,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Admin_Center__Location__before.png",
+    "afterFillShot": "screenshots/_functional/Admin_Center__Location__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Admin_Center__Location__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Admin_Center__Location__after-cleanup.png"
+  },
+  {
+    "module": "Admin Center",
+    "screen": "Job Belongs To",
+    "url": "/add-jobBelongsTo",
+    "status": "blocked",
+    "notes": [
+      "Auto-filled 0 field(s) out of 0 detected.",
+      "No fillable fields found - this screen may use a non-standard form structure (custom components), or has no form."
+    ],
+    "filledCount": 0,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Admin_Center__Job_Belongs_To__before.png",
+    "afterFillShot": "screenshots/_functional/Admin_Center__Job_Belongs_To__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Admin_Center__Job_Belongs_To__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Admin_Center__Job_Belongs_To__after-cleanup.png"
+  },
+  {
+    "module": "Assembly Lab",
+    "screen": "Current screen (parity)",
+    "url": "/add-sub-assembly",
+    "status": "blocked",
+    "notes": [
+      "Auto-filled 0 field(s) out of 0 detected.",
+      "No fillable fields found - this screen may use a non-standard form structure (custom components), or has no form."
+    ],
+    "filledCount": 0,
+    "viewFound": false,
+    "beforeShot": "screenshots/_functional/Assembly_Lab__Current_screen_parity__before.png",
+    "afterFillShot": "screenshots/_functional/Assembly_Lab__Current_screen_parity__filled.png",
+    "afterSubmitShot": "screenshots/_functional/Assembly_Lab__Current_screen_parity__after-submit.png",
+    "afterCleanupShot": "screenshots/_functional/Assembly_Lab__Current_screen_parity__after-cleanup.png"
+  }
+]
