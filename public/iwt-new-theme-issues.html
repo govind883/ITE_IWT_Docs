@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="robots" content="noindex, nofollow">
+	<meta name="googlebot" content="noindex, nofollow">
+	<meta name="bingbot" content="noindex, nofollow">
+    <title>IWT Manual Testing - Stream Modules</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px 50px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            padding: 25px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: left;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            margin-top: 10px;
+        }
+
+        .header p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .back-button {
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
+            padding: 6px 12px !important;
+            background: #27ae60 !important;
+            color: white !important;
+            text-decoration: none !important;
+            border-radius: 5px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            font-size: 0.8em !important;
+            border: none !important;
+            cursor: pointer !important;
+            display: inline-block !important;
+            z-index: 1000 !important;
+        }
+
+        .back-button:hover {
+            background: #229954 !important;
+        }
+
+        .logout-button {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            padding: 6px 12px !important;
+            background: #e74c3c !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 5px !important;
+            cursor: pointer !important;
+            font-size: 0.8em !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            display: inline-block !important;
+            z-index: 1000 !important;
+        }
+
+        .logout-button:hover {
+            background: #c0392b !important;
+            transform: translateY(-2px) !important;
+        }
+
+        /* Tab Navigation */
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-tab {
+            padding: 10px 16px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            color: #333;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            background: #f5f5f5;
+            border-color: #9b59b6;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: #9b59b6;
+            color: white;
+            border-color: #9b59b6;
+            box-shadow: 0 4px 12px rgba(155, 89, 182, 0.3);
+        }
+
+        /* Content Area */
+        .content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .module-header-wrapper {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #9b59b6;
+        }
+
+        .module-header-left {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .submodule-tabs-wrapper {
+            margin-left: auto;
+        }
+
+        .module-header {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #9b59b6;
+            margin: 0;
+        }
+
+        /* Submodule Tabs */
+        .submodule-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .submodule-tab {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            background: white;
+            color: #666;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.8em;
+            transition: all 0.3s ease;
+        }
+
+        .submodule-tab:hover {
+            background: #f9f9f9;
+            border-color: #9b59b6;
+            color: #9b59b6;
+        }
+
+        .submodule-tab.active {
+            background: #9b59b6;
+            color: white;
+            border-color: #9b59b6;
+        }
+
+        .submodule-content {
+            display: none;
+        }
+
+        .submodule-content.active {
+            display: block;
+        }
+
+        /* Test Items */
+        .test-item {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .test-item.status-yes {
+            background: #d4edda;
+            border-color: #27ae60;
+            border-width: 2px;
+        }
+
+        .test-item.status-no {
+            background: #f8d7da;
+            border-color: #e74c3c;
+            border-width: 2px;
+        }
+
+        .test-item:hover {
+            box-shadow: 0 4px 12px rgba(155, 89, 182, 0.1);
+            border-color: #9b59b6;
+        }
+
+        .test-row {
+            display: grid;
+            grid-template-columns: 1.5fr 110px 200px 70px;
+            gap: 20px;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .action-buttons-group {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .action-btn {
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .action-btn-edit {
+            color: #f39c12;
+            border-color: #f39c12;
+        }
+
+        .action-btn-edit:hover {
+            background: #f39c12;
+            color: white;
+        }
+
+        .action-btn-delete {
+            color: #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        .action-btn-delete:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .test-name {
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .status-buttons {
+            display: flex;
+            gap: 5px;
+            background: #f0f0f0;
+            padding: 3px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .status-btn {
+            flex: 1;
+            padding: 6px 5px;
+            border: 2px solid transparent;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.75em;
+            transition: all 0.25s ease;
+            background: transparent;
+            color: #666;
+            min-width: 30px;
+        }
+
+        .status-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .status-btn.yes {
+            color: #27ae60;
+            border-color: #27ae60;
+        }
+
+        .status-btn.yes.active {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+            box-shadow: 0 2px 6px rgba(39, 174, 96, 0.3);
+            font-weight: 700;
+        }
+
+        .status-btn.no {
+            color: #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        .status-btn.no.active {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+            box-shadow: 0 2px 6px rgba(231, 76, 60, 0.3);
+            font-weight: 700;
+        }
+
+        .notes-field {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .notes-field label {
+            font-weight: 600;
+            font-size: 0.7em;
+            color: #666;
+            display: none;
+        }
+
+        .notes-field textarea {
+            padding: 4px 6px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 0.8em;
+            font-family: inherit;
+            resize: none;
+            min-height: 32px;
+            max-height: 32px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .notes-field textarea:focus {
+            outline: none;
+            border-color: #9b59b6;
+            box-shadow: 0 0 4px rgba(155, 89, 182, 0.3);
+            max-height: 60px;
+            overflow-y: auto;
+        }
+
+        .test-item {
+            padding: 0;
+        }
+
+        .tests-wrapper {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px 35px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .add-test-btn {
+            padding: 8px 14px;
+            background: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .add-test-btn:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(243, 156, 18, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .modal-header {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #9b59b6;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #9b59b6;
+            padding-bottom: 10px;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95em;
+            font-family: inherit;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: #9b59b6;
+            box-shadow: 0 0 5px rgba(155, 89, 182, 0.3);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn-cancel {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .modal-btn-cancel:hover {
+            background: #7f8c8d;
+        }
+
+        .modal-btn-save {
+            background: #9b59b6;
+            color: white;
+        }
+
+        .modal-btn-save:hover {
+            background: #8e44ad;
+        }
+
+        .modal-tab-btn {
+            padding: 8px 16px;
+            border: none;
+            border-bottom: 3px solid #ddd;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .modal-tab-btn.active {
+            border-bottom-color: #9b59b6;
+            color: #9b59b6;
+        }
+
+        .modal-tab-btn:hover {
+            color: #9b59b6;
+        }
+
+        @media (max-width: 1024px) {
+            .test-row {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tab {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 10px;
+            }
+
+            .header h1 {
+                font-size: 1.3em;
+            }
+
+            .tests-wrapper {
+                padding: 15px;
+            }
+
+            .test-item {
+                padding: 15px;
+            }
+        }
+    </style>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBs0DGX4VF1fXCO9LXRZ3fpX3zd4AzLry4",
+            authDomain: "ite-iwt.firebaseapp.com",
+            databaseURL: "https://ite-iwt-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "ite-iwt",
+            storageBucket: "ite-iwt.firebasestorage.app",
+            messagingSenderId: "90244218074",
+            appId: "1:90244218074:web:d88040002bd1e34c3db9e3"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header" style="position: relative; text-align: center;">
+            <a href="javascript:history.back()" class="back-button">← Back</a>
+            <button onclick="logout()" class="logout-button">🚪 Logout</button>
+            <h1>🎨 IWT Manual Testing - Stream Modules</h1>
+            <p>Test Stream Modules manually - Check functionality and document test results</p>
+            <p style="font-size: 0.85em; color: #e0e0e0; font-style: italic; margin-top: 8px; opacity: 0.95;">Created by: Govind Birajdar</p>
+        </div>
+
+        <!-- Stream Module Tabs -->
+        <div class="nav-tabs" id="module-tabs"></div>
+
+        <!-- Module Contents -->
+        <div id="modules-container"></div>
+
+        <!-- Add Test Modal -->
+        <div id="addTestModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">➕ Create New Item</div>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 10px;">
+                    <button class="modal-tab-btn active" id="testTabBtn" onclick="switchModalTab('test')">📝 Create Test</button>
+                    <button class="modal-tab-btn" id="issueTabBtn" onclick="switchModalTab('issue')">🐛 Create Issue</button>
+                </div>
+
+                <!-- Test Form -->
+                <div id="testForm" class="modal-body">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Select Submodule:</label>
+                    <select id="submoduleSelect" class="modal-input" style="margin-bottom: 15px;">
+                        <option value="">-- Select a Submodule --</option>
+                    </select>
+
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Test Name:</label>
+                    <input type="text" id="testNameInput" class="modal-input" placeholder="Enter test case name..." />
+                </div>
+
+                <!-- Issue Form -->
+                <div id="issueForm" class="modal-body" style="display: none;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Issue Name:</label>
+                    <input type="text" id="issueNameInput" class="modal-input" placeholder="Enter issue name..." style="margin-bottom: 15px;" />
+
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Submodule:</label>
+                    <select id="issueModuleSelect" class="modal-input" style="margin-bottom: 15px;">
+                        <option value="">-- Select a Submodule --</option>
+                    </select>
+
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Link:</label>
+                    <input type="text" id="issueLinkInput" class="modal-input" placeholder="Enter link/URL..." />
+                </div>
+
+                <div class="modal-footer">
+                    <button class="modal-btn modal-btn-cancel" onclick="closeAddTestModal()">Cancel</button>
+                    <button class="modal-btn modal-btn-save" id="submitBtn" onclick="handleModalSubmit()">Create Test</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentModule = null;
+        let currentSubmodule = null;
+        let testResults = {};
+
+        // Define module order
+        const moduleOrder = ['promise', 'engineer', 'source', 'build', 'admincenter', 'assemblylab'];
+
+        let moduleTests = {
+            promise: {
+                name: "Promise",
+                icon: "📋",
+                submodules: {
+                    jobworkspace: {
+                        name: "Job Workspace",
+                        tests: []
+                    },
+                    customers: {
+                        name: "Customers",
+                        tests: []
+                    },
+                    jobnumbers: {
+                        name: "Job Numbers",
+                        tests: []
+                    },
+                    jobsummary: {
+                        name: "Job Summary",
+                        tests: []
+                    }
+                }
+            },
+            engineer: {
+                name: "Engineer",
+                icon: "⚙️",
+                submodules: {
+                    items: {
+                        name: "Items",
+                        tests: []
+                    },
+                    assembly: {
+                        name: "Assembly",
+                        tests: []
+                    },
+                    pricing: {
+                        name: "Pricing",
+                        tests: []
+                    },
+                    products: {
+                        name: "Products",
+                        tests: []
+                    },
+                    models: {
+                        name: "Models",
+                        tests: []
+                    },
+                    itempricehistory: {
+                        name: "Item Price History",
+                        tests: []
+                    }
+                }
+            },
+            source: {
+                name: "Source",
+                icon: "📁",
+                submodules: {
+                    requisitionworkspace: {
+                        name: "Requisition Workspace",
+                        tests: []
+                    },
+                    poworkspace: {
+                        name: "PO Workspace",
+                        tests: []
+                    },
+                    suppliers: {
+                        name: "Suppliers",
+                        tests: []
+                    },
+                    addrequisitions: {
+                        name: "Add Requisitions",
+                        tests: []
+                    },
+                    modifyprocesspr: {
+                        name: "Modify/Process PR",
+                        tests: []
+                    },
+                    prbyitems: {
+                        name: "PR By Items",
+                        tests: []
+                    },
+                    viewpr: {
+                        name: "View PR",
+                        tests: []
+                    },
+                    pocheck: {
+                        name: "PO Check",
+                        tests: []
+                    },
+                    requisitioncheck: {
+                        name: "Requisition Check",
+                        tests: []
+                    },
+                    generatepo: {
+                        name: "Generate PO",
+                        tests: []
+                    },
+                    viewpo: {
+                        name: "View PO",
+                        tests: []
+                    },
+                    modifypo: {
+                        name: "Modify PO",
+                        tests: []
+                    },
+                    receiveorder: {
+                        name: "Receive Order",
+                        tests: []
+                    },
+                    receiveditemspo: {
+                        name: "Received Items PO",
+                        tests: []
+                    },
+                    lateparts: {
+                        name: "Late Parts",
+                        tests: []
+                    },
+                    pobysupplier: {
+                        name: "PO By Supplier",
+                        tests: []
+                    },
+                    notconfirmedpo: {
+                        name: "Not Confirmed PO",
+                        tests: []
+                    },
+                    releaseprstatus: {
+                        name: "Release PR Status",
+                        tests: []
+                    },
+                    alternativesupplier: {
+                        name: "Alternative Supplier",
+                        tests: []
+                    },
+                    pobyjobnumber: {
+                        name: "PO by JobNumber",
+                        tests: []
+                    }
+                }
+            },
+            build: {
+                name: "Build",
+                icon: "🔨",
+                submodules: {
+                    receivingqueue: {
+                        name: "Receiving Queue",
+                        tests: []
+                    },
+                    stockview: {
+                        name: "Stock View",
+                        tests: []
+                    }
+                }
+            },
+            admincenter: {
+                name: "Admin Center",
+                icon: "👨‍💼",
+                submodules: {
+                    organizationprofile: {
+                        name: "Organization-Profile",
+                        tests: []
+                    },
+                    roles: {
+                        name: "Roles",
+                        tests: []
+                    },
+                    users: {
+                        name: "Users",
+                        tests: []
+                    },
+                    manufacturers: {
+                        name: "Manufacturers",
+                        tests: []
+                    },
+                    units: {
+                        name: "Units",
+                        tests: []
+                    },
+                    itemtypes: {
+                        name: "Item Types",
+                        tests: []
+                    },
+                    shippingaddress: {
+                        name: "Shipping Address",
+                        tests: []
+                    },
+                    currency: {
+                        name: "Currency",
+                        tests: []
+                    },
+                    location: {
+                        name: "Location",
+                        tests: []
+                    },
+                    emailtemplate: {
+                        name: "Email Template",
+                        tests: []
+                    },
+                    department: {
+                        name: "Department",
+                        tests: []
+                    },
+                    designation: {
+                        name: "Designation",
+                        tests: []
+                    },
+                    jobbelongsto: {
+                        name: "Job Belongs To",
+                        tests: []
+                    },
+                    holdtype: {
+                        name: "Hold Type",
+                        tests: []
+                    },
+                    jobtypes: {
+                        name: "Job Types",
+                        tests: []
+                    },
+                    jobstatusconfig: {
+                        name: "Job Status Config",
+                        tests: []
+                    },
+                    workflowbuilder: {
+                        name: "Workflow Builder",
+                        tests: []
+                    },
+                    pendingapprovals: {
+                        name: "Pending Approvals",
+                        tests: []
+                    },
+                    notificationgroups: {
+                        name: "Notification Groups",
+                        tests: []
+                    },
+                    automationrules: {
+                        name: "Automation Rules",
+                        tests: []
+                    },
+                    jobnumberformat: {
+                        name: "Job Number Format",
+                        tests: []
+                    },
+                    jobtypesetup: {
+                        name: "Job Type Setup",
+                        tests: []
+                    }
+                }
+            },
+            assemblylab: {
+                name: "Assembly Lab",
+                icon: "🔧",
+                submodules: {
+                    option1focusflow: {
+                        name: "Option 1 — Focus Flow",
+                        tests: []
+                    },
+                    option2singlesheet: {
+                        name: "Option 2 — Single Sheet",
+                        tests: []
+                    },
+                    option3studio: {
+                        name: "Option 3 — Studio",
+                        tests: []
+                    },
+                    option4command: {
+                        name: "Option 4 — Command",
+                        tests: []
+                    },
+                    currentscreenparity: {
+                        name: "Current screen (parity)",
+                        tests: []
+                    }
+                }
+            }
+        };
+
+        function initializeUI() {
+            // Create module tabs
+            const tabsContainer = document.getElementById('module-tabs');
+            const modulesContainer = document.getElementById('modules-container');
+            let tabsHTML = '';
+            let modulesHTML = '';
+
+            moduleOrder.forEach((moduleKey, index) => {
+                const module = moduleTests[moduleKey];
+                if (!module) return;
+                const isActive = index === 0 ? 'active' : '';
+
+                tabsHTML += `
+                    <button class="nav-tab ${isActive}" onclick="selectModule('${moduleKey}')">
+                        ${module.icon} ${module.name}
+                    </button>
+                `;
+
+                modulesHTML += `
+                    <div id="module-${moduleKey}" class="content ${isActive}">
+                        <div class="tests-wrapper">
+                            <div class="module-header-wrapper">
+                                <div class="module-header-left">
+                                    <div class="module-header">${module.icon} ${module.name}</div>
+                                    <button class="add-test-btn" onclick="openAddTestModal('${moduleKey}', '${Object.keys(module.submodules)[0]}')">➕ Add Test</button>
+                                </div>
+                                <div class="submodule-tabs-wrapper">
+                                    <div class="submodule-tabs" id="submodule-tabs-${moduleKey}"></div>
+                                </div>
+                            </div>
+                            <div id="submodule-contents-${moduleKey}"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            tabsContainer.innerHTML = tabsHTML;
+            modulesContainer.innerHTML = modulesHTML;
+        }
+
+        function selectModule(moduleKey) {
+            currentModule = moduleKey;
+            // Save selected module to localStorage
+            localStorage.setItem('selectedModule', moduleKey);
+            const module = moduleTests[moduleKey];
+
+            // Update tab styling
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            const moduleButton = document.querySelector(`.nav-tab[onclick*="${moduleKey}"]`);
+            if (moduleButton) {
+                moduleButton.classList.add('active');
+            }
+
+            // Update content visibility
+            document.querySelectorAll('.content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`module-${moduleKey}`).classList.add('active');
+
+            // Create submodule tabs
+            const submoduleTabs = document.getElementById(`submodule-tabs-${moduleKey}`);
+            const submoduleContents = document.getElementById(`submodule-contents-${moduleKey}`);
+            let tabsHTML = '';
+            let contentsHTML = '';
+
+            const submoduleKeys = Object.keys(module.submodules);
+            submoduleKeys.forEach((submoduleKey, index) => {
+                const submodule = module.submodules[submoduleKey];
+                const isActive = index === 0 ? 'active' : '';
+
+                tabsHTML += `
+                    <button class="submodule-tab ${isActive}" onclick="selectSubmodule('${moduleKey}', '${submoduleKey}', event)">
+                        ${submodule.name}
+                    </button>
+                `;
+
+                let testsHTML = '';
+                if (!submodule.tests) {
+                    submodule.tests = [];
+                }
+                submodule.tests.forEach(test => {
+                    const testKey = `${moduleKey}-${submoduleKey}-${test.id}`;
+                    const saved = testResults[testKey] || {};
+                    const statusYes = saved.status === 'yes' ? 'active' : '';
+                    const statusNo = saved.status === 'no' ? 'active' : '';
+                    const rowStatusClass = saved.status === 'yes' ? 'status-yes' : (saved.status === 'no' ? 'status-no' : '');
+
+                    testsHTML += `
+                        <div class="test-item ${rowStatusClass}" data-test-id="${test.id}">
+                            <div class="test-row">
+                                <div class="test-name">${test.name}</div>
+                                <div class="status-buttons">
+                                    <button class="status-btn yes ${statusYes}" onclick="setTestStatus('${moduleKey}', '${submoduleKey}', '${test.id}', 'yes')">✓ Yes</button>
+                                    <button class="status-btn no ${statusNo}" onclick="setTestStatus('${moduleKey}', '${submoduleKey}', '${test.id}', 'no')">✗ No</button>
+                                </div>
+                                <div class="notes-field">
+                                    <label>Notes:</label>
+                                    <textarea id="notes-${testKey}" placeholder="Add your notes here..." onchange="saveNotes('${testKey}')">${saved.notes || ''}</textarea>
+                                </div>
+                                <div class="action-buttons-group">
+                                    <button class="action-btn action-btn-edit" onclick="editTest('${moduleKey}', '${submoduleKey}', '${test.id}')" title="Edit">✎</button>
+                                    <button class="action-btn action-btn-delete" onclick="deleteTest('${moduleKey}', '${submoduleKey}', '${test.id}')" title="Delete">🗑️</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                contentsHTML += `
+                    <div id="submodule-${moduleKey}-${submoduleKey}" class="submodule-content ${isActive}">
+                        ${testsHTML}
+                    </div>
+                `;
+            });
+
+            submoduleTabs.innerHTML = tabsHTML;
+            submoduleContents.innerHTML = contentsHTML;
+
+            // Select first submodule
+            selectSubmodule(moduleKey, submoduleKeys[0], null);
+        }
+
+        function selectSubmodule(moduleKey, submoduleKey, event) {
+            currentSubmodule = submoduleKey;
+            if (event) {
+                document.querySelectorAll(`#submodule-tabs-${moduleKey} .submodule-tab`).forEach(tab => tab.classList.remove('active'));
+                event.target.classList.add('active');
+            }
+
+            // Rebuild tests for this submodule
+            if (!moduleTests[moduleKey] || !moduleTests[moduleKey].submodules[submoduleKey]) {
+                console.error('Module or submodule not found:', moduleKey, submoduleKey);
+                return;
+            }
+
+            const submodule = moduleTests[moduleKey].submodules[submoduleKey];
+            let testsHTML = '';
+
+            if (!submodule.tests) {
+                submodule.tests = [];
+            }
+
+            submodule.tests.forEach(test => {
+                const testKey = `${moduleKey}-${submoduleKey}-${test.id}`;
+                const saved = testResults[testKey] || {};
+                const statusYes = saved.status === 'yes' ? 'active' : '';
+                const statusNo = saved.status === 'no' ? 'active' : '';
+                const rowStatusClass = saved.status === 'yes' ? 'status-yes' : (saved.status === 'no' ? 'status-no' : '');
+
+                testsHTML += `
+                    <div class="test-item ${rowStatusClass}" data-test-id="${test.id}">
+                        <div class="test-row">
+                            <div class="test-name">${test.name}</div>
+                            <div class="status-buttons">
+                                <button class="status-btn yes ${statusYes}" onclick="setTestStatus('${moduleKey}', '${submoduleKey}', '${test.id}', 'yes')">✓ Yes</button>
+                                <button class="status-btn no ${statusNo}" onclick="setTestStatus('${moduleKey}', '${submoduleKey}', '${test.id}', 'no')">✗ No</button>
+                            </div>
+                            <div class="notes-field">
+                                <label>Notes:</label>
+                                <textarea id="notes-${testKey}" placeholder="Add your notes here..." onchange="saveNotes('${testKey}')">${saved.notes || ''}</textarea>
+                            </div>
+                            <div class="action-buttons-group">
+                                <button class="action-btn action-btn-edit" onclick="editTest('${moduleKey}', '${submoduleKey}', '${test.id}')" title="Edit">✎</button>
+                                <button class="action-btn action-btn-delete" onclick="deleteTest('${moduleKey}', '${submoduleKey}', '${test.id}')" title="Delete">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Build issues HTML
+            let issuesHTML = '';
+            const issueKey = `${moduleKey}-${submoduleKey}`;
+            if (issues[issueKey] && issues[issueKey].length > 0) {
+                issuesHTML += `
+                    <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid #e74c3c;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.85em;">
+                            <thead>
+                                <tr style="background: #ffe6e6; border-bottom: 1px solid #e74c3c;">
+                                    <th style="padding: 6px 8px; text-align: left; font-weight: 600; color: #c0392b; font-size: 0.8em;">Issue Name</th>
+                                    <th style="padding: 6px 8px; text-align: left; font-weight: 600; color: #c0392b; font-size: 0.8em;">Link</th>
+                                    <th style="padding: 6px 8px; text-align: center; font-weight: 600; color: #c0392b; font-size: 0.8em;">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                issues[issueKey].forEach(issue => {
+                    issuesHTML += `
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="padding: 6px 8px; color: #333; word-break: break-word;">${issue.name}</td>
+                            <td style="padding: 6px 8px;">
+                                <a href="${issue.link}" target="_blank" style="color: #3498db; text-decoration: none; font-size: 0.85em;">
+                                    ${issue.link.substring(0, 40)}${issue.link.length > 40 ? '...' : ''}
+                                </a>
+                            </td>
+                            <td style="padding: 6px 8px; text-align: center;">
+                                <button class="action-btn action-btn-delete" onclick="deleteIssue('${moduleKey}', '${submoduleKey}', '${issue.id}')" title="Delete" style="margin: 0 auto; width: 20px; height: 20px; padding: 2px;">🗑️</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                issuesHTML += `
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+
+            // Update the tests container
+            const testsContainer = document.getElementById(`submodule-${moduleKey}-${submoduleKey}`);
+            if (testsContainer) {
+                testsContainer.innerHTML = testsHTML + issuesHTML;
+            }
+
+            document.querySelectorAll(`#submodule-contents-${moduleKey} .submodule-content`).forEach(content => content.classList.remove('active'));
+            const activeContent = document.getElementById(`submodule-${moduleKey}-${submoduleKey}`);
+            if (activeContent) {
+                activeContent.classList.add('active');
+            }
+        }
+
+        function setTestStatus(moduleKey, submoduleKey, testId, status) {
+            const testKey = `${moduleKey}-${submoduleKey}-${testId}`;
+            if (!testResults[testKey]) {
+                testResults[testKey] = {};
+            }
+            testResults[testKey].status = status;
+            testResults[testKey].timestamp = new Date().toISOString();
+
+            // Save to Firebase
+            firebase.database().ref(`manual-tests/${testKey}`).set(testResults[testKey]).catch(err => {
+                console.error('Error saving to Firebase:', err);
+            });
+
+            // Save to localStorage
+            localStorage.setItem('iwt_testResults', JSON.stringify(testResults));
+
+            // Update button UI
+            const testItem = document.querySelector(`[data-test-id="${testId}"]`);
+            const buttons = testItem.querySelectorAll('.status-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Remove all status classes
+            testItem.classList.remove('status-yes', 'status-no');
+
+            if (status === 'yes') {
+                testItem.querySelector('.status-btn.yes').classList.add('active');
+                testItem.classList.add('status-yes');
+            } else {
+                testItem.querySelector('.status-btn.no').classList.add('active');
+                testItem.classList.add('status-no');
+            }
+        }
+
+        function saveNotes(testKey) {
+            const notesText = document.getElementById(`notes-${testKey}`).value;
+            if (!testResults[testKey]) {
+                testResults[testKey] = {};
+            }
+            testResults[testKey].notes = notesText;
+            testResults[testKey].timestamp = new Date().toISOString();
+
+            // Save to Firebase
+            firebase.database().ref(`manual-tests/${testKey}`).set(testResults[testKey]).catch(err => {
+                console.error('Error saving to Firebase:', err);
+            });
+
+            // Save to localStorage
+            localStorage.setItem('iwt_testResults', JSON.stringify(testResults));
+        }
+
+        function resetForm() {
+            if (confirm('Are you sure you want to reset all test results?')) {
+                testResults = {};
+                initializeUI();
+            }
+        }
+
+        function saveTestResults() {
+            const resultsToSave = {};
+            Object.keys(testResults).forEach(key => {
+                resultsToSave[key] = {
+                    ...testResults[key],
+                    timestamp: new Date().toISOString()
+                };
+            });
+
+            firebase.database().ref('manual-tests').set(resultsToSave).then(() => {
+                alert('✓ Test results saved successfully!');
+            }).catch(err => {
+                console.error('Error saving results:', err);
+                alert('Error saving results. Please try again.');
+            });
+        }
+
+        let addTestModuleKey = null;
+        let addTestSubmoduleKey = null;
+        let issues = {};
+        let currentModalTab = 'test';
+
+        function openAddTestModal(moduleKey, submoduleKey) {
+            addTestModuleKey = moduleKey;
+            addTestSubmoduleKey = submoduleKey;
+            document.getElementById('testNameInput').value = '';
+
+            // Populate submodule dropdown
+            const module = moduleTests[moduleKey];
+            const submoduleSelect = document.getElementById('submoduleSelect');
+            submoduleSelect.innerHTML = '<option value="">-- Select a Submodule --</option>';
+
+            Object.keys(module.submodules).forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = module.submodules[key].name;
+                submoduleSelect.appendChild(option);
+            });
+
+            // Set the first submodule as default
+            if (Object.keys(module.submodules).length > 0) {
+                submoduleSelect.value = Object.keys(module.submodules)[0];
+            }
+
+            document.getElementById('addTestModal').classList.add('show');
+            document.getElementById('testNameInput').focus();
+        }
+
+        function closeAddTestModal() {
+            document.getElementById('addTestModal').classList.remove('show');
+            addTestModuleKey = null;
+            addTestSubmoduleKey = null;
+            currentModalTab = 'test';
+            switchModalTab('test');
+        }
+
+        function switchModalTab(tab) {
+            currentModalTab = tab;
+            const testForm = document.getElementById('testForm');
+            const issueForm = document.getElementById('issueForm');
+            const testTabBtn = document.getElementById('testTabBtn');
+            const issueTabBtn = document.getElementById('issueTabBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (tab === 'test') {
+                testForm.style.display = 'block';
+                issueForm.style.display = 'none';
+                testTabBtn.classList.add('active');
+                issueTabBtn.classList.remove('active');
+                submitBtn.textContent = 'Create Test';
+            } else {
+                testForm.style.display = 'none';
+                issueForm.style.display = 'block';
+                testTabBtn.classList.remove('active');
+                issueTabBtn.classList.add('active');
+                submitBtn.textContent = 'Create Issue';
+
+                // Populate submodule dropdown for current module
+                const issueModuleSelect = document.getElementById('issueModuleSelect');
+                issueModuleSelect.innerHTML = '<option value="">-- Select a Submodule --</option>';
+
+                if (addTestModuleKey && moduleTests[addTestModuleKey]) {
+                    const module = moduleTests[addTestModuleKey];
+                    if (module.submodules) {
+                        Object.keys(module.submodules).forEach(submoduleKey => {
+                            const submodule = module.submodules[submoduleKey];
+                            const option = document.createElement('option');
+                            option.value = submoduleKey;
+                            option.textContent = submodule.name;
+                            issueModuleSelect.appendChild(option);
+                        });
+                    }
+                }
+            }
+        }
+
+        function handleModalSubmit() {
+            if (currentModalTab === 'test') {
+                saveNewTest();
+            } else {
+                saveNewIssue();
+            }
+        }
+
+        function saveNewIssue() {
+            const issueName = document.getElementById('issueNameInput').value.trim();
+            const submoduleKey = document.getElementById('issueModuleSelect').value;
+            const link = document.getElementById('issueLinkInput').value.trim();
+
+            if (!issueName) {
+                alert('Please enter an issue name');
+                return;
+            }
+
+            if (!submoduleKey) {
+                alert('Please select a submodule');
+                return;
+            }
+
+            if (!link) {
+                alert('Please enter a link');
+                return;
+            }
+
+            const issueId = issueName.toLowerCase().replace(/\s+/g, '-');
+            const issueKey = `${addTestModuleKey}-${submoduleKey}`;
+            const newIssue = {
+                id: issueId,
+                name: issueName,
+                module: addTestModuleKey,
+                submodule: submoduleKey,
+                link: link,
+                timestamp: new Date().toISOString()
+            };
+
+            if (!issues[issueKey]) {
+                issues[issueKey] = [];
+            }
+
+            issues[issueKey].push(newIssue);
+
+            // Save to Firebase
+            firebase.database().ref('issues').set(issues).then(() => {
+                console.log('Issue saved to Firebase');
+            }).catch(err => {
+                console.error('Error saving issue to Firebase:', err);
+            });
+
+            // Save to localStorage
+            localStorage.setItem('iwt_issues', JSON.stringify(issues));
+
+            // Clear form
+            document.getElementById('issueNameInput').value = '';
+            document.getElementById('issueModuleSelect').value = '';
+            document.getElementById('issueLinkInput').value = '';
+
+            closeAddTestModal();
+            alert('✓ Issue created: ' + issueName);
+        }
+
+        function saveNewTest() {
+            const testName = document.getElementById('testNameInput').value.trim();
+            const selectedSubmodule = document.getElementById('submoduleSelect').value;
+
+            if (!testName) {
+                alert('Please enter a test name');
+                return;
+            }
+
+            if (!selectedSubmodule) {
+                alert('Please select a submodule');
+                return;
+            }
+
+            if (!addTestModuleKey) {
+                alert('Error: Module not selected');
+                return;
+            }
+
+            const testId = testName.toLowerCase().replace(/\s+/g, '-');
+            const newTest = { id: testId, name: testName };
+
+            try {
+                // Add to moduleTests object
+                if (!moduleTests[addTestModuleKey]) {
+                    alert('Error: Module not found');
+                    return;
+                }
+
+                if (!moduleTests[addTestModuleKey].submodules[selectedSubmodule]) {
+                    alert('Error: Submodule not found');
+                    return;
+                }
+
+                moduleTests[addTestModuleKey].submodules[selectedSubmodule].tests.push(newTest);
+
+                // Refresh the UI immediately
+                selectSubmodule(addTestModuleKey, selectedSubmodule, null);
+                closeAddTestModal();
+
+                // Save moduleTests to Firebase asynchronously
+                firebase.database().ref('module-tests').set(moduleTests).then(() => {
+                    console.log('Test case saved to Firebase');
+                }).catch(err => {
+                    console.error('Error saving module tests to Firebase:', err);
+                    alert('Warning: Could not save to server, but test is visible locally');
+                });
+
+                // Show success message
+                alert('✓ Test case created: ' + testName);
+            } catch (err) {
+                console.error('Error creating test:', err);
+                alert('Error creating test case');
+            }
+        }
+
+        function editTest(moduleKey, submoduleKey, testId) {
+            const tests = moduleTests[moduleKey].submodules[submoduleKey].tests;
+            const testIndex = tests.findIndex(t => t.id === testId);
+
+            if (testIndex === -1) {
+                alert('Test not found');
+                return;
+            }
+
+            const test = tests[testIndex];
+            const newName = prompt('Edit test name:', test.name);
+
+            if (newName && newName.trim()) {
+                test.name = newName.trim();
+
+                // Save moduleTests to Firebase
+                firebase.database().ref('module-tests').set(moduleTests).catch(err => {
+                    console.error('Error saving module tests:', err);
+                });
+
+                selectSubmodule(moduleKey, submoduleKey, null);
+                alert('✓ Test case updated');
+            }
+        }
+
+        function deleteTest(moduleKey, submoduleKey, testId) {
+            if (!confirm('Are you sure you want to delete this test case?')) {
+                return;
+            }
+
+            const tests = moduleTests[moduleKey].submodules[submoduleKey].tests;
+            const testIndex = tests.findIndex(t => t.id === testId);
+
+            if (testIndex === -1) {
+                alert('Test not found');
+                return;
+            }
+
+            const testName = tests[testIndex].name;
+            tests.splice(testIndex, 1);
+
+            // Delete from testResults
+            const testKey = `${moduleKey}-${submoduleKey}-${testId}`;
+            delete testResults[testKey];
+
+            // Save moduleTests to Firebase
+            firebase.database().ref('module-tests').set(moduleTests).catch(err => {
+                console.error('Error saving module tests:', err);
+            });
+
+            // Save updated testResults to Firebase
+            firebase.database().ref('manual-tests').set(testResults).catch(err => {
+                console.error('Error saving test results:', err);
+            });
+
+            selectSubmodule(moduleKey, submoduleKey, null);
+            alert('✓ Test case deleted: ' + testName);
+        }
+
+        function deleteIssue(moduleKey, submoduleKey, issueId) {
+            if (!confirm('Are you sure you want to delete this issue?')) {
+                return;
+            }
+
+            const issueKey = `${moduleKey}-${submoduleKey}`;
+            if (!issues[issueKey]) {
+                alert('Issues not found');
+                return;
+            }
+
+            const issueIndex = issues[issueKey].findIndex(i => i.id === issueId);
+            if (issueIndex === -1) {
+                alert('Issue not found');
+                return;
+            }
+
+            const issueName = issues[issueKey][issueIndex].name;
+            issues[issueKey].splice(issueIndex, 1);
+
+            // If no more issues for this key, remove the key
+            if (issues[issueKey].length === 0) {
+                delete issues[issueKey];
+            }
+
+            // Save to Firebase
+            firebase.database().ref('issues').set(issues).catch(err => {
+                console.error('Error saving issues to Firebase:', err);
+            });
+
+            // Save to localStorage
+            localStorage.setItem('iwt_issues', JSON.stringify(issues));
+
+            selectSubmodule(moduleKey, submoduleKey, null);
+            alert('✓ Issue deleted: ' + issueName);
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('addTestModal');
+            if (modal && event.target === modal) {
+                closeAddTestModal();
+            }
+        });
+
+        // Allow Enter key to save
+        document.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter' && document.getElementById('addTestModal').classList.contains('show')) {
+                saveNewTest();
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load from localStorage first
+            const savedResults = localStorage.getItem('iwt_testResults');
+            if (savedResults) {
+                try {
+                    testResults = JSON.parse(savedResults);
+                } catch (e) {
+                    console.error('Error loading test results from localStorage:', e);
+                }
+            }
+
+            // Load issues from localStorage
+            const savedIssues = localStorage.getItem('iwt_issues');
+            if (savedIssues) {
+                try {
+                    issues = JSON.parse(savedIssues);
+                } catch (e) {
+                    console.error('Error loading issues from localStorage:', e);
+                }
+            }
+
+            // Load module tests from Firebase and merge with defaults
+            firebase.database().ref('module-tests').once('value', (snapshot) => {
+                const moduleData = snapshot.val();
+                if (moduleData) {
+                    // Merge Firebase data with default moduleTests
+                    // Keep new submodules from default, but use Firebase test data where it exists
+                    Object.keys(moduleTests).forEach(moduleKey => {
+                        if (moduleData[moduleKey]) {
+                            const firebaseModule = moduleData[moduleKey];
+                            if (firebaseModule.submodules) {
+                                Object.keys(firebaseModule.submodules).forEach(submoduleKey => {
+                                    if (moduleTests[moduleKey].submodules[submoduleKey]) {
+                                        // Merge tests from Firebase
+                                        moduleTests[moduleKey].submodules[submoduleKey].tests =
+                                            firebaseModule.submodules[submoduleKey].tests || [];
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+
+                // Validate and repair moduleTests structure
+                Object.keys(moduleTests).forEach(moduleKey => {
+                    const module = moduleTests[moduleKey];
+                    if (module.submodules) {
+                        Object.keys(module.submodules).forEach(submoduleKey => {
+                            const submodule = module.submodules[submoduleKey];
+                            if (!submodule.tests || !Array.isArray(submodule.tests)) {
+                                submodule.tests = [];
+                            }
+                        });
+                    }
+                });
+
+                // Also try to load test results from Firebase
+                firebase.database().ref('manual-tests').once('value', (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        testResults = data;
+                    }
+
+                    // Also load issues from Firebase
+                    firebase.database().ref('issues').once('value', (issuesSnapshot) => {
+                        const issuesData = issuesSnapshot.val();
+                        if (issuesData) {
+                            issues = issuesData;
+                        }
+                        initializeUI();
+                    });
+                    initializeUI();
+
+                    // Small delay to ensure DOM is ready
+                    setTimeout(() => {
+                        const savedModule = localStorage.getItem('selectedModule') || 'promise';
+                        selectModule(savedModule);
+                    }, 100);
+                }).catch(err => {
+                    console.error('Error loading test results from Firebase:', err);
+                    initializeUI();
+
+                    // Small delay to ensure DOM is ready
+                    setTimeout(() => {
+                        const savedModule = localStorage.getItem('selectedModule') || 'promise';
+                        selectModule(savedModule);
+                    }, 100);
+                });
+            }).catch(err => {
+                console.error('Error loading module tests from Firebase:', err);
+                // Continue with default moduleTests
+                firebase.database().ref('manual-tests').once('value', (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        testResults = data;
+                    }
+                    initializeUI();
+
+                    // Small delay to ensure DOM is ready
+                    setTimeout(() => {
+                        const savedModule = localStorage.getItem('selectedModule') || 'promise';
+                        selectModule(savedModule);
+                    }, 100);
+                }).catch(err => {
+                    console.error('Error loading test results from Firebase:', err);
+                    initializeUI();
+
+                    // Small delay to ensure DOM is ready
+                    setTimeout(() => {
+                        const savedModule = localStorage.getItem('selectedModule') || 'promise';
+                        selectModule(savedModule);
+                    }, 100);
+                });
+            });
+        });
+    </script>
+
+    <!-- Authentication Check -->
+    <script>
+        window.addEventListener("load", function() {
+            const token = sessionStorage.getItem("auth_token");
+            const username = sessionStorage.getItem("auth_username");
+
+            if (!token || !username) {
+                window.location.href = "/login.html";
+            }
+        });
+
+        function logout() {
+            sessionStorage.removeItem("auth_token");
+            sessionStorage.removeItem("auth_username");
+            localStorage.removeItem("iwt_username");
+            window.location.href = "/login.html";
+        }
+
+        window.logout = logout;
+    </script>
+</body>
+</html>
