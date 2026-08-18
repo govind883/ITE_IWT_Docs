@@ -44,9 +44,14 @@
 			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 			background: var(--bg);
 			color: var(--text);
-			font-size: clamp(13px, 1.3vw, 16px);
-			line-height: 1.6;
+			font-size: 10.5px;
+			line-height: 1.5;
 		}
+		p { margin: 0 0 9px; font-size: 8.5px !important; }
+		li { font-size: 8.5px !important; }
+		h2 { font-size: 12px !important; }
+		h3 { font-size: 9px !important; }
+		h4 { font-size: 8.5px !important; }
 
 		/* ---------- Page shell ---------- */
 		.wrapper {
@@ -61,19 +66,19 @@
 		header {
 			background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
 			color: #fff;
-			padding: clamp(20px, 3.5vw, 36px) clamp(20px, 4vw, 40px);
+			padding: 18px 24px;
 			text-align: center;
 			box-shadow: 0 6px 20px rgba(31,78,120,0.25);
 		}
 		header h1 {
-			margin: 0 0 6px 0;
-			font-size: clamp(22px, 3.2vw, 32px) !important;
+			margin: 0 0 4px 0;
+			font-size: 14px !important;
 			font-weight: 700;
 			letter-spacing: -0.3px;
 		}
 		header p {
 			margin: 0;
-			font-size: clamp(13px, 1.4vw, 16px);
+			font-size: 9px;
 			opacity: 0.9;
 		}
 
@@ -90,16 +95,16 @@
 			position: relative;
 		}
 		.org-btn {
-			padding: 10px 24px !important;
-			font-size: 14px !important;
+			padding: 5px 12px !important;
+			font-size: 9px !important;
 			border: 2px solid var(--accent);
 			background: #fff;
 			color: var(--accent);
-			border-radius: 10px;
+			border-radius: 7px;
 			font-weight: 700;
 			cursor: pointer;
 			transition: all .2s ease;
-			letter-spacing: 0.3px;
+			letter-spacing: 0.2px;
 		}
 		.org-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(50,130,184,0.25); }
 		.org-btn.active {
@@ -120,12 +125,12 @@
 		}
 		.sub-tabs.active { display: flex !important; }
 		.sub-tab, .sub-tab-btn {
-			padding: 8px 16px !important;
-			font-size: 13px !important;
+			padding: 4px 9px !important;
+			font-size: 8.5px !important;
 			border: 2px solid var(--accent);
 			background: #fff;
 			color: var(--accent);
-			border-radius: 8px;
+			border-radius: 6px;
 			font-weight: 600;
 			cursor: pointer;
 			transition: all .2s ease;
@@ -160,12 +165,12 @@
 			border-radius: var(--radius);
 		}
 		.nav-tab, .nav-tab-btn {
-			padding: 8px 14px !important;
-			font-size: 13px !important;
+			padding: 4px 9px !important;
+			font-size: 8.5px !important;
 			color: var(--navy-dark);
 			background: #fff;
 			border: 2px solid var(--border);
-			border-radius: 8px;
+			border-radius: 6px;
 			cursor: pointer;
 			font-weight: 600;
 			transition: all .2s ease;
@@ -177,36 +182,36 @@
 		.module-header {
 			background: linear-gradient(135deg, var(--navy) 0%, var(--accent) 100%);
 			color: #fff;
-			padding: 24px 28px;
+			padding: 12px 16px;
 			border-radius: var(--radius);
-			margin-bottom: 24px;
+			margin-bottom: 14px;
 		}
-		.module-header h2 { margin: 0 0 6px 0; font-size: clamp(20px, 2.6vw, 28px); }
-		.module-header p { margin: 0; opacity: 0.9; }
+		.module-header h2 { margin: 0 0 3px 0; font-size: 12px; }
+		.module-header p { margin: 0; opacity: 0.9; font-size: 9px; }
 
 		section.module {
 			background: var(--card);
 			border: 1px solid var(--border);
 			border-radius: var(--radius);
-			padding: 24px 28px 16px;
-			margin-bottom: 24px;
+			padding: 14px 16px 10px;
+			margin-bottom: 14px;
 			box-shadow: var(--shadow);
 			transition: box-shadow .2s ease;
 		}
 		section.module:hover { box-shadow: var(--shadow-hover); }
 		section.module h2 {
 			margin-top: 0;
-			display: flex; align-items: center; justify-content: space-between; gap: 12px;
+			display: flex; align-items: center; justify-content: space-between; gap: 8px;
 			flex-wrap: wrap;
 			border-bottom: 3px solid var(--navy);
-			padding-bottom: 12px;
-			font-size: clamp(18px, 2.2vw, 24px);
+			padding-bottom: 8px;
+			font-size: 9px;
 		}
 		.module-total {
-			font-size: 13px;
+			font-size: 8.5px;
 			background: #e3eef9;
 			color: var(--navy);
-			padding: 6px 14px;
+			padding: 4px 10px;
 			border-radius: 14px;
 			font-weight: 700;
 			white-space: nowrap;
@@ -216,16 +221,17 @@
 		.summary-box, .summary-card, .note-box, .info-box, .key-point,
 		.workflow-box, .benefit-box, .placeholder {
 			border-radius: var(--radius);
-			padding: 18px 20px;
-			margin: 16px 0;
+			padding: 10px 12px;
+			margin: 10px 0;
+			font-size: 9.5px;
 		}
 		.summary-box, .summary-card { background: var(--card); border: 1px solid var(--border); box-shadow: var(--shadow); }
 		.note-box { background: #fffbf0; border-left: 4px solid #f0ad4e; }
 		.info-box { background: #e8f4f8; border-left: 4px solid var(--accent); }
-		.key-point { background: #e3f2fd; border-left: 4px solid var(--accent); font-size: 14px; }
+		.key-point { background: #e3f2fd; border-left: 4px solid var(--accent); font-size: 9.5px; }
 		.workflow-box {
 			background: #fff3cd; border-left: 4px solid #e74c3c;
-			white-space: pre-wrap; font-family: "SF Mono", Consolas, monospace; font-size: 13px;
+			white-space: pre-wrap; font-family: "SF Mono", Consolas, monospace; font-size: 9px;
 			overflow-x: auto;
 		}
 		.benefit-box { background: #d4edda; border-left: 4px solid #27ae60; }
@@ -252,47 +258,47 @@
 
 		/* ---------- Tables ---------- */
 		.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
-		table { border-collapse: collapse; width: 100%; font-size: 14px; }
+		table { border-collapse: collapse; width: 100%; font-size: 9px; }
 		thead th, .sub-content th {
 			background: #e8eef6; color: var(--navy-dark);
-			text-align: left; padding: 12px; font-weight: 700;
+			text-align: left; padding: 7px 8px; font-weight: 700;
 			position: sticky; top: 0;
 			border-bottom: 2px solid var(--navy);
 		}
-		tbody td, .sub-content td { padding: 10px 12px; border-top: 1px solid var(--border); vertical-align: top; }
+		tbody td, .sub-content td { padding: 6px 8px; border-top: 1px solid var(--border); vertical-align: top; }
 		tbody tr:hover { background: #f5f9fc; }
 		tbody tr:nth-child(even) { background: #fafcfe; }
 		#iwt table { width: 100%; margin: 0 auto; border: 2px solid var(--navy); border-radius: 8px; }
-		#iwt th, #iwt td { padding: 10px !important; font-size: 14px !important; }
-		#iwt button { padding: 8px 12px !important; font-size: 13px !important; }
+		#iwt th, #iwt td { padding: 10px !important; font-size: 9px !important; }
+		#iwt button { padding: 8px 12px !important; font-size: 9px !important; }
 
 		/* ---------- Badges / codes / methods / priority ---------- */
 		code {
-			background: #f5f7fa; padding: 3px 6px; border-radius: 5px;
+			background: #f5f7fa; padding: 2px 4px; border-radius: 4px;
 			font-family: "SF Mono", Consolas, monospace; color: #d63384;
-			border: 1px solid #e8ecf0; font-size: 13px;
+			border: 1px solid #e8ecf0; font-size: 9px;
 		}
 		.method {
-			display: inline-block; font-weight: 800; font-size: 12px;
-			padding: 4px 10px; border-radius: 6px; color: #fff; letter-spacing: 0.05em;
+			display: inline-block; font-weight: 800; font-size: 8px;
+			padding: 2px 7px; border-radius: 5px; color: #fff; letter-spacing: 0.05em;
 		}
 		.method-GET { background: var(--get); }
 		.method-POST { background: var(--post); }
 		.method-PUT { background: var(--put); }
 		.method-DELETE { background: var(--delete); }
 
-		.priority { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 8px; }
+		.priority { font-size: 8px; font-weight: 700; padding: 2px 7px; border-radius: 7px; }
 		.priority-High { background: #fdecea; color: var(--high); }
 		.priority-Medium { background: #fff2e0; color: var(--medium); }
 		.priority-Low { background: #eef0f2; color: var(--low); }
 
-		.badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; color: #fff; }
+		.badge { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 8.5px; font-weight: 600; color: #fff; }
 		.badge-required { background: #e74c3c; }
 		.badge-optional { background: #95a5a6; }
 		.badge-trigger { background: var(--accent); }
 		.badge-validation { background: #27ae60; }
 
-		.status-pending { font-size: 11px; font-weight: 600; color: var(--muted); background: #eef0f2; padding: 3px 8px; border-radius: 10px; }
+		.status-pending { font-size: 8px; font-weight: 600; color: var(--muted); background: #eef0f2; padding: 2px 7px; border-radius: 10px; }
 
 		/* ---------- Buttons ---------- */
 		button, .action-button, .print-btn, .section-toc-btn, .org-btn, .sub-tab, .nav-tab {
@@ -304,11 +310,11 @@
 		button:hover, .action-button:hover { transform: translateY(-2px); }
 
 		/* ---------- Test case cards ---------- */
-		.test-case { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 20px; overflow: hidden; box-shadow: var(--shadow); }
-		.test-case-header { background: #f8f9fa; padding: 18px 20px; border-bottom: 2px solid var(--accent); }
-		.test-case-title { color: var(--accent); font-size: 1.25em; font-weight: 700; }
-		.test-case-id { color: var(--muted); font-size: 0.9em; }
-		.test-case-body { padding: 20px; }
+		.test-case { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; box-shadow: var(--shadow); }
+		.test-case-header { background: #f8f9fa; padding: 10px 12px; border-bottom: 2px solid var(--accent); }
+		.test-case-title { color: var(--accent); font-size: 0.8em; font-weight: 700; }
+		.test-case-id { color: var(--muted); font-size: 0.7em; }
+		.test-case-body { padding: 12px; font-size: 9px; }
 		.test-section h4 { color: var(--navy-dark); border-bottom: 2px solid var(--accent); padding-bottom: 6px; margin-bottom: 10px; }
 		.field-table th { background: var(--accent); color: #fff; padding: 10px; text-align: left; }
 		.field-table td { padding: 10px; border: 1px solid var(--border); }
@@ -320,7 +326,7 @@
 		.toc-item { background: #fff; padding: 14px; border-left: 4px solid var(--accent); border-radius: 8px; cursor: pointer; transition: all .2s ease; }
 		.toc-item:hover { box-shadow: 0 4px 14px rgba(50,130,184,0.2); transform: translateX(4px); }
 		.toc-item a { text-decoration: none; color: var(--accent); font-weight: 600; }
-		.toc-count { background: var(--navy); color: #fff; border-radius: 10px; padding: 1px 8px; font-size: 12px; font-weight: 600; }
+		.toc-count { background: var(--navy); color: #fff; border-radius: 10px; padding: 1px 7px; font-size: 8.5px; font-weight: 600; }
 
 		/* ---------- Sidebar (API test-case doc) ---------- */
 		.layout { display: flex; flex-wrap: wrap; width: 100%; }
@@ -339,8 +345,8 @@
 
 		/* ---------- Footer ---------- */
 		footer {
-			background: #f8f9fa; padding: 18px; text-align: center; color: var(--muted);
-			border-top: 1px solid var(--border); font-size: 13px; width: 100%;
+			background: #f8f9fa; padding: 12px; text-align: center; color: var(--muted);
+			border-top: 1px solid var(--border); font-size: 9px; width: 100%;
 		}
 
 		/* ---------- Print button ---------- */
@@ -395,7 +401,7 @@
 							padding: 10px 20px;
 							border-radius: 6px;
 							cursor: pointer;
-							font-size: 7px;
+							font-size: 6px;
 							font-weight: 600;
 							transition: all 0.3s ease;
 						" onmouseover="this.style.background='linear-gradient(135deg, #163a5c 0%, #0f2639 100%)'"
@@ -433,7 +439,7 @@
 
 					<div class="module-header">
 						<h2>📘 ITE Complete Documentation</h2>
-						<p style="font-size: 1.1em; opacity: 0.9;">Integrated Technology Enterprise - Project Summary
+						<p style="font-size: 0.85em; opacity: 0.9;">Integrated Technology Enterprise - Project Summary
 							with Hierarchy Charts</p>
 						<div class="author-info">Created by: Ashwin Borkar | Version: 7.0 | Date: July 30, 2026</div>
 					</div>
@@ -6576,13 +6582,13 @@
 										<!-- Zoom Controls -->
 										<div style="margin-bottom: 15px; text-align: center;">
 											<button id="zoomInBtn"
-												style="padding: 8px 16px; margin-right: 10px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold;">🔍+
+												style="padding: 8px 16px; margin-right: 10px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 9px; font-weight: bold;">🔍+
 												Zoom In</button>
 											<button id="zoomOutBtn"
-												style="padding: 8px 16px; margin-right: 10px; background-color: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold;">🔍-
+												style="padding: 8px 16px; margin-right: 10px; background-color: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 9px; font-weight: bold;">🔍-
 												Zoom Out</button>
 											<button id="resetZoomBtn"
-												style="padding: 8px 16px; background-color: #95a5a6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold;">↺
+												style="padding: 8px 16px; background-color: #95a5a6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 9px; font-weight: bold;">↺
 												Reset</button>
 											<span id="zoomLevel"
 												style="margin-left: 20px; font-weight: bold; color: #2c3e50;">Zoom:
@@ -9199,7 +9205,7 @@
 												<div class="test-section">
 													<h4>🏛️ Complete Master Data Structure</h4>
 													<pre
-														style="background: #f0f0f0; padding: 15px; border-left: 5px solid #2980b9; overflow-x: auto; font-size: 0.9em;"><strong>ORGANIZATION (Parent Root)</strong>
+														style="background: #f0f0f0; padding: 15px; border-left: 5px solid #2980b9; overflow-x: auto; font-size: 0.7em;"><strong>ORGANIZATION (Parent Root)</strong>
 				│
 				├── 📦 MANUFACTURERS (1:Many)
 				│   └── Products (Many reference manufacturer)
@@ -9840,7 +9846,7 @@
 												<div class="test-section">
 													<h4>🏛️ Product Configuration Structure</h4>
 													<pre
-														style="background: #f0f0f0; padding: 15px; border-left: 5px solid #e74c3c; overflow-x: auto; font-size: 0.9em;"><strong>PRODUCT (Base Configuration)</strong>
+														style="background: #f0f0f0; padding: 15px; border-left: 5px solid #e74c3c; overflow-x: auto; font-size: 0.7em;"><strong>PRODUCT (Base Configuration)</strong>
 				├── Linked Masters
 				│   ├── Manufacturer (FK to manufacturers)
 				│   ├── Item Type (FK to item_types)
@@ -10118,7 +10124,7 @@
 												<div class="test-section">
 													<h4>🏛️ PR Lifecycle & Relationships</h4>
 													<pre
-														style="background: #f0f0f0; padding: 15px; border-left: 5px solid #9b59b6; overflow-x: auto; font-size: 0.9em;"><strong>ORGANIZATION</strong>
+														style="background: #f0f0f0; padding: 15px; border-left: 5px solid #9b59b6; overflow-x: auto; font-size: 0.7em;"><strong>ORGANIZATION</strong>
 				↓
 				PURCHASE REQUISITION (PR-YYYY-XXXXXX)
 						├── Status: Draft → Submitted → Approved/Rejected
@@ -10331,7 +10337,7 @@
 												<div class="test-section">
 													<h4>🏛️ PO Processing Flow</h4>
 													<pre
-														style="background: #f0f0f0; padding: 15px; border-left: 5px solid #e74c3c; overflow-x: auto; font-size: 0.9em;"><strong>PURCHASE ORDER (PO-YYYY-XXXXXX)</strong>
+														style="background: #f0f0f0; padding: 15px; border-left: 5px solid #e74c3c; overflow-x: auto; font-size: 0.7em;"><strong>PURCHASE ORDER (PO-YYYY-XXXXXX)</strong>
 				├── From: Approved Purchase Requisition
 				│
 				├── TC-029: Generate PO (CREATE)
@@ -19608,7 +19614,7 @@
 											style="background: #fff3cd; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
 											<h4 style="color: #856404; margin: 0;">Total Bugs</h4>
 											<p
-												style="font-size: 2.5em; font-weight: bold; color: #856404; margin: 10px 0;">
+												style="font-size: 1.7em; font-weight: bold; color: #856404; margin: 10px 0;">
 												24</p>
 											<small>All reported issues</small>
 										</div>
@@ -19616,7 +19622,7 @@
 											style="background: #f8d7da; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
 											<h4 style="color: #721c24; margin: 0;">High Priority</h4>
 											<p
-												style="font-size: 2.5em; font-weight: bold; color: #721c24; margin: 10px 0;">
+												style="font-size: 1.7em; font-weight: bold; color: #721c24; margin: 10px 0;">
 												8</p>
 											<small>Requires immediate attention</small>
 										</div>
@@ -19624,7 +19630,7 @@
 											style="background: #d1ecf1; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
 											<h4 style="color: #0c5460; margin: 0;">In Progress</h4>
 											<p
-												style="font-size: 2.5em; font-weight: bold; color: #0c5460; margin: 10px 0;">
+												style="font-size: 1.7em; font-weight: bold; color: #0c5460; margin: 10px 0;">
 												5</p>
 											<small>Currently being worked on</small>
 										</div>
@@ -19632,7 +19638,7 @@
 											style="background: #d4edda; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
 											<h4 style="color: #155724; margin: 0;">Resolved</h4>
 											<p
-												style="font-size: 2.5em; font-weight: bold; color: #155724; margin: 10px 0;">
+												style="font-size: 1.7em; font-weight: bold; color: #155724; margin: 10px 0;">
 												11</p>
 											<small>Fixed and verified</small>
 										</div>
@@ -19862,7 +19868,7 @@
 										<div
 											style="position: relative; background: white; margin: 20px auto; padding: 30px; border-radius: 8px; width: 95%; max-width: 750px; box-shadow: 0 8px 16px rgba(0,0,0,0.3);">
 											<button onclick="closePreviewModal()"
-												style="position: absolute; top: 15px; right: 15px; background: #dc3545; color: white; border: none; border-radius: 50%; width: 45px; height: 45px; cursor: pointer; font-size: 24px; font-weight: bold; display: flex; align-items: center; justify-content: center;">✕</button>
+												style="position: absolute; top: 15px; right: 15px; background: #dc3545; color: white; border: none; border-radius: 50%; width: 45px; height: 45px; cursor: pointer; font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center;">✕</button>
 
 											<h2
 												style="color: #333; margin-top: 0; border-bottom: 3px solid #007bff; padding-bottom: 10px;">
@@ -19877,7 +19883,7 @@
 														style="display: block; font-weight: bold; color: #555; margin-bottom: 5px;">📝
 														Bug Title:</label>
 													<div id="preview-title"
-														style="background: #f0f8ff; padding: 15px; border-left: 5px solid #007bff; border-radius: 4px; font-size: 18px; font-weight: 600; color: #0056b3; min-height: 30px;">
+														style="background: #f0f8ff; padding: 15px; border-left: 5px solid #007bff; border-radius: 4px; font-size: 14px; font-weight: 600; color: #0056b3; min-height: 30px;">
 													</div>
 												</div>
 
@@ -19887,7 +19893,7 @@
 														style="display: block; font-weight: bold; color: #555; margin-bottom: 5px;">📄
 														Description:</label>
 													<div id="preview-description"
-														style="background: #f0fff4; padding: 15px; border-left: 5px solid #28a745; border-radius: 4px; min-height: 100px; color: #155724; white-space: pre-wrap; word-wrap: break-word; line-height: 1.5; font-size: 14px;">
+														style="background: #f0fff4; padding: 15px; border-left: 5px solid #28a745; border-radius: 4px; min-height: 100px; color: #155724; white-space: pre-wrap; word-wrap: break-word; line-height: 1.5; font-size: 9px;">
 													</div>
 												</div>
 
@@ -19899,7 +19905,7 @@
 															style="display: block; font-weight: bold; color: #555; margin-bottom: 5px;">⚠️
 															Priority:</label>
 														<div id="preview-priority"
-															style="background: #fffbf0; padding: 12px; border-left: 5px solid #ffc107; border-radius: 4px; color: #856404; font-weight: 600; font-size: 15px;">
+															style="background: #fffbf0; padding: 12px; border-left: 5px solid #ffc107; border-radius: 4px; color: #856404; font-weight: 600; font-size: 12px;">
 														</div>
 													</div>
 													<div>
@@ -19907,7 +19913,7 @@
 															style="display: block; font-weight: bold; color: #555; margin-bottom: 5px;">📁
 															Module:</label>
 														<div id="preview-module"
-															style="background: #f0f9fb; padding: 12px; border-left: 5px solid #17a2b8; border-radius: 4px; color: #0c5460; font-weight: 600; font-size: 15px;">
+															style="background: #f0f9fb; padding: 12px; border-left: 5px solid #17a2b8; border-radius: 4px; color: #0c5460; font-weight: 600; font-size: 12px;">
 														</div>
 													</div>
 												</div>
@@ -19918,7 +19924,7 @@
 														style="display: block; font-weight: bold; color: #555; margin-bottom: 5px;">👤
 														Assigned To:</label>
 													<div id="preview-assigned"
-														style="background: #f5f0ff; padding: 12px; border-left: 5px solid #6f42c1; border-radius: 4px; color: #4a148c; font-weight: 600; font-size: 15px;">
+														style="background: #f5f0ff; padding: 12px; border-left: 5px solid #6f42c1; border-radius: 4px; color: #4a148c; font-weight: 600; font-size: 12px;">
 													</div>
 												</div>
 
@@ -19944,9 +19950,9 @@
 												<!-- Summary Badge -->
 												<div
 													style="background: #e7f3ff; border: 2px solid #007bff; padding: 15px; border-radius: 4px; text-align: center;">
-													<strong style="color: #007bff; font-size: 16px;">✅ Ready to
+													<strong style="color: #007bff; font-size: 13px;">✅ Ready to
 														Save</strong>
-													<p style="margin: 10px 0 0 0; color: #555; font-size: 14px;">Click
+													<p style="margin: 10px 0 0 0; color: #555; font-size: 9px;">Click
 														"💾 Save Bug" in the form to create this bug</p>
 												</div>
 
@@ -19954,10 +19960,10 @@
 
 											<div style="display: flex; gap: 10px; justify-content: center;">
 												<button onclick="closePreviewModal()"
-													style="padding: 12px 30px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px;">👈
+													style="padding: 12px 30px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 9px;">👈
 													Back to Form</button>
 												<button onclick="saveBugFromPreview()"
-													style="padding: 12px 30px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px;">💾
+													style="padding: 12px 30px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 9px;">💾
 													Save Bug Now</button>
 											</div>
 										</div>
@@ -20156,10 +20162,10 @@
 									const resolved = bugs.filter(b => b.status === 'resolved').length;
 
 									const statsCards = document.querySelectorAll('.stat-card');
-									if (statsCards[0]) statsCards[0].innerHTML = '<h4 style="color: #856404; margin: 0;">Total Bugs</h4><p style="font-size: 2.5em; font-weight: bold; color: #856404; margin: 10px 0;">' + total + '</p><small>All reported issues</small>';
-									if (statsCards[1]) statsCards[1].innerHTML = '<h4 style="color: #721c24; margin: 0;">High Priority</h4><p style="font-size: 2.5em; font-weight: bold; color: #721c24; margin: 10px 0;">' + highPriority + '</p><small>Requires immediate attention</small>';
-									if (statsCards[2]) statsCards[2].innerHTML = '<h4 style="color: #0c5460; margin: 0;">In Progress</h4><p style="font-size: 2.5em; font-weight: bold; color: #0c5460; margin: 10px 0;">' + inProgress + '</p><small>Currently being worked on</small>';
-									if (statsCards[3]) statsCards[3].innerHTML = '<h4 style="color: #155724; margin: 0;">Resolved</h4><p style="font-size: 2.5em; font-weight: bold; color: #155724; margin: 10px 0;">' + resolved + '</p><small>Fixed and verified</small>';
+									if (statsCards[0]) statsCards[0].innerHTML = '<h4 style="color: #856404; margin: 0;">Total Bugs</h4><p style="font-size: 1.7em; font-weight: bold; color: #856404; margin: 10px 0;">' + total + '</p><small>All reported issues</small>';
+									if (statsCards[1]) statsCards[1].innerHTML = '<h4 style="color: #721c24; margin: 0;">High Priority</h4><p style="font-size: 1.7em; font-weight: bold; color: #721c24; margin: 10px 0;">' + highPriority + '</p><small>Requires immediate attention</small>';
+									if (statsCards[2]) statsCards[2].innerHTML = '<h4 style="color: #0c5460; margin: 0;">In Progress</h4><p style="font-size: 1.7em; font-weight: bold; color: #0c5460; margin: 10px 0;">' + inProgress + '</p><small>Currently being worked on</small>';
+									if (statsCards[3]) statsCards[3].innerHTML = '<h4 style="color: #155724; margin: 0;">Resolved</h4><p style="font-size: 1.7em; font-weight: bold; color: #155724; margin: 10px 0;">' + resolved + '</p><small>Fixed and verified</small>';
 								}
 
 								// Display active filters
@@ -20374,7 +20380,7 @@
 												width: 45px;
 												height: 45px;
 												cursor: pointer;
-												font-size: 24px;
+												font-size: 18px;
 												font-weight: bold;
 												display: flex;
 												align-items: center;
@@ -20389,18 +20395,18 @@
 												margin: 0 0 20px 0;
 												border-bottom: 3px solid #007bff;
 												padding-bottom: 15px;
-												font-size: 24px;
+												font-size: 18px;
 											">🐞 Bug Details: ${bug.id}</h2>
 
 											<!-- Title -->
 											<div style="margin-bottom: 20px;">
-												<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 14px;">📝 Title:</label>
+												<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 9px;">📝 Title:</label>
 												<div style="
 													background: #f0f8ff;
 													padding: 15px;
 													border-left: 5px solid #007bff;
 													border-radius: 4px;
-													font-size: 18px;
+													font-size: 14px;
 													font-weight: 600;
 													color: #0056b3;
 												">${bug.title}</div>
@@ -20408,7 +20414,7 @@
 
 											<!-- Description -->
 											<div style="margin-bottom: 20px;">
-												<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 14px;">📄 Description:</label>
+												<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 9px;">📄 Description:</label>
 												<div style="
 													background: #f0fff4;
 													padding: 15px;
@@ -20419,14 +20425,14 @@
 													white-space: pre-wrap;
 													word-wrap: break-word;
 													line-height: 1.6;
-													font-size: 14px;
+													font-size: 9px;
 												">${bug.description}</div>
 											</div>
 
 											<!-- Priority, Status, Module -->
 											<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 20px;">
 												<div>
-													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 14px;">⚠️ Priority:</label>
+													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 9px;">⚠️ Priority:</label>
 													<div style="
 														background: ${priorityColor.bg};
 														color: ${priorityColor.text};
@@ -20438,7 +20444,7 @@
 													">${bug.priority}</div>
 												</div>
 												<div>
-													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 14px;">✅ Status:</label>
+													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 9px;">✅ Status:</label>
 													<div style="
 														background: ${statusColor.bg};
 														color: ${statusColor.text};
@@ -20450,7 +20456,7 @@
 													">${bug.status.replace('-', ' ')}</div>
 												</div>
 												<div>
-													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 14px;">📁 Module:</label>
+													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 9px;">📁 Module:</label>
 													<div style="
 														background: #f0f9fb;
 														color: #0c5460;
@@ -20466,7 +20472,7 @@
 											<!-- Assigned To and Reported Date -->
 											<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
 												<div>
-													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 14px;">👤 Assigned To:</label>
+													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 9px;">👤 Assigned To:</label>
 													<div style="
 														background: #f5f0ff;
 														color: #4a148c;
@@ -20477,7 +20483,7 @@
 													">${bug.assigned || 'Unassigned'}</div>
 												</div>
 												<div>
-													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 14px;">📅 Reported Date:</label>
+													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 9px;">📅 Reported Date:</label>
 													<div style="
 														background: #fff5e6;
 														color: #cc6600;
@@ -20492,7 +20498,7 @@
 											<!-- Media Section -->
 											${bug.media ? `
 												<div style="margin-bottom: 20px;">
-													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 12px; font-size: 14px;">📸📹 Attached Media:</label>
+													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 12px; font-size: 9px;">📸📹 Attached Media:</label>
 													<div style="
 														background: #f8f9fa;
 														padding: 20px;
@@ -20512,7 +20518,7 @@
 																<source src="${bug.media}" type="video/mp4">
 																Your browser does not support the video tag.
 															</video>
-															<p style="margin: 15px 0 0 0; color: #666; font-size: 13px; font-weight: 600;">
+															<p style="margin: 15px 0 0 0; color: #666; font-size: 9px; font-weight: 600;">
 																📹 Video Attachment - Click to play
 															</p>
 														` : `
@@ -20542,7 +20548,7 @@
 																	🔍 Click to Zoom
 																</div>
 															</div>
-															<p style="margin: 15px 0 0 0; color: #666; font-size: 13px; font-weight: 600;">
+															<p style="margin: 15px 0 0 0; color: #666; font-size: 9px; font-weight: 600;">
 																📸 Image Attachment - Click to view full size
 															</p>
 														`}
@@ -20550,7 +20556,7 @@
 												</div>
 											` : `
 												<div style="margin-bottom: 20px;">
-													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 14px;">📸📹 Media:</label>
+													<label style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 9px;">📸📹 Media:</label>
 													<div style="
 														background: #f0f0f0;
 														padding: 20px;
@@ -20588,7 +20594,7 @@
 												border-radius: 6px;
 												cursor: pointer;
 												font-weight: bold;
-												font-size: 16px;
+												font-size: 13px;
 												transition: background 0.3s;
 											" onmouseover="this.style.background = '#c82333'" onmouseout="this.style.background = '#dc3545'">
 												❌ Close
@@ -20678,7 +20684,7 @@
 												width: 50px;
 												height: 50px;
 												cursor: pointer;
-												font-size: 28px;
+												font-size: 20px;
 												font-weight: bold;
 												z-index: 10002;
 												transition: background 0.3s;
@@ -20700,7 +20706,7 @@
 												margin-top: 20px;
 												text-align: center;
 												color: white;
-												font-size: 14px;
+												font-size: 9px;
 											">
 												<p style="margin: 0;">🐞 ${bugId} - Image Preview</p>
 												<p style="margin: 5px 0 0 0; color: #ccc;">Press ESC or click close button to exit</p>
@@ -21026,7 +21032,7 @@
 							<div id="ite-saisystem03_testcase" class="sub-content" style="display: none;">
 								<div class="module-header">
 									<h2>Test Report Sai System 03</h2>
-									<p style="font-size: 1.1em; opacity: 0.9;">Test Case Documentation and Resources</p>
+									<p style="font-size: 0.85em; opacity: 0.9;">Test Case Documentation and Resources</p>
 								</div>
 								<div class="module">
 
@@ -21053,10 +21059,10 @@
 								style="text-align: center !important; padding: 40px 20px !important; display: none !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; width: 100% !important; box-sizing: border-box !important;">
 								<!-- IWT DOCUMENTATION INDEX TABLE -->
 								<p
-									style="text-align: center !important; margin-bottom: 15px !important; font-size: 0.9em !important; color: #666 !important; font-style: italic !important;">
+									style="text-align: center !important; margin-bottom: 15px !important; font-size: 0.7em !important; color: #666 !important; font-style: italic !important;">
 									Created by: Govind Birajdar</p>
 								<h2
-									style="color: #0f4c75 !important; text-align: center !important; margin-bottom: 10px !important; font-size: 1.8em !important; width: 100% !important; margin-left: auto !important; margin-right: auto !important; font-weight: 700 !important;">
+									style="color: #0f4c75 !important; text-align: center !important; margin-bottom: 10px !important; font-size: 1.4em !important; width: 100% !important; margin-left: auto !important; margin-right: auto !important; font-weight: 700 !important;">
 									📋 IWT Documentation</h2>
 								<div
 									style="width: 100% !important; max-width: 900px !important; padding: 0 30px !important; box-sizing: border-box !important; margin-left: auto !important; margin-right: auto !important;">
@@ -21065,69 +21071,69 @@
 										<thead>
 											<tr style="background-color: #0f4c75; color: white;">
 												<th
-													style="padding: 16px 14px !important; text-align: center; font-weight: 700 !important; font-size: 1.1em !important; border-right: 1px solid rgba(255,255,255,0.3); width: 12%;">
+													style="padding: 16px 14px !important; text-align: center; font-weight: 700 !important; font-size: 0.85em !important; border-right: 1px solid rgba(255,255,255,0.3); width: 12%;">
 													No.</th>
 												<th
-													style="padding: 16px 14px !important; text-align: center; font-weight: 700 !important; font-size: 1.1em !important; border-right: 1px solid rgba(255,255,255,0.3); width: 56%;">
+													style="padding: 16px 14px !important; text-align: center; font-weight: 700 !important; font-size: 0.85em !important; border-right: 1px solid rgba(255,255,255,0.3); width: 56%;">
 													Name</th>
 												<th
-													style="padding: 16px 14px !important; text-align: center; font-weight: 700 !important; font-size: 1.1em !important; width: 32%;">
+													style="padding: 16px 14px !important; text-align: center; font-weight: 700 !important; font-size: 0.85em !important; width: 32%;">
 													View</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr style="border-bottom: 1px solid #ecf0f1;">
 												<td
-													style="padding: 16px 14px !important; text-align: center; color: #0f4c75; border-right: 1px solid #ecf0f1; font-size: 1.1em !important; font-weight: 700 !important;">
+													style="padding: 16px 14px !important; text-align: center; color: #0f4c75; border-right: 1px solid #ecf0f1; font-size: 0.85em !important; font-weight: 700 !important;">
 													1</td>
 												<td
-													style="padding: 16px 14px !important; text-align: center; border-right: 1px solid #ecf0f1; font-size: 1.05em !important; font-weight: 600 !important; word-break: break-word;">
+													style="padding: 16px 14px !important; text-align: center; border-right: 1px solid #ecf0f1; font-size: 0.85em !important; font-weight: 600 !important; word-break: break-word;">
 													🎓IWT Understanding Doc</td>
 												<td style="padding: 16px 60px !important; text-align: center;">
 													<button onclick="window.location.href='./overview.html'"
-														style="background: #667eea; color: white; border: none; padding: 10px 18px !important; border-radius: 5px; cursor: pointer; font-weight: 700 !important; font-size: 0.95em !important; transition: all 0.3s ease; min-width: 85px;"
+														style="background: #667eea; color: white; border: none; padding: 10px 18px !important; border-radius: 5px; cursor: pointer; font-weight: 700 !important; font-size: 0.8em !important; transition: all 0.3s ease; min-width: 85px;"
 														onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 18px rgba(102, 126, 234, 0.5)';"
 														onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">View</button>
 												</td>
 											</tr>
 											<tr style="border-bottom: 1px solid #ecf0f1;">
 												<td
-													style="padding: 16px 14px !important; text-align: center; color: #0f4c75; border-right: 1px solid #ecf0f1; font-size: 1.1em !important; font-weight: 700 !important;">
+													style="padding: 16px 14px !important; text-align: center; color: #0f4c75; border-right: 1px solid #ecf0f1; font-size: 0.85em !important; font-weight: 700 !important;">
 													2</td>
 												<td
-													style="padding: 16px 14px !important; text-align: center; border-right: 1px solid #ecf0f1; font-size: 1.05em !important; font-weight: 600 !important; word-break: break-word;">
+													style="padding: 16px 14px !important; text-align: center; border-right: 1px solid #ecf0f1; font-size: 0.85em !important; font-weight: 600 !important; word-break: break-word;">
 													🧪 IWT Test Cases Doc</td>
 												<td style="padding: 16px 60px !important; text-align: center;">
 													<button onclick="window.location.href='./test-cases.html'"
-														style="background: #f5576c; color: white; border: none; padding: 10px 18px !important; border-radius: 5px; cursor: pointer; font-weight: 700 !important; font-size: 0.95em !important; transition: all 0.3s ease; min-width: 85px;"
+														style="background: #f5576c; color: white; border: none; padding: 10px 18px !important; border-radius: 5px; cursor: pointer; font-weight: 700 !important; font-size: 0.8em !important; transition: all 0.3s ease; min-width: 85px;"
 														onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 18px rgba(245, 87, 108, 0.5)';"
 														onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">View</button>
 												</td>
 											</tr>
 											<tr>
 												<td
-													style="padding: 16px 14px !important; text-align: center; color: #0f4c75; border-right: 1px solid #ecf0f1; font-size: 1.1em !important; font-weight: 700 !important;">
+													style="padding: 16px 14px !important; text-align: center; color: #0f4c75; border-right: 1px solid #ecf0f1; font-size: 0.85em !important; font-weight: 700 !important;">
 													3</td>
 												<td
-													style="padding: 16px 14px !important; text-align: center; border-right: 1px solid #ecf0f1; font-size: 1.05em !important; font-weight: 600 !important; word-break: break-word;">
+													style="padding: 16px 14px !important; text-align: center; border-right: 1px solid #ecf0f1; font-size: 0.85em !important; font-weight: 600 !important; word-break: break-word;">
 													🐞IWT Old Theme Bug Management Doc</td>
 												<td style="padding: 16px 60px !important; text-align: center;">
 													<button onclick="window.location.href='./iwt-issues.html'"
-														style="background: #e74c3c; color: white; border: none; padding: 10px 18px !important; border-radius: 5px; cursor: pointer; font-weight: 700 !important; font-size: 0.95em !important; transition: all 0.3s ease; min-width: 85px;"
+														style="background: #e74c3c; color: white; border: none; padding: 10px 18px !important; border-radius: 5px; cursor: pointer; font-weight: 700 !important; font-size: 0.8em !important; transition: all 0.3s ease; min-width: 85px;"
 														onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 18px rgba(231, 76, 60, 0.5)';"
 														onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">View</button>
 												</td>
 											</tr>
 											<tr>
 												<td
-													style="padding: 16px 14px !important; text-align: center; color: #0f4c75; border-right: 1px solid #ecf0f1; font-size: 1.1em !important; font-weight: 700 !important;">
+													style="padding: 16px 14px !important; text-align: center; color: #0f4c75; border-right: 1px solid #ecf0f1; font-size: 0.85em !important; font-weight: 700 !important;">
 													4</td>
 												<td
-													style="padding: 16px 14px !important; text-align: center; border-right: 1px solid #ecf0f1; font-size: 1.05em !important; font-weight: 600 !important; word-break: break-word;">
+													style="padding: 16px 14px !important; text-align: center; border-right: 1px solid #ecf0f1; font-size: 0.85em !important; font-weight: 600 !important; word-break: break-word;">
 													🎨 IWT New Theme Bug Management Doc</td>
 												<td style="padding: 16px 60px !important; text-align: center;">
 													<button onclick="window.location.href='./iwt-new-theme-issues.html'"
-														style="background: #9b59b6; color: white; border: none; padding: 10px 18px !important; border-radius: 5px; cursor: pointer; font-weight: 700 !important; font-size: 0.95em !important; transition: all 0.3s ease; min-width: 85px;"
+														style="background: #9b59b6; color: white; border: none; padding: 10px 18px !important; border-radius: 5px; cursor: pointer; font-weight: 700 !important; font-size: 0.8em !important; transition: all 0.3s ease; min-width: 85px;"
 														onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 18px rgba(155, 89, 182, 0.5)';"
 														onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">View</button>
 												</td>
@@ -21564,12 +21570,11 @@
 							window.logout = logout;
 						</script>
 					</div>
-				</div>
-				</div>
-					<footer>
-						<p style="margin:0 0 4px;">&copy; 2026 ITE &amp; IWT Documentation. All rights reserved.</p>
-						<p style="margin:0; opacity:0.85;">Maintained by the ITE/IWT team &middot; For internal use only</p>
-					</footer>
+
+		<footer>
+			<p style="margin:0 0 4px;">&copy; 2026 ITE &amp; IWT Documentation. All rights reserved.</p>
+			<p style="margin:0; opacity:0.85;">Maintained by the ITE/IWT team &middot; For internal use only</p>
+		</footer>
 				</div>
 
 	<!-- Back to top button -->
