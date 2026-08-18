@@ -129,6 +129,23 @@
             box-shadow: 0 4px 12px rgba(155, 89, 182, 0.3);
         }
 
+        .nav-tab.all-issues-btn {
+            font-weight: 700;
+        }
+
+        .nav-tab.all-issues-btn:hover {
+            background: #f5f5f5;
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .nav-tab.all-issues-btn.active {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+        }
+
         /* Content Area */
         .content {
             display: none;
@@ -631,6 +648,34 @@
                 </div>
             </div>
         </div>
+
+        <!-- Create Issue Modal (for All Issues view) -->
+        <div id="createIssueModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">🐛 Create New Issue</div>
+                <div class="modal-body">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Module:</label>
+                    <select id="createIssueModuleSelect" class="modal-input" style="margin-bottom: 15px;" onchange="updateCreateIssueSubmodules()">
+                        <option value="">-- Select a Module --</option>
+                    </select>
+
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Submodule:</label>
+                    <select id="createIssueSubmoduleSelect" class="modal-input" style="margin-bottom: 15px;">
+                        <option value="">-- Select a Submodule --</option>
+                    </select>
+
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Issue Name:</label>
+                    <input type="text" id="createIssueNameInput" class="modal-input" placeholder="Enter issue name..." style="margin-bottom: 15px;" />
+
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Link:</label>
+                    <input type="text" id="createIssueLinkInput" class="modal-input" placeholder="Enter link/URL..." />
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn modal-btn-cancel" onclick="closeCreateIssueModal()">Cancel</button>
+                    <button class="modal-btn modal-btn-save" onclick="saveNewIssueFromAllIssues()">Create Issue</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -952,6 +997,28 @@
                 `;
             });
 
+            // Add All Issues button
+            tabsHTML += `
+                <button class="nav-tab all-issues-btn" onclick="showAllIssues()">
+                    🐛 All Issues
+                </button>
+            `;
+
+            // Add All Issues content
+            modulesHTML += `
+                <div id="module-allissues" class="content">
+                    <div class="tests-wrapper">
+                        <div class="module-header-wrapper">
+                            <div class="module-header-left">
+                                <div class="module-header">🐛 All Issues List</div>
+                                <button class="add-test-btn" onclick="openCreateIssueModal()">➕ Add Issue</button>
+                            </div>
+                        </div>
+                        <div id="allissues-container"></div>
+                    </div>
+                </div>
+            `;
+
             tabsContainer.innerHTML = tabsHTML;
             modulesContainer.innerHTML = modulesHTML;
         }
@@ -1037,20 +1104,17 @@
             submoduleTabs.innerHTML = tabsHTML;
             submoduleContents.innerHTML = contentsHTML;
 
-            // Ensure first submodule tab is active
+            // Simulate click on first submodule tab to trigger same behavior as manual click
             const firstTab = submoduleTabs.querySelector('.submodule-tab');
             if (firstTab) {
-                firstTab.classList.add('active');
+                // Trigger click event to ensure all handlers run
+                const clickEvent = new MouseEvent('click', {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window
+                });
+                firstTab.dispatchEvent(clickEvent);
             }
-
-            // Ensure first submodule content is active
-            const firstContent = submoduleContents.querySelector('.submodule-content');
-            if (firstContent) {
-                firstContent.classList.add('active');
-            }
-
-            // Rebuild tests for first submodule to include issues
-            selectSubmodule(moduleKey, submoduleKeys[0], null);
         }
 
         function selectSubmodule(moduleKey, submoduleKey, event) {
@@ -1152,11 +1216,20 @@
             }
 
             // Update the tests container
-            const testsContainer = document.getElementById(`submodule-${moduleKey}-${submoduleKey}`);
+            const containerId = `submodule-${moduleKey}-${submoduleKey}`;
+            const testsContainer = document.getElementById(containerId);
+            console.log(`Updating container ${containerId}, found:`, !!testsContainer, 'tests count:', submodule.tests.length);
             if (testsContainer) {
                 testsContainer.innerHTML = testsHTML + issuesHTML;
+                console.log(`Updated ${containerId} with tests`);
             } else {
-                console.warn(`Container not found: submodule-${moduleKey}-${submoduleKey}`);
+                console.warn(`Container not found: ${containerId}`);
+                // Try finding it in parent
+                const parent = document.getElementById(`submodule-contents-${moduleKey}`);
+                console.log('Parent exists:', !!parent);
+                if (parent) {
+                    console.log('Parent children:', parent.innerHTML);
+                }
             }
 
             // Update active content
@@ -1171,6 +1244,80 @@
             const activeTab = document.querySelector(`#submodule-tabs-${moduleKey} .submodule-tab[onclick*="${submoduleKey}"]`);
             if (activeTab) {
                 activeTab.classList.add('active');
+            }
+        }
+
+        function showAllIssues() {
+            // Update active tab
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            const allIssuesBtn = Array.from(document.querySelectorAll('.nav-tab')).find(btn => btn.textContent.includes('All Issues'));
+            if (allIssuesBtn) {
+                allIssuesBtn.classList.add('active');
+            }
+
+            // Update content visibility
+            document.querySelectorAll('.content').forEach(content => content.classList.remove('active'));
+            const allIssuesContent = document.getElementById('module-allissues');
+            if (allIssuesContent) {
+                allIssuesContent.classList.add('active');
+            }
+
+            // Build issues table
+            let issuesHTML = '';
+            if (Object.keys(issues).length === 0) {
+                issuesHTML = '<p style="padding: 20px; color: #666; text-align: center;">No issues created yet</p>';
+            } else {
+                issuesHTML = `
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+                        <thead>
+                            <tr style="background: #ffe6e6; border-bottom: 2px solid #e74c3c;">
+                                <th style="padding: 10px; text-align: left; font-weight: 600; color: #c0392b;">Issue Name</th>
+                                <th style="padding: 10px; text-align: left; font-weight: 600; color: #c0392b;">Module</th>
+                                <th style="padding: 10px; text-align: left; font-weight: 600; color: #c0392b;">Submodule</th>
+                                <th style="padding: 10px; text-align: left; font-weight: 600; color: #c0392b;">Link</th>
+                                <th style="padding: 10px; text-align: center; font-weight: 600; color: #c0392b;">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                // Iterate through all issues
+                Object.keys(issues).forEach(issueKey => {
+                    const issueList = issues[issueKey];
+                    issueList.forEach(issue => {
+                        const moduleName = moduleTests[issue.module] ? moduleTests[issue.module].name : issue.module;
+                        const submoduleName = moduleTests[issue.module] && moduleTests[issue.module].submodules[issue.submodule]
+                            ? moduleTests[issue.module].submodules[issue.submodule].name
+                            : issue.submodule;
+
+                        issuesHTML += `
+                            <tr style="border-bottom: 1px solid #f0f0f0;">
+                                <td style="padding: 10px; color: #333;">${issue.name}</td>
+                                <td style="padding: 10px; color: #666;">${moduleName}</td>
+                                <td style="padding: 10px; color: #666;">${submoduleName}</td>
+                                <td style="padding: 10px;">
+                                    <a href="${issue.link}" target="_blank" style="color: #3498db; text-decoration: none; font-size: 0.9em;">
+                                        ${issue.link.substring(0, 50)}${issue.link.length > 50 ? '...' : ''}
+                                    </a>
+                                </td>
+                                <td style="padding: 10px; text-align: center;">
+                                    <button class="action-btn action-btn-delete" onclick="deleteIssue('${issue.module}', '${issue.submodule}', '${issue.id}')" title="Delete" style="margin: 0 auto;">🗑️</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                });
+
+                issuesHTML += `
+                        </tbody>
+                    </table>
+                `;
+            }
+
+            // Display issues
+            const container = document.getElementById('allissues-container');
+            if (container) {
+                container.innerHTML = issuesHTML;
             }
         }
 
@@ -1275,8 +1422,116 @@
                 submoduleSelect.value = Object.keys(module.submodules)[0];
             }
 
+            // Switch to test tab
+            switchModalTab('test');
+
             document.getElementById('addTestModal').classList.add('show');
             document.getElementById('testNameInput').focus();
+        }
+
+        function openCreateIssueModal() {
+            // Open the new Create Issue modal for All Issues view
+            document.getElementById('createIssueNameInput').value = '';
+            document.getElementById('createIssueLinkInput').value = '';
+            document.getElementById('createIssueModuleSelect').value = '';
+            document.getElementById('createIssueSubmoduleSelect').innerHTML = '<option value="">-- Select a Submodule --</option>';
+
+            // Populate module dropdown
+            const moduleSelect = document.getElementById('createIssueModuleSelect');
+            moduleSelect.innerHTML = '<option value="">-- Select a Module --</option>';
+
+            moduleOrder.forEach(moduleKey => {
+                const module = moduleTests[moduleKey];
+                if (module) {
+                    const option = document.createElement('option');
+                    option.value = moduleKey;
+                    option.textContent = module.name;
+                    moduleSelect.appendChild(option);
+                }
+            });
+
+            document.getElementById('createIssueModal').classList.add('show');
+            document.getElementById('createIssueNameInput').focus();
+        }
+
+        function closeCreateIssueModal() {
+            document.getElementById('createIssueModal').classList.remove('show');
+        }
+
+        function updateCreateIssueSubmodules() {
+            const moduleKey = document.getElementById('createIssueModuleSelect').value;
+            const submoduleSelect = document.getElementById('createIssueSubmoduleSelect');
+
+            submoduleSelect.innerHTML = '<option value="">-- Select a Submodule --</option>';
+
+            if (moduleKey && moduleTests[moduleKey]) {
+                const module = moduleTests[moduleKey];
+                Object.keys(module.submodules).forEach(submoduleKey => {
+                    const submodule = module.submodules[submoduleKey];
+                    const option = document.createElement('option');
+                    option.value = submoduleKey;
+                    option.textContent = submodule.name;
+                    submoduleSelect.appendChild(option);
+                });
+            }
+        }
+
+        function saveNewIssueFromAllIssues() {
+            const issueName = document.getElementById('createIssueNameInput').value.trim();
+            const moduleKey = document.getElementById('createIssueModuleSelect').value;
+            const submoduleKey = document.getElementById('createIssueSubmoduleSelect').value;
+            const link = document.getElementById('createIssueLinkInput').value.trim();
+
+            if (!issueName) {
+                alert('Please enter an issue name');
+                return;
+            }
+
+            if (!moduleKey) {
+                alert('Please select a module');
+                return;
+            }
+
+            if (!submoduleKey) {
+                alert('Please select a submodule');
+                return;
+            }
+
+            if (!link) {
+                alert('Please enter a link');
+                return;
+            }
+
+            const issueId = issueName.toLowerCase().replace(/\s+/g, '-');
+            const issueKey = `${moduleKey}-${submoduleKey}`;
+            const newIssue = {
+                id: issueId,
+                name: issueName,
+                module: moduleKey,
+                submodule: submoduleKey,
+                link: link,
+                timestamp: new Date().toISOString()
+            };
+
+            if (!issues[issueKey]) {
+                issues[issueKey] = [];
+            }
+
+            issues[issueKey].push(newIssue);
+
+            // Save to Firebase
+            firebase.database().ref('issues').set(issues).then(() => {
+                console.log('Issue saved to Firebase');
+            }).catch(err => {
+                console.error('Error saving issue to Firebase:', err);
+            });
+
+            // Save to localStorage
+            localStorage.setItem('iwt_issues', JSON.stringify(issues));
+
+            closeCreateIssueModal();
+            showAllIssues();
+            alert('✓ Issue created: ' + issueName);
         }
 
         function closeAddTestModal() {
@@ -1337,7 +1592,9 @@
 
         function saveNewIssue() {
             const issueName = document.getElementById('issueNameInput').value.trim();
-            const submoduleKey = document.getElementById('issueModuleSelect').value;
+            let moduleKey = addTestModuleKey;
+            let submoduleKey = addTestSubmoduleKey;
+            const selectedValue = document.getElementById('issueModuleSelect').value;
             const link = document.getElementById('issueLinkInput').value.trim();
 
             if (!issueName) {
@@ -1345,7 +1602,7 @@
                 return;
             }
 
-            if (!submoduleKey) {
+            if (!selectedValue) {
                 alert('Please select a submodule');
                 return;
             }
@@ -1355,12 +1612,22 @@
                 return;
             }
 
+            // Parse module|submodule format if coming from All Issues
+            if (selectedValue.includes('|')) {
+                [moduleKey, submoduleKey] = selectedValue.split('|');
+            }
+
+            if (!moduleKey || !submoduleKey) {
+                alert('Error: Module or submodule not selected');
+                return;
+            }
+
             const issueId = issueName.toLowerCase().replace(/\s+/g, '-');
-            const issueKey = `${addTestModuleKey}-${submoduleKey}`;
+            const issueKey = `${moduleKey}-${submoduleKey}`;
             const newIssue = {
                 id: issueId,
                 name: issueName,
-                module: addTestModuleKey,
+                module: moduleKey,
                 submodule: submoduleKey,
                 link: link,
                 timestamp: new Date().toISOString()
@@ -1628,15 +1895,24 @@
                         if (issuesData) {
                             issues = issuesData;
                         }
-                        initializeUI();
-                    });
-                    initializeUI();
 
-                    // Small delay to ensure DOM is ready
-                    setTimeout(() => {
-                        const savedModule = localStorage.getItem('selectedModule') || 'promise';
-                        selectModule(savedModule);
-                    }, 100);
+                        // Initialize UI after all data is loaded
+                        initializeUI();
+
+                        // Small delay to ensure DOM is ready, then select module
+                        setTimeout(() => {
+                            const savedModule = localStorage.getItem('selectedModule') || 'promise';
+                            console.log('Selecting module on init:', savedModule);
+                            selectModule(savedModule);
+                        }, 100);
+                    }).catch(err => {
+                        console.error('Error loading issues from Firebase:', err);
+                        initializeUI();
+                        setTimeout(() => {
+                            const savedModule = localStorage.getItem('selectedModule') || 'promise';
+                            selectModule(savedModule);
+                        }, 100);
+                    });
                 }).catch(err => {
                     console.error('Error loading test results from Firebase:', err);
                     initializeUI();
