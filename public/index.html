@@ -86,6 +86,10 @@
     display: block;
     background: linear-gradient(135deg, #fafbfc 0%, #f4f7fa 100%);
   }
+  .module-header{
+    padding: 0px; 
+    font-size: 7px;
+  }
   nav.sidebar .search-box {
     width: 100%;
     padding: clamp(8px, 1vw, 12px);
@@ -480,6 +484,8 @@
 						box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
 				}
 
+
+
 				/* SUB-TABS FOR ITE PROJECT - FIXED */
 				.sub-tabs {
 						display: none;
@@ -495,6 +501,36 @@
 						overflow-x: hidden;
 						max-height: auto;
 				}
+
+
+
+
+        /* Org selector buttons (ITE / IWT) */
+.org-btn,
+.org-tab,
+.org-selector button {
+    padding: 6px 14px !important;
+    font-size: 13px !important;
+}
+
+/* Sub-tab buttons (ITE Project Understanding, etc.) */
+.sub-tab,
+.sub-tab-btn,
+.subtab {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+}
+.sub-tab i, .sub-tab svg,
+.sub-tab-btn i, .sub-tab-btn svg {
+    font-size: 13px !important;
+}
+
+/* Nav-tabs grid (Overview, User Module, etc.) */
+.nav-tab,
+.nav-tab-btn {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+}
 
 				.sub-tabs.active {
 						display: flex;
@@ -1462,8 +1498,22 @@
 						text-align: center;
 				}
 
+        .org-btn {
+              padding: 8px 20px;      /* was likely 12px 30px or similar */
+              font-size: 8px;        /* was likely 16-18px */
+          }
+
+          /* Sub-tab buttons (ITE Project Understanding, etc.) */
+          .sub-tab-btn {
+              padding: 6px 14px;
+              font-size: 10px;
+          }
+          .sub-tab-btn i, .sub-tab-btn svg {
+              font-size: 14px;        /* shrink the icon too, if separate */
+          }
+
 				header h1 {
-						font-size: 2.5em;
+						font-size: 0.5em;
 						margin-bottom: 10px;
 						text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 				}
@@ -1784,7 +1834,7 @@
 							padding: 10px 20px;
 							border-radius: 6px;
 							cursor: pointer;
-							font-size: 14px;
+							font-size: 7px;
 							font-weight: 600;
 							transition: all 0.3s ease;
 						" onmouseover="this.style.background='linear-gradient(135deg, #163a5c 0%, #0f2639 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #1F4E78 0%, #163a5c 100%)'">
