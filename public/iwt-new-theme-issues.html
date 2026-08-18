@@ -962,6 +962,11 @@
             localStorage.setItem('selectedModule', moduleKey);
             const module = moduleTests[moduleKey];
 
+            if (!module) {
+                console.warn('Module not found:', moduleKey);
+                return;
+            }
+
             // Update tab styling
             document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
             const moduleButton = document.querySelector(`.nav-tab[onclick*="${moduleKey}"]`);
@@ -1032,15 +1037,37 @@
             submoduleTabs.innerHTML = tabsHTML;
             submoduleContents.innerHTML = contentsHTML;
 
-            // Select first submodule
+            // Ensure first submodule tab is active
+            const firstTab = submoduleTabs.querySelector('.submodule-tab');
+            if (firstTab) {
+                firstTab.classList.add('active');
+            }
+
+            // Ensure first submodule content is active
+            const firstContent = submoduleContents.querySelector('.submodule-content');
+            if (firstContent) {
+                firstContent.classList.add('active');
+            }
+
+            // Rebuild tests for first submodule to include issues
             selectSubmodule(moduleKey, submoduleKeys[0], null);
         }
 
         function selectSubmodule(moduleKey, submoduleKey, event) {
             currentSubmodule = submoduleKey;
+
+            // Update active tab
             if (event) {
                 document.querySelectorAll(`#submodule-tabs-${moduleKey} .submodule-tab`).forEach(tab => tab.classList.remove('active'));
                 event.target.classList.add('active');
+            } else {
+                // If no event, manually set active tab
+                document.querySelectorAll(`#submodule-tabs-${moduleKey} .submodule-tab`).forEach(tab => tab.classList.remove('active'));
+                const tabButton = Array.from(document.querySelectorAll(`#submodule-tabs-${moduleKey} .submodule-tab`))
+                    .find(tab => tab.textContent.includes(moduleTests[moduleKey].submodules[submoduleKey].name));
+                if (tabButton) {
+                    tabButton.classList.add('active');
+                }
             }
 
             // Rebuild tests for this submodule
@@ -1128,12 +1155,22 @@
             const testsContainer = document.getElementById(`submodule-${moduleKey}-${submoduleKey}`);
             if (testsContainer) {
                 testsContainer.innerHTML = testsHTML + issuesHTML;
+            } else {
+                console.warn(`Container not found: submodule-${moduleKey}-${submoduleKey}`);
             }
 
+            // Update active content
             document.querySelectorAll(`#submodule-contents-${moduleKey} .submodule-content`).forEach(content => content.classList.remove('active'));
             const activeContent = document.getElementById(`submodule-${moduleKey}-${submoduleKey}`);
             if (activeContent) {
                 activeContent.classList.add('active');
+            }
+
+            // Update active tab
+            document.querySelectorAll(`#submodule-tabs-${moduleKey} .submodule-tab`).forEach(tab => tab.classList.remove('active'));
+            const activeTab = document.querySelector(`#submodule-tabs-${moduleKey} .submodule-tab[onclick*="${submoduleKey}"]`);
+            if (activeTab) {
+                activeTab.classList.add('active');
             }
         }
 
