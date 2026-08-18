@@ -676,6 +676,34 @@
                 </div>
             </div>
         </div>
+
+        <!-- Edit Issue Modal -->
+        <div id="editIssueModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">✏️ Edit Issue</div>
+                <div class="modal-body">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Module:</label>
+                    <select id="editIssueModuleSelect" class="modal-input" style="margin-bottom: 15px;" onchange="updateEditIssueSubmodules()">
+                        <option value="">-- Select a Module --</option>
+                    </select>
+
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Submodule:</label>
+                    <select id="editIssueSubmoduleSelect" class="modal-input" style="margin-bottom: 15px;">
+                        <option value="">-- Select a Submodule --</option>
+                    </select>
+
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Issue Name:</label>
+                    <input type="text" id="editIssueNameInput" class="modal-input" placeholder="Enter issue name..." style="margin-bottom: 15px;" />
+
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Link:</label>
+                    <input type="text" id="editIssueLinkInput" class="modal-input" placeholder="Enter link/URL..." />
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn modal-btn-cancel" onclick="closeEditIssueModal()">Cancel</button>
+                    <button class="modal-btn modal-btn-save" onclick="saveEditIssue()">Save Changes</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1275,6 +1303,7 @@
                                 <th style="padding: 10px; text-align: left; font-weight: 600; color: #c0392b;">Module</th>
                                 <th style="padding: 10px; text-align: left; font-weight: 600; color: #c0392b;">Submodule</th>
                                 <th style="padding: 10px; text-align: left; font-weight: 600; color: #c0392b;">Link</th>
+                                <th style="padding: 10px; text-align: center; font-weight: 600; color: #c0392b;">Edit</th>
                                 <th style="padding: 10px; text-align: center; font-weight: 600; color: #c0392b;">Delete</th>
                             </tr>
                         </thead>
@@ -1299,6 +1328,9 @@
                                     <a href="${issue.link}" target="_blank" style="color: #3498db; text-decoration: none; font-size: 0.9em;">
                                         ${issue.link.substring(0, 50)}${issue.link.length > 50 ? '...' : ''}
                                     </a>
+                                </td>
+                                <td style="padding: 10px; text-align: center;">
+                                    <button class="action-btn action-btn-edit" onclick="openEditIssueModal('${issue.module}', '${issue.submodule}', '${issue.id}')" title="Edit" style="margin: 0 auto;">✏️</button>
                                 </td>
                                 <td style="padding: 10px; text-align: center;">
                                     <button class="action-btn action-btn-delete" onclick="deleteIssue('${issue.module}', '${issue.submodule}', '${issue.id}')" title="Delete" style="margin: 0 auto;">🗑️</button>
@@ -1532,6 +1564,157 @@
             closeCreateIssueModal();
             showAllIssues();
             alert('✓ Issue created: ' + issueName);
+        }
+
+        let editingIssueModule = null;
+        let editingIssueSubmodule = null;
+        let editingIssueId = null;
+
+        function openEditIssueModal(moduleKey, submoduleKey, issueId) {
+            editingIssueModule = moduleKey;
+            editingIssueSubmodule = submoduleKey;
+            editingIssueId = issueId;
+
+            // Find the issue
+            const issueKey = `${moduleKey}-${submoduleKey}`;
+            const issueList = issues[issueKey];
+            const issue = issueList.find(i => i.id === issueId);
+
+            if (!issue) {
+                alert('Issue not found');
+                return;
+            }
+
+            // Populate module dropdown
+            const moduleSelect = document.getElementById('editIssueModuleSelect');
+            moduleSelect.innerHTML = '<option value="">-- Select a Module --</option>';
+
+            moduleOrder.forEach(key => {
+                const module = moduleTests[key];
+                if (module) {
+                    const option = document.createElement('option');
+                    option.value = key;
+                    option.textContent = module.name;
+                    moduleSelect.appendChild(option);
+                }
+            });
+
+            // Set current module
+            moduleSelect.value = moduleKey;
+
+            // Populate submodules
+            updateEditIssueSubmodules();
+
+            // Set current submodule
+            document.getElementById('editIssueSubmoduleSelect').value = submoduleKey;
+
+            // Fill in other fields
+            document.getElementById('editIssueNameInput').value = issue.name;
+            document.getElementById('editIssueLinkInput').value = issue.link;
+
+            document.getElementById('editIssueModal').classList.add('show');
+            document.getElementById('editIssueNameInput').focus();
+        }
+
+        function closeEditIssueModal() {
+            document.getElementById('editIssueModal').classList.remove('show');
+            editingIssueModule = null;
+            editingIssueSubmodule = null;
+            editingIssueId = null;
+        }
+
+        function updateEditIssueSubmodules() {
+            const moduleKey = document.getElementById('editIssueModuleSelect').value;
+            const submoduleSelect = document.getElementById('editIssueSubmoduleSelect');
+
+            submoduleSelect.innerHTML = '<option value="">-- Select a Submodule --</option>';
+
+            if (moduleKey && moduleTests[moduleKey]) {
+                const module = moduleTests[moduleKey];
+                Object.keys(module.submodules).forEach(submoduleKey => {
+                    const submodule = module.submodules[submoduleKey];
+                    const option = document.createElement('option');
+                    option.value = submoduleKey;
+                    option.textContent = submodule.name;
+                    submoduleSelect.appendChild(option);
+                });
+            }
+        }
+
+        function saveEditIssue() {
+            const newName = document.getElementById('editIssueNameInput').value.trim();
+            const newModuleKey = document.getElementById('editIssueModuleSelect').value;
+            const newSubmoduleKey = document.getElementById('editIssueSubmoduleSelect').value;
+            const newLink = document.getElementById('editIssueLinkInput').value.trim();
+
+            if (!newName) {
+                alert('Please enter an issue name');
+                return;
+            }
+
+            if (!newModuleKey) {
+                alert('Please select a module');
+                return;
+            }
+
+            if (!newSubmoduleKey) {
+                alert('Please select a submodule');
+                return;
+            }
+
+            if (!newLink) {
+                alert('Please enter a link');
+                return;
+            }
+
+            // Remove from old location if module/submodule changed
+            if (editingIssueModule !== newModuleKey || editingIssueSubmodule !== newSubmoduleKey) {
+                const oldKey = `${editingIssueModule}-${editingIssueSubmodule}`;
+                if (issues[oldKey]) {
+                    issues[oldKey] = issues[oldKey].filter(i => i.id !== editingIssueId);
+                    if (issues[oldKey].length === 0) {
+                        delete issues[oldKey];
+                    }
+                }
+            }
+
+            // Update issue
+            const newKey = `${newModuleKey}-${newSubmoduleKey}`;
+            if (!issues[newKey]) {
+                issues[newKey] = [];
+            }
+
+            const existingIssue = issues[newKey].find(i => i.id === editingIssueId);
+            if (existingIssue) {
+                existingIssue.name = newName;
+                existingIssue.module = newModuleKey;
+                existingIssue.submodule = newSubmoduleKey;
+                existingIssue.link = newLink;
+                existingIssue.timestamp = new Date().toISOString();
+            } else {
+                issues[newKey].push({
+                    id: editingIssueId,
+                    name: newName,
+                    module: newModuleKey,
+                    submodule: newSubmoduleKey,
+                    link: newLink,
+                    timestamp: new Date().toISOString()
+                });
+            }
+
+            // Save to Firebase
+            firebase.database().ref('issues').set(issues).then(() => {
+                console.log('Issue updated in Firebase');
+            }).catch(err => {
+                console.error('Error saving issue to Firebase:', err);
+            });
+
+            // Save to localStorage
+            localStorage.setItem('iwt_issues', JSON.stringify(issues));
+
+            closeEditIssueModal();
+            showAllIssues();
+            alert('✓ Issue updated: ' + newName);
         }
 
         function closeAddTestModal() {
