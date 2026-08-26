@@ -923,6 +923,11 @@
 
                 displayTasks(allTasks);
                 updateStats();
+
+                // Set default filter to "To Do"
+                document.getElementById('filter-status').value = 'To Do';
+                applyFilters();
+
                 document.getElementById('loading').style.display = 'none';
             }, (error) => {
                 console.error("❌ Firebase error:", error);
