@@ -277,8 +277,7 @@
             border: 1px solid #ddd;
         }
 
-        td:nth-child(3),
-        td:nth-child(4) {
+        td:nth-child(3) {
             white-space: normal;
             word-break: break-word;
         }
@@ -321,6 +320,16 @@
             word-break: break-word;
             min-width: 200px;
             width: 200px;
+        }
+
+        .task-description {
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 0.85em;
+            line-height: 1.4;
+            padding: 12px !important;
         }
 
         .badge {
@@ -951,7 +960,7 @@
                     <td class="task-id">${String(task.taskNumber).padStart(3, '0')}</td>
                     <td>${task.assignedTo || '-'}</td>
                     <td class="task-name" title="${task.name}"><strong>${task.name}</strong></td>
-                    <td title="${task.description || '-'}">${task.description || '-'}</td>
+                    <td class="task-description" title="${task.description || '-'}">${(task.description || '-').replace(/\n/g, '<br>')}</td>
                     <td title="${task.module || '-'}">${task.module || '-'}</td>
                     <td title="${task.submodule || '-'}">${task.submodule || '-'}</td>
                     <td>
