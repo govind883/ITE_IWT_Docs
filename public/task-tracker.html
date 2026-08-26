@@ -93,31 +93,38 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 8px;
             margin-bottom: 20px;
         }
 
         .stat-card {
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             text-align: center;
             font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+            cursor: pointer;
         }
 
         .stat-card h4 {
-            margin-bottom: 8px;
-            font-size: 0.75em;
+            margin-bottom: 4px;
+            font-size: 0.65em;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.2px;
             opacity: 0.9;
         }
 
         .stat-card .number {
-            font-size: 1.8em;
+            font-size: 1.4em;
             font-weight: bold;
-            margin: 5px 0;
+            margin: 2px 0;
         }
 
         .stat-total { background: #fff3cd; color: #856404; }
@@ -127,23 +134,24 @@
 
         .filter-section {
             background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
         }
 
         .filter-section h3 {
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             color: #333;
-            font-size: 0.95em;
+            font-size: 0.85em;
+            font-weight: 600;
         }
 
         .filter-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin-bottom: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 8px;
+            margin-bottom: 8px;
         }
 
         .filter-group {
@@ -153,34 +161,34 @@
 
         .filter-group label {
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
             color: #333;
-            font-size: 0.85em;
+            font-size: 0.75em;
         }
 
         .filter-group select,
         .filter-group input {
             width: 100%;
-            padding: 8px;
+            padding: 6px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            font-size: 0.85em;
+            font-size: 0.75em;
         }
 
         .filter-buttons {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 8px 16px;
+            padding: 6px 12px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
-            font-size: 0.85em;
+            font-size: 0.75em;
         }
 
         .btn-primary {
@@ -222,35 +230,38 @@
 
         .tasks-container {
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             overflow-x: auto;
+            margin-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1400px;
+            background: white;
+            min-width: 1600px;
         }
 
         thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #343a40;
             color: white;
         }
 
         th {
-            padding: 14px 12px;
+            padding: 12px;
             text-align: left;
             font-weight: 600;
             font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 2px solid #667eea;
+            border: 1px solid #ddd;
+            white-space: nowrap;
+            min-width: 100px;
         }
 
         tbody tr {
             border-bottom: 1px solid #f0f0f0;
             transition: background-color 0.2s;
+            display: table-row;
         }
 
         tbody tr:hover {
@@ -262,23 +273,54 @@
             font-size: 0.85em;
             color: #333;
             vertical-align: middle;
+            display: table-cell;
+            border: 1px solid #ddd;
+        }
+
+        td:nth-child(3),
+        td:nth-child(4) {
+            white-space: normal;
+            word-break: break-word;
+        }
+
+        td:nth-child(1),
+        td:nth-child(2),
+        td:nth-child(5),
+        td:nth-child(6),
+        td:nth-child(7),
+        td:nth-child(8),
+        td:nth-child(9),
+        td:nth-child(10) {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         td:nth-child(1) { min-width: 80px; }
-        td:nth-child(2) { min-width: 200px; }
-        td:nth-child(3) { min-width: 120px; }
+        td:nth-child(2) { min-width: 100px; }
+        td:nth-child(3) { min-width: 200px; }
         td:nth-child(4) { min-width: 150px; }
-        td:nth-child(5) { min-width: 150px; }
-        td:nth-child(6) { min-width: 100px; }
+        td:nth-child(5) { min-width: 120px; }
+        td:nth-child(6) { min-width: 150px; }
         td:nth-child(7) { min-width: 100px; }
         td:nth-child(8) { min-width: 80px; }
-        td:nth-child(9) { min-width: 70px; }
-        td:nth-child(10) { min-width: 100px; }
-        td:nth-child(11) { min-width: 80px; }
+        td:nth-child(9) { min-width: 100px; }
+        td:nth-child(10) { min-width: 80px; }
 
         .task-id {
             font-weight: 700;
             color: #667eea;
+            font-size: 0.9em;
+            min-width: 80px;
+            width: 80px;
+        }
+
+        .task-name {
+            font-weight: 500;
+            white-space: normal;
+            word-break: break-word;
+            min-width: 200px;
+            width: 200px;
         }
 
         .badge {
@@ -292,12 +334,9 @@
 
         .badge-todo { background: #e2e3e5; color: #383d41; }
         .badge-in-progress { background: #fff3cd; color: #856404; }
-        .badge-dev-done { background: #d1ecf1; color: #0c5460; }
-        .badge-pending { background: #fffacd; color: #8b8000; }
-        .badge-blocker { background: #f8d7da; color: #721c24; }
         .badge-completed { background: #d4edda; color: #155724; }
-        .badge-uat { background: #e7ccff; color: #663399; }
-        .badge-prod { background: #90EE90; color: #228B22; }
+        .badge-delivered { background: #90EE90; color: #228B22; }
+        .badge-blocker { background: #f8d7da; color: #721c24; }
 
         .badge-high { background: #f8d7da; color: #721c24; }
         .badge-medium { background: #fff3cd; color: #856404; }
@@ -318,6 +357,65 @@
 
         .icon-btn:hover {
             transform: scale(1.2);
+        }
+
+        .status-cell {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .status-cell .badge {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 10px;
+        }
+
+        .status-cell .badge:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        tbody tr.row-delivered {
+            background-color: #d4edda !important;
+        }
+
+        tbody tr.row-delivered:hover {
+            background-color: #c3e6cb !important;
+        }
+
+        tbody tr.row-delivered td {
+            color: #155724;
+        }
+
+        .status-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            z-index: 1000;
+            min-width: 120px;
+        }
+
+        .dropdown-item {
+            padding: 8px 12px;
+            font-size: 0.75em;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            font-weight: 600;
         }
 
         /* Modal Styles */
@@ -460,41 +558,29 @@
 
         <!-- Stats Grid -->
         <div class="stats-grid">
-            <div class="stat-card stat-total">
+            <div class="stat-card stat-total" onclick="filterByStatus('')" style="cursor: pointer;">
                 <h4>Total</h4>
                 <div class="number" id="stat-total">0</div>
             </div>
-            <div class="stat-card stat-todo">
+            <div class="stat-card stat-todo" onclick="filterByStatus('To Do')" style="cursor: pointer;">
                 <h4>To Do</h4>
                 <div class="number" id="stat-todo">0</div>
             </div>
-            <div class="stat-card stat-progress">
+            <div class="stat-card stat-progress" onclick="filterByStatus('In Progress')" style="cursor: pointer;">
                 <h4>In Progress</h4>
                 <div class="number" id="stat-progress">0</div>
             </div>
-            <div class="stat-card stat-progress">
-                <h4>Dev Done</h4>
-                <div class="number" id="stat-devdone">0</div>
-            </div>
-            <div class="stat-card stat-progress">
-                <h4>Pending</h4>
-                <div class="number" id="stat-pending">0</div>
-            </div>
-            <div class="stat-card stat-progress">
-                <h4>Blocker</h4>
-                <div class="number" id="stat-blocker">0</div>
-            </div>
-            <div class="stat-card stat-completed">
+            <div class="stat-card stat-completed" onclick="filterByStatus('Completed')" style="cursor: pointer;">
                 <h4>Completed</h4>
                 <div class="number" id="stat-completed">0</div>
             </div>
-            <div class="stat-card stat-progress">
-                <h4>UAT</h4>
-                <div class="number" id="stat-uat">0</div>
+            <div class="stat-card stat-completed" onclick="filterByStatus('Delivered')" style="cursor: pointer;">
+                <h4>Delivered</h4>
+                <div class="number" id="stat-delivered">0</div>
             </div>
-            <div class="stat-card stat-completed">
-                <h4>PROD</h4>
-                <div class="number" id="stat-prod">0</div>
+            <div class="stat-card stat-progress" onclick="filterByStatus('Blocker')" style="cursor: pointer;">
+                <h4>Blocker</h4>
+                <div class="number" id="stat-blocker">0</div>
             </div>
         </div>
 
@@ -508,12 +594,9 @@
                         <option value="">All Status</option>
                         <option value="To Do">To Do</option>
                         <option value="In Progress">In Progress</option>
-                        <option value="Dev Done">Dev Done</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Blocker">Blocker</option>
                         <option value="Completed">Completed</option>
-                        <option value="UAT">UAT</option>
-                        <option value="PROD">PROD</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Blocker">Blocker</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -555,14 +638,13 @@
                 <thead>
                     <tr>
                         <th>Task ID</th>
+                        <th>Assigned To</th>
                         <th>Task Name</th>
+                        <th>Description</th>
                         <th>Module</th>
                         <th>Sub-Module</th>
-                        <th>Description</th>
-                        <th>Assigned To</th>
                         <th>Status</th>
                         <th>Priority</th>
-                        <th>Issue</th>
                         <th>Due Date</th>
                         <th>Actions</th>
                     </tr>
@@ -570,8 +652,8 @@
                 <tbody id="tasksBody">
                 </tbody>
             </table>
-            <div id="emptyState" class="empty-state">
-                <p>No tasks found. Create your first task to get started!</p>
+            <div id="emptyState" class="empty-state" style="display:none;">
+                <p>📋 No tasks found. Create your first task to get started!</p>
             </div>
         </div>
     </div>
@@ -598,12 +680,9 @@
                     <select id="taskStatus">
                         <option value="To Do">To Do</option>
                         <option value="In Progress">In Progress</option>
-                        <option value="Dev Done">Dev Done</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Blocker">Blocker</option>
                         <option value="Completed">Completed</option>
-                        <option value="UAT">UAT</option>
-                        <option value="PROD">PROD</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Blocker">Blocker</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -630,13 +709,6 @@
                     <label for="taskSubmodule">Sub-Module</label>
                     <select id="taskSubmodule">
                         <option value="">-- Select Sub-Module --</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="taskIssue">Is Issue?</label>
-                    <select id="taskIssue">
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -683,6 +755,7 @@
 
         let allTasks = [];
         let editingTaskId = null;
+        let nextTaskNumber = 1;
 
         // Module and Submodule data (from iwt-new-theme-issues.html)
         const moduleData = {
@@ -812,14 +885,27 @@
 
             db.ref('tasks').on('value', (snapshot) => {
                 allTasks = [];
+                let maxTaskNumber = 0;
+
                 snapshot.forEach((child) => {
+                    const taskData = child.val();
                     allTasks.push({
                         id: child.key,
-                        ...child.val()
+                        ...taskData
                     });
+
+                    // Extract task number from taskNumber field
+                    if (taskData.taskNumber) {
+                        const num = parseInt(taskData.taskNumber);
+                        if (num > maxTaskNumber) {
+                            maxTaskNumber = num;
+                        }
+                    }
                 });
 
-                console.log("✅ Loaded " + allTasks.length + " tasks from Firebase");
+                // Set next task number
+                nextTaskNumber = maxTaskNumber + 1;
+                console.log("✅ Loaded " + allTasks.length + " tasks from Firebase. Next Task ID: " + String(nextTaskNumber).padStart(3, '0'));
 
                 // Sort by creation date (newest first)
                 allTasks.sort((a, b) => {
@@ -852,19 +938,35 @@
 
             tasks.forEach(task => {
                 const row = document.createElement('tr');
+
+                // Add class for delivered status
+                if (task.status === 'Delivered') {
+                    row.classList.add('row-delivered');
+                }
+
                 const dueDate = new Date(task.dueDate);
                 const formattedDate = task.dueDate ? dueDate.toLocaleDateString() : '-';
 
                 row.innerHTML = `
-                    <td class="task-id">${task.id.substring(0, 8).toUpperCase()}</td>
-                    <td><strong>${task.name}</strong></td>
-                    <td>${task.module || '-'}</td>
-                    <td>${task.submodule || '-'}</td>
-                    <td>${task.description || '-'}</td>
+                    <td class="task-id">${String(task.taskNumber).padStart(3, '0')}</td>
                     <td>${task.assignedTo || '-'}</td>
-                    <td><span class="badge badge-${task.status.toLowerCase().replace(' ', '-')}">${task.status}</span></td>
+                    <td class="task-name" title="${task.name}"><strong>${task.name}</strong></td>
+                    <td title="${task.description || '-'}">${task.description || '-'}</td>
+                    <td title="${task.module || '-'}">${task.module || '-'}</td>
+                    <td title="${task.submodule || '-'}">${task.submodule || '-'}</td>
+                    <td>
+                        <div class="status-cell" onclick="toggleStatusDropdown(event, '${task.id}')">
+                            <span class="badge badge-${task.status.toLowerCase().replace(' ', '-')}">${task.status} ▼</span>
+                            <div class="status-dropdown" id="status-dropdown-${task.id}" style="display:none;">
+                                <div class="dropdown-item" onclick="updateTaskStatus('${task.id}', 'To Do')">To Do</div>
+                                <div class="dropdown-item" onclick="updateTaskStatus('${task.id}', 'In Progress')">In Progress</div>
+                                <div class="dropdown-item" onclick="updateTaskStatus('${task.id}', 'Completed')">Completed</div>
+                                <div class="dropdown-item" onclick="updateTaskStatus('${task.id}', 'Delivered')">Delivered</div>
+                                <div class="dropdown-item" onclick="updateTaskStatus('${task.id}', 'Blocker')">Blocker</div>
+                            </div>
+                        </div>
+                    </td>
                     <td><span class="badge badge-${task.priority.toLowerCase()}">${task.priority}</span></td>
-                    <td><span class="badge badge-${task.issue === 'Yes' ? 'high' : 'low'}">${task.issue || '-'}</span></td>
                     <td>${formattedDate}</td>
                     <td>
                         <div class="action-icons">
@@ -881,22 +983,16 @@
             const total = allTasks.length;
             const todo = allTasks.filter(t => t.status === 'To Do').length;
             const progress = allTasks.filter(t => t.status === 'In Progress').length;
-            const devdone = allTasks.filter(t => t.status === 'Dev Done').length;
-            const pending = allTasks.filter(t => t.status === 'Pending').length;
-            const blocker = allTasks.filter(t => t.status === 'Blocker').length;
             const completed = allTasks.filter(t => t.status === 'Completed').length;
-            const uat = allTasks.filter(t => t.status === 'UAT').length;
-            const prod = allTasks.filter(t => t.status === 'PROD').length;
+            const delivered = allTasks.filter(t => t.status === 'Delivered').length;
+            const blocker = allTasks.filter(t => t.status === 'Blocker').length;
 
             document.getElementById('stat-total').textContent = total;
             document.getElementById('stat-todo').textContent = todo;
             document.getElementById('stat-progress').textContent = progress;
-            document.getElementById('stat-devdone').textContent = devdone;
-            document.getElementById('stat-pending').textContent = pending;
-            document.getElementById('stat-blocker').textContent = blocker;
             document.getElementById('stat-completed').textContent = completed;
-            document.getElementById('stat-uat').textContent = uat;
-            document.getElementById('stat-prod').textContent = prod;
+            document.getElementById('stat-delivered').textContent = delivered;
+            document.getElementById('stat-blocker').textContent = blocker;
         }
 
         function openAddTaskModal() {
@@ -934,7 +1030,6 @@
                 priority: document.getElementById('taskPriority').value,
                 module: document.getElementById('taskModule').value || '',
                 submodule: document.getElementById('taskSubmodule').value || '',
-                issue: document.getElementById('taskIssue').value,
                 dueDate: document.getElementById('taskDueDate').value,
                 updatedAt: new Date().toISOString()
             };
@@ -951,11 +1046,13 @@
                     alert('❌ Error updating task: ' + error.message);
                 });
             } else {
-                // Create new task
+                // Create new task with auto-generated task number
                 taskData.createdAt = new Date().toISOString();
-                console.log("Creating new task");
+                taskData.taskNumber = nextTaskNumber;
+                console.log("Creating new task with ID: " + String(nextTaskNumber).padStart(3, '0'));
                 db.ref('tasks').push(taskData).then(() => {
-                    console.log("✅ Task created successfully");
+                    console.log("✅ Task created successfully with ID: " + String(nextTaskNumber).padStart(3, '0'));
+                    nextTaskNumber++;
                     closeTaskModal();
                     alert('✅ Task created successfully!');
                 }).catch(error => {
@@ -978,7 +1075,6 @@
             document.getElementById('taskPriority').value = task.priority;
             document.getElementById('taskModule').value = task.module || '';
             document.getElementById('taskDueDate').value = task.dueDate || '';
-            document.getElementById('taskIssue').value = task.issue || 'No';
 
             // Update submodules based on selected module
             updateSubmodules();
@@ -1023,6 +1119,68 @@
             document.getElementById('filter-assigned').value = '';
             displayTasks(allTasks);
         }
+
+        function filterByStatus(status) {
+            // Set the status filter dropdown
+            document.getElementById('filter-status').value = status;
+
+            // Clear other filters
+            document.getElementById('filter-module').value = '';
+            document.getElementById('filter-priority').value = '';
+            document.getElementById('filter-assigned').value = '';
+
+            // Apply filters
+            applyFilters();
+
+            // Scroll to tasks table
+            document.getElementById('tasksTable').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleStatusDropdown(event, taskId) {
+            event.stopPropagation();
+            const dropdown = document.getElementById(`status-dropdown-${taskId}`);
+
+            // Close all other dropdowns
+            document.querySelectorAll('.status-dropdown').forEach(d => {
+                if (d.id !== `status-dropdown-${taskId}`) {
+                    d.style.display = 'none';
+                }
+            });
+
+            // Toggle current dropdown
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function updateTaskStatus(taskId, newStatus) {
+            if (!db) {
+                alert('❌ Database not connected.');
+                return;
+            }
+
+            console.log(`Updating task ${taskId} status to ${newStatus}`);
+
+            db.ref(`tasks/${taskId}`).update({
+                status: newStatus,
+                updatedAt: new Date().toISOString()
+            }).then(() => {
+                console.log(`✅ Task status updated to ${newStatus}`);
+                // Close dropdown
+                const dropdown = document.getElementById(`status-dropdown-${taskId}`);
+                if (dropdown) dropdown.style.display = 'none';
+                // Update stats
+                updateStats();
+            }).catch(error => {
+                console.error("❌ Error updating status:", error);
+                alert('❌ Error updating task status: ' + error.message);
+            });
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.status-dropdown').forEach(d => {
+                d.style.display = 'none';
+            });
+        });
 
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
