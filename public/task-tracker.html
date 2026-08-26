@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="bingbot" content="noindex, nofollow">
+    <title>Task Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            margin-top: 10px;
+        }
+
+        .header p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .back-button {
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
+            padding: 6px 12px !important;
+            background: #27ae60 !important;
+            color: white !important;
+            text-decoration: none !important;
+            border-radius: 5px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            font-size: 0.8em !important;
+            border: none !important;
+            cursor: pointer !important;
+            display: inline-block !important;
+            z-index: 1000 !important;
+        }
+
+        .back-button:hover {
+            background: #229954 !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .logout-button {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            padding: 6px 12px !important;
+            background: #e74c3c !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 5px !important;
+            cursor: pointer !important;
+            font-size: 0.8em !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            z-index: 1000 !important;
+        }
+
+        .logout-button:hover {
+            background: #c0392b !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .stat-card h4 {
+            margin-bottom: 8px;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+
+        .stat-card .number {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .stat-total { background: #fff3cd; color: #856404; }
+        .stat-todo { background: #e2e3e5; color: #383d41; }
+        .stat-progress { background: #d1ecf1; color: #0c5460; }
+        .stat-completed { background: #d4edda; color: #155724; }
+
+        .filter-section {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .filter-section h3 {
+            margin-bottom: 12px;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 0.85em;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.85em;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: flex-end;
+        }
+
+        .tasks-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1400px;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        th {
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        td {
+            padding: 12px;
+            font-size: 0.85em;
+            color: #333;
+            vertical-align: middle;
+        }
+
+        td:nth-child(1) { min-width: 80px; }
+        td:nth-child(2) { min-width: 200px; }
+        td:nth-child(3) { min-width: 120px; }
+        td:nth-child(4) { min-width: 150px; }
+        td:nth-child(5) { min-width: 150px; }
+        td:nth-child(6) { min-width: 100px; }
+        td:nth-child(7) { min-width: 100px; }
+        td:nth-child(8) { min-width: 80px; }
+        td:nth-child(9) { min-width: 70px; }
+        td:nth-child(10) { min-width: 100px; }
+        td:nth-child(11) { min-width: 80px; }
+
+        .task-id {
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-todo { background: #e2e3e5; color: #383d41; }
+        .badge-in-progress { background: #fff3cd; color: #856404; }
+        .badge-dev-done { background: #d1ecf1; color: #0c5460; }
+        .badge-pending { background: #fffacd; color: #8b8000; }
+        .badge-blocker { background: #f8d7da; color: #721c24; }
+        .badge-completed { background: #d4edda; color: #155724; }
+        .badge-uat { background: #e7ccff; color: #663399; }
+        .badge-prod { background: #90EE90; color: #228B22; }
+
+        .badge-high { background: #f8d7da; color: #721c24; }
+        .badge-medium { background: #fff3cd; color: #856404; }
+        .badge-low { background: #d4edda; color: #155724; }
+
+        .action-icons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: transform 0.2s;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.2);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9em;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: flex-end;
+        }
+
+        .close-btn {
+            background: #95a5a6;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .close-btn:hover {
+            background: #7f8c8d;
+        }
+
+        .submit-btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .submit-btn:hover {
+            background: #5568d3;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .empty-state p {
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            td:nth-child(2) { min-width: 150px; }
+            td:nth-child(3) { min-width: 120px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📊 Task Tracker</h1>
+            <p>Manage and track all project tasks and deliverables</p>
+            <button class="back-button" onclick="window.location.href='./index.html'">← Back</button>
+            <button class="logout-button" onclick="logout()">🔐 Logout</button>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card stat-total">
+                <h4>Total</h4>
+                <div class="number" id="stat-total">0</div>
+            </div>
+            <div class="stat-card stat-todo">
+                <h4>To Do</h4>
+                <div class="number" id="stat-todo">0</div>
+            </div>
+            <div class="stat-card stat-progress">
+                <h4>In Progress</h4>
+                <div class="number" id="stat-progress">0</div>
+            </div>
+            <div class="stat-card stat-progress">
+                <h4>Dev Done</h4>
+                <div class="number" id="stat-devdone">0</div>
+            </div>
+            <div class="stat-card stat-progress">
+                <h4>Pending</h4>
+                <div class="number" id="stat-pending">0</div>
+            </div>
+            <div class="stat-card stat-progress">
+                <h4>Blocker</h4>
+                <div class="number" id="stat-blocker">0</div>
+            </div>
+            <div class="stat-card stat-completed">
+                <h4>Completed</h4>
+                <div class="number" id="stat-completed">0</div>
+            </div>
+            <div class="stat-card stat-progress">
+                <h4>UAT</h4>
+                <div class="number" id="stat-uat">0</div>
+            </div>
+            <div class="stat-card stat-completed">
+                <h4>PROD</h4>
+                <div class="number" id="stat-prod">0</div>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <h3>🔍 Filters</h3>
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="filter-status">Status</label>
+                    <select id="filter-status" onchange="applyFilters()">
+                        <option value="">All Status</option>
+                        <option value="To Do">To Do</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Dev Done">Dev Done</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Blocker">Blocker</option>
+                        <option value="Completed">Completed</option>
+                        <option value="UAT">UAT</option>
+                        <option value="PROD">PROD</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-module">Module</label>
+                    <select id="filter-module" onchange="applyFilters()">
+                        <option value="">All Modules</option>
+                        <option value="Promise">Promise</option>
+                        <option value="Engineer">Engineer</option>
+                        <option value="Source">Source</option>
+                        <option value="Build">Build</option>
+                        <option value="Admin Center">Admin Center</option>
+                        <option value="Assembly Lab">Assembly Lab</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-priority">Priority</label>
+                    <select id="filter-priority" onchange="applyFilters()">
+                        <option value="">All Priorities</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-assigned">Assigned To</label>
+                    <input type="text" id="filter-assigned" placeholder="Enter name" onchange="applyFilters()">
+                </div>
+            </div>
+            <div class="filter-buttons">
+                <button class="btn btn-primary" onclick="clearFilters()">🔄 Reset Filters</button>
+                <button class="btn btn-success" onclick="openAddTaskModal()">➕ Add New Task</button>
+            </div>
+        </div>
+
+        <!-- Tasks Table -->
+        <div class="tasks-container">
+            <div id="loading" class="loading" style="display:none;">Loading tasks...</div>
+            <table id="tasksTable" style="display:none;">
+                <thead>
+                    <tr>
+                        <th>Task ID</th>
+                        <th>Task Name</th>
+                        <th>Module</th>
+                        <th>Sub-Module</th>
+                        <th>Description</th>
+                        <th>Assigned To</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th>Issue</th>
+                        <th>Due Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tasksBody">
+                </tbody>
+            </table>
+            <div id="emptyState" class="empty-state">
+                <p>No tasks found. Create your first task to get started!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Task Modal -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Add New Task</h2>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="taskName">Task Name *</label>
+                    <input type="text" id="taskName" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskDesc">Description</label>
+                    <textarea id="taskDesc"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="taskAssigned">Assigned To</label>
+                    <input type="text" id="taskAssigned">
+                </div>
+                <div class="form-group">
+                    <label for="taskStatus">Status</label>
+                    <select id="taskStatus">
+                        <option value="To Do">To Do</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Dev Done">Dev Done</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Blocker">Blocker</option>
+                        <option value="Completed">Completed</option>
+                        <option value="UAT">UAT</option>
+                        <option value="PROD">PROD</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskPriority">Priority</label>
+                    <select id="taskPriority">
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskModule">Module</label>
+                    <select id="taskModule" onchange="updateSubmodules()">
+                        <option value="">-- Select Module --</option>
+                        <option value="promise">📋 Promise</option>
+                        <option value="engineer">⚙️ Engineer</option>
+                        <option value="source">📁 Source</option>
+                        <option value="build">🔨 Build</option>
+                        <option value="admincenter">👨‍💼 Admin Center</option>
+                        <option value="assemblylab">🔧 Assembly Lab</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskSubmodule">Sub-Module</label>
+                    <select id="taskSubmodule">
+                        <option value="">-- Select Sub-Module --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskIssue">Is Issue?</label>
+                    <select id="taskIssue">
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskDueDate">Due Date</label>
+                    <input type="date" id="taskDueDate">
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="close-btn" onclick="closeTaskModal()">Cancel</button>
+                    <button type="button" class="submit-btn" onclick="saveTask()">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase (Compat version for backward compatibility) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+    <script>
+        // Firebase Configuration (Same as iwt-issues.html)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBs0DGX4VF1fXCO9LXRZ3fpX3zd4AzLry4",
+            authDomain: "ite-iwt.firebaseapp.com",
+            databaseURL: "https://ite-iwt-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "ite-iwt",
+            storageBucket: "ite-iwt.firebasestorage.app",
+            messagingSenderId: "90244218074",
+            appId: "1:90244218074:web:d88040002bd1e34c3db9e3"
+        };
+
+        // Initialize Firebase
+        let db;
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+                console.log("✅ Firebase initialized successfully");
+            }
+            db = firebase.database();
+            console.log("✅ Database connection established");
+        } catch(error) {
+            console.error("❌ Firebase initialization error:", error.message);
+            alert("Firebase Error: " + error.message);
+        }
+
+        let allTasks = [];
+        let editingTaskId = null;
+
+        // Module and Submodule data (from iwt-new-theme-issues.html)
+        const moduleData = {
+            promise: {
+                name: "Promise",
+                submodules: {
+                    jobworkspace: "Job Workspace",
+                    customers: "Customers",
+                    jobnumbers: "Job Numbers",
+                    jobsummary: "Job Summary"
+                }
+            },
+            engineer: {
+                name: "Engineer",
+                submodules: {
+                    items: "Items",
+                    assembly: "Assembly",
+                    pricing: "Pricing",
+                    products: "Products",
+                    models: "Models",
+                    itempricehistory: "Item Price History"
+                }
+            },
+            source: {
+                name: "Source",
+                submodules: {
+                    requisitionworkspace: "Requisition Workspace",
+                    poworkspace: "PO Workspace",
+                    suppliers: "Suppliers",
+                    addrequisitions: "Add Requisitions",
+                    modifyprocesspr: "Modify/Process PR",
+                    prbyitems: "PR By Items",
+                    viewpr: "View PR",
+                    pocheck: "PO Check",
+                    requisitioncheck: "Requisition Check",
+                    generatepo: "Generate PO",
+                    viewpo: "View PO",
+                    modifypo: "Modify PO",
+                    receiveorder: "Receive Order",
+                    receiveditemspo: "Received Items PO",
+                    lateparts: "Late Parts",
+                    pobysupplier: "PO By Supplier",
+                    notconfirmedpo: "Not Confirmed PO",
+                    releaseprstatus: "Release PR Status",
+                    alternativesupplier: "Alternative Supplier",
+                    pobyjobnumber: "PO by JobNumber"
+                }
+            },
+            build: {
+                name: "Build",
+                submodules: {
+                    receivingqueue: "Receiving Queue",
+                    stockview: "Stock View"
+                }
+            },
+            admincenter: {
+                name: "Admin Center",
+                submodules: {
+                    organizationprofile: "Organization-Profile",
+                    roles: "Roles",
+                    users: "Users",
+                    manufacturers: "Manufacturers",
+                    units: "Units",
+                    itemtypes: "Item Types",
+                    shippingaddress: "Shipping Address",
+                    currency: "Currency",
+                    location: "Location",
+                    emailtemplate: "Email Template",
+                    department: "Department",
+                    designation: "Designation",
+                    jobbelongsto: "Job Belongs To",
+                    holdtype: "Hold Type",
+                    jobtypes: "Job Types",
+                    jobstatusconfig: "Job Status Config",
+                    workflowbuilder: "Workflow Builder",
+                    pendingapprovals: "Pending Approvals",
+                    notificationgroups: "Notification Groups",
+                    automationrules: "Automation Rules",
+                    jobnumberformat: "Job Number Format",
+                    jobtypesetup: "Job Type Setup"
+                }
+            },
+            assemblylab: {
+                name: "Assembly Lab",
+                submodules: {
+                    option1focusflow: "Option 1 — Focus Flow",
+                    option2singlesheet: "Option 2 — Single Sheet",
+                    option3studio: "Option 3 — Studio",
+                    option4command: "Option 4 — Command",
+                    currentscreenparity: "Current screen (parity)"
+                }
+            }
+        };
+
+        function updateSubmodules() {
+            const moduleSelect = document.getElementById('taskModule');
+            const submoduleSelect = document.getElementById('taskSubmodule');
+            const selectedModule = moduleSelect.value;
+
+            submoduleSelect.innerHTML = '<option value="">-- Select Sub-Module --</option>';
+
+            if (selectedModule && moduleData[selectedModule]) {
+                const submodules = moduleData[selectedModule].submodules;
+                for (const [key, name] of Object.entries(submodules)) {
+                    const option = document.createElement('option');
+                    option.value = name;
+                    option.textContent = name;
+                    submoduleSelect.appendChild(option);
+                }
+            }
+        }
+
+        // Load tasks on page load
+        window.addEventListener('load', loadTasks);
+
+        function loadTasks() {
+            if (!db) {
+                console.error("❌ Database not initialized");
+                alert("Database connection failed. Please refresh the page.");
+                return;
+            }
+
+            console.log("Loading tasks from Firebase...");
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('tasksTable').style.display = 'none';
+            document.getElementById('emptyState').style.display = 'none';
+
+            db.ref('tasks').on('value', (snapshot) => {
+                allTasks = [];
+                snapshot.forEach((child) => {
+                    allTasks.push({
+                        id: child.key,
+                        ...child.val()
+                    });
+                });
+
+                console.log("✅ Loaded " + allTasks.length + " tasks from Firebase");
+
+                // Sort by creation date (newest first)
+                allTasks.sort((a, b) => {
+                    const dateA = new Date(a.createdAt || 0);
+                    const dateB = new Date(b.createdAt || 0);
+                    return dateB - dateA;
+                });
+
+                displayTasks(allTasks);
+                updateStats();
+                document.getElementById('loading').style.display = 'none';
+            }, (error) => {
+                console.error("❌ Firebase error:", error);
+                alert("Error loading tasks: " + error.message);
+            });
+        }
+
+        function displayTasks(tasks) {
+            const tbody = document.getElementById('tasksBody');
+            tbody.innerHTML = '';
+
+            if (tasks.length === 0) {
+                document.getElementById('tasksTable').style.display = 'none';
+                document.getElementById('emptyState').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('tasksTable').style.display = 'table';
+            document.getElementById('emptyState').style.display = 'none';
+
+            tasks.forEach(task => {
+                const row = document.createElement('tr');
+                const dueDate = new Date(task.dueDate);
+                const formattedDate = task.dueDate ? dueDate.toLocaleDateString() : '-';
+
+                row.innerHTML = `
+                    <td class="task-id">${task.id.substring(0, 8).toUpperCase()}</td>
+                    <td><strong>${task.name}</strong></td>
+                    <td>${task.module || '-'}</td>
+                    <td>${task.submodule || '-'}</td>
+                    <td>${task.description || '-'}</td>
+                    <td>${task.assignedTo || '-'}</td>
+                    <td><span class="badge badge-${task.status.toLowerCase().replace(' ', '-')}">${task.status}</span></td>
+                    <td><span class="badge badge-${task.priority.toLowerCase()}">${task.priority}</span></td>
+                    <td><span class="badge badge-${task.issue === 'Yes' ? 'high' : 'low'}">${task.issue || '-'}</span></td>
+                    <td>${formattedDate}</td>
+                    <td>
+                        <div class="action-icons">
+                            <button class="icon-btn" onclick="editTask('${task.id}')" title="Edit">✏️</button>
+                            <button class="icon-btn" onclick="deleteTask('${task.id}')" title="Delete">🗑️</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateStats() {
+            const total = allTasks.length;
+            const todo = allTasks.filter(t => t.status === 'To Do').length;
+            const progress = allTasks.filter(t => t.status === 'In Progress').length;
+            const devdone = allTasks.filter(t => t.status === 'Dev Done').length;
+            const pending = allTasks.filter(t => t.status === 'Pending').length;
+            const blocker = allTasks.filter(t => t.status === 'Blocker').length;
+            const completed = allTasks.filter(t => t.status === 'Completed').length;
+            const uat = allTasks.filter(t => t.status === 'UAT').length;
+            const prod = allTasks.filter(t => t.status === 'PROD').length;
+
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-todo').textContent = todo;
+            document.getElementById('stat-progress').textContent = progress;
+            document.getElementById('stat-devdone').textContent = devdone;
+            document.getElementById('stat-pending').textContent = pending;
+            document.getElementById('stat-blocker').textContent = blocker;
+            document.getElementById('stat-completed').textContent = completed;
+            document.getElementById('stat-uat').textContent = uat;
+            document.getElementById('stat-prod').textContent = prod;
+        }
+
+        function openAddTaskModal() {
+            editingTaskId = null;
+            document.getElementById('modalTitle').textContent = 'Add New Task';
+            document.getElementById('taskForm').reset();
+            document.getElementById('taskModal').classList.add('active');
+        }
+
+        function closeTaskModal() {
+            document.getElementById('taskModal').classList.remove('active');
+            editingTaskId = null;
+        }
+
+        function saveTask() {
+            if (!db) {
+                alert('❌ Database not connected. Please refresh the page.');
+                console.error("Database not initialized");
+                return;
+            }
+
+            const name = document.getElementById('taskName').value.trim();
+            if (!name) {
+                alert('❌ Task name is required!');
+                return;
+            }
+
+            console.log("Saving task:", name);
+
+            const taskData = {
+                name: name,
+                description: document.getElementById('taskDesc').value.trim(),
+                assignedTo: document.getElementById('taskAssigned').value.trim(),
+                status: document.getElementById('taskStatus').value,
+                priority: document.getElementById('taskPriority').value,
+                module: document.getElementById('taskModule').value || '',
+                submodule: document.getElementById('taskSubmodule').value || '',
+                issue: document.getElementById('taskIssue').value,
+                dueDate: document.getElementById('taskDueDate').value,
+                updatedAt: new Date().toISOString()
+            };
+
+            if (editingTaskId) {
+                // Update existing task
+                console.log("Updating task:", editingTaskId);
+                db.ref(`tasks/${editingTaskId}`).update(taskData).then(() => {
+                    console.log("✅ Task updated successfully");
+                    closeTaskModal();
+                    alert('✅ Task updated successfully!');
+                }).catch(error => {
+                    console.error("❌ Update error:", error);
+                    alert('❌ Error updating task: ' + error.message);
+                });
+            } else {
+                // Create new task
+                taskData.createdAt = new Date().toISOString();
+                console.log("Creating new task");
+                db.ref('tasks').push(taskData).then(() => {
+                    console.log("✅ Task created successfully");
+                    closeTaskModal();
+                    alert('✅ Task created successfully!');
+                }).catch(error => {
+                    console.error("❌ Create error:", error);
+                    alert('❌ Error creating task: ' + error.message);
+                });
+            }
+        }
+
+        function editTask(taskId) {
+            const task = allTasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            editingTaskId = taskId;
+            document.getElementById('modalTitle').textContent = 'Edit Task';
+            document.getElementById('taskName').value = task.name;
+            document.getElementById('taskDesc').value = task.description || '';
+            document.getElementById('taskAssigned').value = task.assignedTo || '';
+            document.getElementById('taskStatus').value = task.status;
+            document.getElementById('taskPriority').value = task.priority;
+            document.getElementById('taskModule').value = task.module || '';
+            document.getElementById('taskDueDate').value = task.dueDate || '';
+            document.getElementById('taskIssue').value = task.issue || 'No';
+
+            // Update submodules based on selected module
+            updateSubmodules();
+            if (task.submodule) {
+                document.getElementById('taskSubmodule').value = task.submodule;
+            }
+
+            document.getElementById('taskModal').classList.add('active');
+        }
+
+        function deleteTask(taskId) {
+            if (confirm('Are you sure you want to delete this task?')) {
+                db.ref(`tasks/${taskId}`).remove().then(() => {
+                    alert('Task deleted successfully!');
+                }).catch(error => {
+                    alert('Error deleting task: ' + error.message);
+                });
+            }
+        }
+
+        function applyFilters() {
+            const status = document.getElementById('filter-status').value;
+            const module = document.getElementById('filter-module').value;
+            const priority = document.getElementById('filter-priority').value;
+            const assigned = document.getElementById('filter-assigned').value.toLowerCase();
+
+            const filtered = allTasks.filter(task => {
+                const statusMatch = !status || task.status === status;
+                const moduleMatch = !module || task.module === module;
+                const priorityMatch = !priority || task.priority === priority;
+                const assignedMatch = !assigned || (task.assignedTo || '').toLowerCase().includes(assigned);
+                return statusMatch && moduleMatch && priorityMatch && assignedMatch;
+            });
+
+            displayTasks(filtered);
+        }
+
+        function clearFilters() {
+            document.getElementById('filter-status').value = '';
+            document.getElementById('filter-module').value = '';
+            document.getElementById('filter-priority').value = '';
+            document.getElementById('filter-assigned').value = '';
+            displayTasks(allTasks);
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('username');
+                window.location.href = './index.html';
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('taskModal').addEventListener('click', (e) => {
+            if (e.target.id === 'taskModal') {
+                closeTaskModal();
+            }
+        });
+    </script>
+</body>
+</html>
