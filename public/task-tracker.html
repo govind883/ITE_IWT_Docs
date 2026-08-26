@@ -399,14 +399,12 @@
         }
 
         .status-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
+            position: fixed;
             background: white;
             border: 1px solid #ddd;
             border-radius: 4px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 9999;
             min-width: 120px;
         }
 
@@ -916,11 +914,11 @@
                 nextTaskNumber = maxTaskNumber + 1;
                 console.log("✅ Loaded " + allTasks.length + " tasks from Firebase. Next Task ID: " + String(nextTaskNumber).padStart(3, '0'));
 
-                // Sort by creation date (newest first)
+                // Sort by creation date (oldest first - first created on top)
                 allTasks.sort((a, b) => {
                     const dateA = new Date(a.createdAt || 0);
                     const dateB = new Date(b.createdAt || 0);
-                    return dateB - dateA;
+                    return dateA - dateB;
                 });
 
                 displayTasks(allTasks);
@@ -1148,6 +1146,7 @@
         function toggleStatusDropdown(event, taskId) {
             event.stopPropagation();
             const dropdown = document.getElementById(`status-dropdown-${taskId}`);
+            const badge = event.target.closest('.badge');
 
             // Close all other dropdowns
             document.querySelectorAll('.status-dropdown').forEach(d => {
@@ -1157,7 +1156,15 @@
             });
 
             // Toggle current dropdown
-            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+            if (dropdown.style.display === 'none') {
+                // Position dropdown below the badge
+                const rect = badge.getBoundingClientRect();
+                dropdown.style.display = 'block';
+                dropdown.style.top = (rect.bottom + 5) + 'px';
+                dropdown.style.left = rect.left + 'px';
+            } else {
+                dropdown.style.display = 'none';
+            }
         }
 
         function updateTaskStatus(taskId, newStatus) {
